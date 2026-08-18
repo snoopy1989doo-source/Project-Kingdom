@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Project Kingdom — Master Prototype v1.1 (Full Sprite Edition)</title>
+<title>Project Kingdom — Master Prototype v1.2 (Transparent Character Sprites)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
@@ -203,7 +203,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 <div id="ld">
   <div class="ldt">KINGDOM</div>
   <div class="ldbw"><div class="ldbf"></div></div>
-  <div class="ldtip">"กำลังโหลดสไปรต์ตัวละครจาก Character Sheet..."</div>
+  <div class="ldtip">"กำลังประมวลผลพื้นหลังโปร่งใส (Transparent Background) ให้ตัวละคร..."</div>
 </div>
 
 <!-- Main Menu -->
@@ -214,7 +214,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
     <div>
       <div class="logo-s">&#x2694; Project &#x2694;</div>
       <div class="logo-t">KINGDOM</div>
-      <div class="logo-v">Master Prototype v1.1 &#x2014; Full Sprite Character Sheet Edition</div>
+      <div class="logo-v">Master Prototype v1.2 &#x2014; Transparent Character Sprites</div>
     </div>
     <div class="orn"><span style="color:var(--gold);font-size:1.2rem">&#x26DC;</span></div>
     <div class="mact">
@@ -223,14 +223,14 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
       <button id="btn-gdd" class="bmenu sec">&#x1F4DA; Design Document</button>
     </div>
   </div>
-  <div class="mft">Project Kingdom &#x2014; Authentic Pixel Art Strategy Simulation</div>
+  <div class="mft">Project Kingdom &#x2014; Transparent Pixel Art Strategy Simulation</div>
 </div>
 
 <!-- Race Selection -->
 <div id="screen-race" class="screen">
   <div class="rhdr">
     <h1>Choose Your Faction</h1>
-    <p>Each civilization features authentic animated pixel art characters &amp; mount riders.</p>
+    <p>Each civilization features authentic transparent animated pixel art characters &amp; mount riders.</p>
   </div>
   <div class="rgrid">
     <div class="rcard" data-race="human"><div class="rsm">&#x2713;</div>
@@ -447,8 +447,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 <script>
 'use strict';
 // ══════════════════════════════════════════════════════════════════════════════
-//  PROJECT KINGDOM MASTER PROTOTYPE v1.1 — FULL SPRITE EDITION
-//  Features: Real Pixel Art Characters sliced from Character Sheets,
+//  PROJECT KINGDOM MASTER PROTOTYPE v1.2 — TRANSPARENT CHARACTER SPRITES
+//  Features: Automatic Chroma-Key / BFS Flood-Fill Background Removal,
 //  Animated Walk Cycles, Mount Riders, Faction Wonder Sprites, & Zoom Control.
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -570,12 +570,133 @@ const RDATA = {
   }
 };
 
-// Preload Sprite Sheet Images
-const SPRITES = {};
+// Raw Images & Processed Transparent Canvases
+const RAW_IMAGES = {};
+const TRANSPARENT_SPRITES = {};
+
+// Background Removal / Transparentizer Engine
+function processSpriteTransparency(img, isMount = false) {
+  try {
+    const c = document.createElement('canvas');
+    c.width = img.naturalWidth;
+    c.height = img.naturalHeight;
+    const cx = c.getContext('2d');
+    cx.drawImage(img, 0, 0);
+
+    const imgData = cx.getImageData(0, 0, c.width, c.height);
+    const data = imgData.data;
+    const w = c.width, h = c.height;
+
+    const rows = isMount ? 1 : 7;
+    const cols = 4;
+    const headerRatio = isMount ? 0.16 : 0.088;
+    const usableH = h * (1.0 - headerRatio);
+    const rowH = usableH / rows;
+    const colW = w / cols;
+
+    for (let r = 0; r < rows; r++) {
+      for (let col = 0; col < cols; col++) {
+        const minX = Math.floor(col * colW);
+        const maxX = Math.floor((col + 1) * colW);
+        const minY = Math.floor(h * headerRatio + r * rowH);
+        const maxY = Math.floor(h * headerRatio + (r + 1) * rowH);
+
+        const cellW = maxX - minX;
+        const cellH = maxY - minY;
+        const visited = new Uint8Array(cellW * cellH);
+        const queue = [];
+
+        // Seed boundary of cell
+        for (let x = 0; x < cellW; x++) {
+          queue.push(x, 0); visited[0 * cellW + x] = 1;
+          queue.push(x, cellH - 1); visited[(cellH - 1) * cellW + x] = 1;
+        }
+        for (let y = 0; y < cellH; y++) {
+          queue.push(0, y); visited[y * cellW + 0] = 1;
+          queue.push(cellW - 1, y); visited[y * cellW + (cellW - 1)] = 1;
+        }
+
+        let qIdx = 0;
+        while (qIdx < queue.length) {
+          const lx = queue[qIdx++];
+          const ly = queue[qIdx++];
+          const gx = minX + lx;
+          const gy = minY + ly;
+          const pIdx = (gy * w + gx) * 4;
+
+          const pr = data[pIdx];
+          const pg = data[pIdx + 1];
+          const pb = data[pIdx + 2];
+
+          const maxV = Math.max(pr, pg, pb);
+          const minV = Math.min(pr, pg, pb);
+          const diff = maxV - minV;
+
+          // Dark neutral background grey, card boxes, or dark borders
+          const isDarkNeutral = (diff <= 24 && maxV <= 80);
+          const isPureBlack = (pr <= 30 && pg <= 30 && pb <= 30);
+          const isDarkBanner = (pr < 40 && pg < 60 && pb < 40);
+
+          if (isDarkNeutral || isPureBlack || isDarkBanner) {
+            data[pIdx + 3] = 0; // Transparent!
+
+            if (lx > 0 && !visited[ly * cellW + (lx - 1)]) {
+              visited[ly * cellW + (lx - 1)] = 1;
+              queue.push(lx - 1, ly);
+            }
+            if (lx < cellW - 1 && !visited[ly * cellW + (lx + 1)]) {
+              visited[ly * cellW + (lx + 1)] = 1;
+              queue.push(lx + 1, ly);
+            }
+            if (ly > 0 && !visited[(ly - 1) * cellW + lx]) {
+              visited[(ly - 1) * cellW + lx] = 1;
+              queue.push(lx, ly - 1);
+            }
+            if (ly < cellH - 1 && !visited[(ly + 1) * cellW + lx]) {
+              visited[(ly + 1) * cellW + lx] = 1;
+              queue.push(lx, ly + 1);
+            }
+          }
+        }
+      }
+    }
+
+    cx.putImageData(imgData, 0, 0);
+    return c;
+  } catch(e) {
+    console.error('Transparency processing failed', e);
+    return img;
+  }
+}
+
+// Preload and Process Transparency
 Object.entries(RDATA).forEach(([k, r]) => {
-  const s = new Image(); s.src = r.imgSheet; SPRITES[k+'_sheet'] = s;
-  const b = new Image(); b.src = r.imgBld; SPRITES[k+'_bld'] = b;
-  const m = new Image(); m.src = r.imgMount; SPRITES[k+'_mount'] = m;
+  // Character Sheet
+  const s = new Image();
+  s.src = r.imgSheet;
+  RAW_IMAGES[k+'_sheet'] = s;
+  s.onload = () => {
+    TRANSPARENT_SPRITES[k+'_sheet'] = processSpriteTransparency(s, false);
+  };
+  if (s.complete && s.naturalWidth > 0) {
+    TRANSPARENT_SPRITES[k+'_sheet'] = processSpriteTransparency(s, false);
+  }
+
+  // Mount Sheet
+  const m = new Image();
+  m.src = r.imgMount;
+  RAW_IMAGES[k+'_mount'] = m;
+  m.onload = () => {
+    TRANSPARENT_SPRITES[k+'_mount'] = processSpriteTransparency(m, true);
+  };
+  if (m.complete && m.naturalWidth > 0) {
+    TRANSPARENT_SPRITES[k+'_mount'] = processSpriteTransparency(m, true);
+  }
+
+  // Building
+  const b = new Image();
+  b.src = r.imgBld;
+  RAW_IMAGES[k+'_bld'] = b;
 });
 
 // Tech Tree Innovations
@@ -748,7 +869,7 @@ function initGameSession(race, loadedData = null){
 
   requestAnimationFrame(gameLoop);
 
-  showNotice(`\u{1F3F0} Welcome to ${rd.name}! Pixel art characters loaded from sheet.`, '#c9973a');
+  showNotice(`\u{1F3F0} Welcome to ${rd.name}! Transparent character sprites loaded.`, '#c9973a');
   setTimeout(() => showNotice('\u{1F50D} Tip: Use mouse wheel to Zoom in/out to view character sprites up close!', '#4a9a30'), 3500);
 }
 
@@ -901,7 +1022,7 @@ function stepWorkers(){
 function spawnPlayerSoldier(){
   const p = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
   if (!p) return;
-  const isMounted = G.soldiers % 3 === 0; // Every 3rd soldier is elite mounted knight!
+  const isMounted = G.soldiers % 3 === 0;
   G.units.push({
     x: p.x * TS + TS / 2, y: p.y * TS + TS / 2,
     tx: p.x * TS + TS / 2, ty: p.y * TS + TS / 2,
@@ -1180,22 +1301,21 @@ function gameLoop(){
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-//  SPRITE RENDERING ENGINE (Authentic Pixel Art Slicer)
+//  TRANSPARENT SPRITE RENDERING
 // ══════════════════════════════════════════════════════════════════════════════
 function drawCharacterSprite(ctx, race, row, col, x, y, size = 32, dir = 1){
-  const img = SPRITES[race+'_sheet'];
-  if (!img || !img.complete || img.naturalWidth === 0){
-    // Fallback colored dot if sprite not yet loaded
+  let img = TRANSPARENT_SPRITES[race+'_sheet'];
+  if (!img) img = RAW_IMAGES[race+'_sheet'];
+  if (!img || (img.naturalWidth === 0 && !img.width)){
     ctx.fillStyle = WC[race] || '#c9973a';
     ctx.beginPath(); ctx.arc(x, y, size/4, 0, Math.PI*2); ctx.fill();
     return;
   }
 
-  const W = img.naturalWidth;
-  const H = img.naturalHeight;
+  const W = img.naturalWidth || img.width;
+  const H = img.naturalHeight || img.height;
 
-  // Grid metrics for standard 1254x1254 Character Sheet
-  const headerRatio = 0.088; // Top title header
+  const headerRatio = 0.088;
   const usableH = H * (1.0 - headerRatio);
   const rowH = usableH / 7.0;
   const colW = W / 4.0;
@@ -1213,15 +1333,15 @@ function drawCharacterSprite(ctx, race, row, col, x, y, size = 32, dir = 1){
 }
 
 function drawMountSprite(ctx, race, col, x, y, size = 42, dir = 1){
-  const img = SPRITES[race+'_mount'];
-  if (!img || !img.complete || img.naturalWidth === 0){
-    // Fallback to soldier on character sheet
+  let img = TRANSPARENT_SPRITES[race+'_mount'];
+  if (!img) img = RAW_IMAGES[race+'_mount'];
+  if (!img || (img.naturalWidth === 0 && !img.width)){
     drawCharacterSprite(ctx, race, 2, col, x, y, size * 0.8, dir);
     return;
   }
 
-  const W = img.naturalWidth;
-  const H = img.naturalHeight;
+  const W = img.naturalWidth || img.width;
+  const H = img.naturalHeight || img.height;
   const colW = W / 4.0;
   const headerH = H * 0.18;
   const sw = colW * 0.85;
@@ -1237,17 +1357,16 @@ function drawMountSprite(ctx, race, col, x, y, size = 42, dir = 1){
 }
 
 function drawWonderBuilding(ctx, race, px, py, size = 40){
-  const img = SPRITES[race+'_bld'];
+  const img = RAW_IMAGES[race+'_bld'];
   if (!img || !img.complete || img.naturalWidth === 0){
     ctx.font = '24px serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('\u{1F3DB}', px + size/2, py + size/2);
     return;
   }
-  // Wonder is side-by-side Day / Night in 1 image. Crop Left Half (Day).
   const W = img.naturalWidth;
   const H = img.naturalHeight;
-  const isNight = G.season === 3; // Winter/Night theme
+  const isNight = G.season === 3;
   const sx = isNight ? W / 2 : 0;
   const sy = 0;
   const sw = W / 2;
@@ -1412,7 +1531,7 @@ function renderBuilding(px, py, t, x, y){
 }
 
 function renderWorkers(){
-  const animFrame = Math.floor((Date.now() / 150) % 4); // 0=Idle, 1=Walk1, 2=Walk2, 3=Walk3
+  const animFrame = Math.floor((Date.now() / 150) % 4);
   G.workers.forEach(w => {
     const isMoving = Math.hypot(w.tx - w.x, w.ty - w.y) > 2;
     const col = isMoving ? (animFrame === 0 ? 1 : animFrame) : 0;
@@ -1432,11 +1551,9 @@ function renderUnits(){
     if (u.isMounted){
       drawMountSprite(ctx, G.race, col, u.x, u.y, 38, u.dir || 1);
     } else {
-      // Row 2 = Soldier / Guard
       drawCharacterSprite(ctx, G.race, 2, col, u.x, u.y, 32, u.dir || 1);
     }
 
-    // Health bar
     const bw = 16, p = u.hp / u.mhp;
     ctx.fillStyle = 'rgba(0,0,0,.65)';
     ctx.fillRect(u.x - bw/2, u.y - 32, bw, 3.5);
