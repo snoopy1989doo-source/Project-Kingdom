@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Project Kingdom — Master Prototype v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#c9973a;--gold-light:#f0cc6e;--gold-dim:#7a5c1e;
+  --parch:#f2e8cc;--parch-dark:#d9c89a;--ink:#1a1208;
+  --stone:#2a241c;--stone-light:#5c5040;--bg:#0a0805;
+  --ft:'Cinzel',serif;--fb:'Crimson Text',serif;
+  --ease-s:cubic-bezier(.34,1.56,.64,1);--ease-o:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-family:var(--fb);overflow:hidden;user-select:none}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .6s var(--ease-o)}
+.screen.active{opacity:1;pointer-events:all}
+
+/* Loading */
+#ld{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;z-index:999;transition:opacity .8s ease}
+#ld.hidden{opacity:0;pointer-events:none}
+.ldt{font-family:var(--ft);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;color:var(--gold-light);letter-spacing:.08em;animation:glow 2s ease-in-out infinite alternate}
+.ldbw{width:260px;height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+.ldbf{height:100%;background:linear-gradient(to right,var(--gold-dim),var(--gold-light));border-radius:99px;animation:lf 1.8s var(--ease-o) forwards}
+.ldtip{font-style:italic;font-size:.85rem;color:var(--gold-dim);text-align:center;max-width:380px}
+@keyframes lf{from{width:0}to{width:100%}}
+@keyframes glow{from{text-shadow:0 0 40px rgba(201,151,58,.3),0 4px 0 var(--gold-dim)}to{text-shadow:0 0 80px rgba(240,204,110,.7),0 4px 0 var(--gold-dim)}}
+@keyframes pan{from{transform:scale(1.05) translateX(0)}to{transform:scale(1.05) translateX(-2%)}}
+@keyframes sli{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fdo{from{opacity:1}to{opacity:0;height:0;padding:0;margin:0}}
+@keyframes fup{0%{transform:translateY(100vh);opacity:0}10%{opacity:.6}100%{transform:translateY(-10vh) translateX(var(--dr,20px));opacity:0}}
+
+/* Menu */
+#screen-menu{overflow:hidden}
+#mbg{position:absolute;inset:0;background-image:url('../Assets/Scenes/day_night_town_scene.png');background-size:cover;background-position:center top;filter:brightness(.38) saturate(.85);transform:scale(1.05);animation:pan 30s ease-in-out infinite alternate}
+#mvig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 30%,rgba(0,0,0,.75) 100%)}
+#mcnt{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2rem}
+.logo-s{font-size:clamp(.75rem,2vw,1rem);letter-spacing:.4em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:.5rem;text-align:center}
+.logo-t{font-family:var(--ft);font-size:clamp(3.2rem,10vw,7.5rem);font-weight:900;color:var(--gold-light);text-shadow:0 0 60px rgba(201,151,58,.6),0 4px 0 var(--gold-dim),0 8px 20px rgba(0,0,0,.9);letter-spacing:.05em;line-height:1;text-align:center}
+.logo-v{font-size:.78rem;letter-spacing:.3em;color:var(--stone-light);margin-top:.4rem;text-align:center}
+.orn{display:flex;align-items:center;gap:1rem;width:100%;max-width:420px}
+.orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
+.mact{display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:300px}
+.bmenu{width:100%;padding:.9rem 2rem;font-family:var(--ft);font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:transform .18s var(--ease-s),box-shadow .18s ease;clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px)}
+.bmenu.pri{background:linear-gradient(135deg,#7a5010,#c9973a,#e8b84b,#a06820);color:var(--ink);box-shadow:0 4px 20px rgba(201,151,58,.4)}
+.bmenu.sec{background:linear-gradient(135deg,#1e1912,#3a3020);color:var(--parch-dark);border:1px solid var(--gold-dim)}
+.bmenu:hover:not(:disabled){transform:translateY(-3px) scale(1.02);box-shadow:0 8px 30px rgba(201,151,58,.5)}
+.bmenu:disabled{opacity:.35;cursor:not-allowed}
+.mft{position:absolute;bottom:1.5rem;font-size:.72rem;letter-spacing:.2em;color:var(--stone-light);text-transform:uppercase}
+.ptcl{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ptc{position:absolute;border-radius:50%;background:var(--gold-light);opacity:0;animation:fup var(--dur,8s) var(--dl,0s) ease-in infinite}
+
+/* Race Selection */
+#screen-race{background:radial-gradient(ellipse at 50% 0%,rgba(201,151,58,.1),transparent 60%),linear-gradient(180deg,#0d0a06,#1a1208);overflow-y:auto;padding:2rem 1rem;flex-direction:column;gap:1.5rem}
+.rhdr{text-align:center}
+.rhdr h1{font-family:var(--ft);font-size:clamp(1.8rem,4.5vw,2.8rem);color:var(--gold-light);letter-spacing:.08em}
+.rhdr p{font-style:italic;color:var(--gold-dim);margin-top:.3rem;font-size:1.05rem}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem;width:100%;max-width:1150px}
+.rcard{position:relative;border:1px solid var(--cb,var(--gold-dim));cursor:pointer;overflow:hidden;transition:transform .3s var(--ease-s),box-shadow .3s ease;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));background:var(--cbg)}
+.rcard:hover{transform:translateY(-6px) scale(1.02)}
+.rcard.sel{border-color:var(--ca,var(--gold));box-shadow:0 0 35px var(--cgc,rgba(201,151,58,.45))}
+.rcard[data-race=human]{--cbg:linear-gradient(145deg,#2a1010,#0d0806);--cb:#5a2020;--ca:#c94040;--cgc:rgba(201,64,64,.4)}
+.rcard[data-race=orc]{--cbg:linear-gradient(145deg,#0e1e0c,#060d05);--cb:#2a4a20;--ca:#4a9a30;--cgc:rgba(74,154,48,.4)}
+.rcard[data-race=elf]{--cbg:linear-gradient(145deg,#0a1e14,#050d09);--cb:#1a4a2e;--ca:#30c870;--cgc:rgba(48,200,112,.4)}
+.rcard[data-race=dwarf]{--cbg:linear-gradient(145deg,#1e1408,#0d0903);--cb:#5a3a10;--ca:#c87820;--cgc:rgba(200,120,32,.4)}
+.rbn{width:100%;height:165px;overflow:hidden;position:relative}
+.rbn img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease;filter:saturate(.95)}
+.rcard:hover .rbn img{transform:scale(1.06)}
+.rbn-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.85))}
+.rbn-nm{position:absolute;bottom:.6rem;left:.8rem;font-family:var(--ft);font-size:1.15rem;font-weight:700;color:var(--gold-light);text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.rbdg{position:absolute;top:.5rem;right:.5rem;background:rgba(0,0,0,.7);border:1px solid var(--cb);padding:.2rem .55rem;font-family:var(--ft);font-size:.62rem;letter-spacing:.15em;color:var(--ca,var(--gold));text-transform:uppercase}
+.rbdy{padding:.85rem 1rem 1.1rem;display:flex;flex-direction:column;gap:.6rem}
+.rtag{font-style:italic;font-size:.88rem;color:var(--parch-dark);opacity:.85;border-left:2px solid var(--ca,var(--gold-dim));padding-left:.6rem}
+.rsts{display:flex;flex-direction:column;gap:.35rem}
+.str{display:flex;align-items:center;gap:.5rem}
+.slbl{font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase;width:60px;flex-shrink:0}
+.strk{flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+.sfil{height:100%;background:linear-gradient(to right,var(--ca,var(--gold-dim)),var(--cgc,var(--gold)));border-radius:99px;transition:width .8s var(--ease-o);width:0}
+.rpks{display:flex;flex-direction:column;gap:.25rem}
+.pi{display:flex;gap:.4rem;align-items:flex-start;font-size:.78rem;color:var(--parch-dark)}
+.pic{color:var(--ca,var(--gold));font-size:.75rem;margin-top:.05rem;flex-shrink:0}
+.rvc{font-size:.72rem;font-family:var(--ft);letter-spacing:.08em;text-transform:uppercase;color:var(--ca,var(--gold));padding:.35rem .5rem;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.05);margin:0 -1rem -1.1rem}
+.rsm{position:absolute;top:.4rem;left:.5rem;width:24px;height:24px;background:var(--ca,var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--ink);font-weight:900;opacity:0;transform:scale(0);transition:opacity .2s,transform .3s var(--ease-s)}
+.rcard.sel .rsm{opacity:1;transform:scale(1)}
+.racts{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1150px}
+.bg{padding:.8rem 2.6rem;font-family:var(--ft);font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:transform .2s var(--ease-s),box-shadow .2s ease;clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px)}
+.bg.pro{background:linear-gradient(135deg,#7a5010,#c9973a,#e8b84b,#a06820);color:var(--ink);box-shadow:0 4px 20px rgba(201,151,58,.35)}
+.bg.pro:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
+.bg.pro:not(:disabled):hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(201,151,58,.5)}
+.bg.bk{background:transparent;color:var(--gold-dim);border:1px solid var(--gold-dim)}
+.bg.bk:hover{color:var(--gold);border-color:var(--gold)}
+.si{font-style:italic;font-size:.95rem;color:var(--gold-dim)}
+
+/* Game Main Screen */
+#screen-game{flex-direction:column;background:#0d1508;overflow:hidden}
+#htop{width:100%;background:linear-gradient(180deg,rgba(13,10,6,.98),rgba(13,10,6,.88));border-bottom:1px solid var(--gold-dim);padding:.4rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-shrink:0;z-index:10}
+#hres{display:flex;gap:.85rem;align-items:center;flex-wrap:wrap}
+.rc{display:flex;align-items:center;gap:.3rem;font-family:var(--ft);font-size:.76rem;font-weight:700;color:var(--parch);letter-spacing:.05em}
+.rv{color:var(--gold-light);transition:color .3s}
+.rv.up{color:#6aff8a}.rv.dn{color:#ff6a6a}
+#hfac{display:flex;align-items:center;gap:.6rem}
+.femb{width:30px;height:30px;border-radius:50%;border:2px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(0,0,0,.4)}
+.flbl{font-family:var(--ft);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
+#htime{text-align:right}
+.tss{font-family:var(--ft);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim)}
+.tyr{font-family:var(--ft);font-size:.9rem;color:var(--gold-light)}
+
+#gworld{flex:1;position:relative;overflow:hidden}
+#wc{display:block;cursor:crosshair;image-rendering:pixelated}
+#hbot{width:100%;background:linear-gradient(0deg,rgba(13,10,6,.98),rgba(13,10,6,.88));border-top:1px solid var(--gold-dim);padding:.4rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0;z-index:10}
+#btb{display:flex;gap:.35rem;flex-wrap:wrap}
+.bb{padding:.35rem .65rem;background:linear-gradient(135deg,#1e1812,#2a2216);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;clip-path:polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px)}
+.bb:hover,.bb.act{background:linear-gradient(135deg,#5a3a10,#7a5010);border-color:var(--gold);color:var(--gold-light)}
+.bb.special{background:linear-gradient(135deg,#203040,#305070);border-color:#50a0ff}
+.bc{display:block;font-size:.52rem;color:var(--gold-dim);margin-top:.1rem}
+#spc{display:flex;align-items:center;gap:.35rem}
+.slbl2{font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase}
+.sb{padding:.28rem .55rem;background:rgba(255,255,255,.05);border:1px solid var(--stone-light);color:var(--parch-dark);font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:all .15s;border-radius:2px}
+.sb:hover,.sb.act{background:rgba(201,151,58,.25);border-color:var(--gold-dim);color:var(--gold)}
+#hs{font-style:italic;font-size:.78rem;color:var(--gold-dim);max-width:280px;text-align:right}
+.dv{width:1px;height:20px;background:var(--gold-dim);opacity:.3}
+
+/* Alerts */
+#alog{position:absolute;top:3.5rem;right:.75rem;width:240px;display:flex;flex-direction:column;gap:.35rem;pointer-events:none;z-index:20}
+.ait{background:rgba(13,10,6,.94);border-left:3px solid var(--ac,var(--gold));padding:.4rem .65rem;font-size:.75rem;color:var(--parch);animation:sli .3s var(--ease-o) both,fdo .5s ease 3.8s both;backdrop-filter:blur(4px);box-shadow:0 4px 12px rgba(0,0,0,.5)}
+
+/* Tooltip */
+#tip{position:absolute;background:rgba(13,10,6,.95);border:1px solid var(--gold-dim);padding:.5rem .75rem;pointer-events:none;z-index:50;display:none;font-size:.75rem;color:var(--parch);max-width:220px;clip-path:polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px);box-shadow:0 6px 20px rgba(0,0,0,.7)}
+#tip strong{display:block;font-family:var(--ft);font-size:.82rem;color:var(--gold-light);margin-bottom:.2rem}
+
+/* Minimap */
+#mmw{position:absolute;bottom:3.5rem;right:.75rem;z-index:15;background:rgba(13,10,6,.92);border:1px solid var(--gold-dim);padding:4px;box-shadow:0 4px 15px rgba(0,0,0,.6)}
+#mml{font-family:var(--ft);font-size:.55rem;letter-spacing:.15em;color:var(--gold-dim);text-transform:uppercase;text-align:center;padding-bottom:2px}
+#mmc{display:block;cursor:pointer}
+
+/* Modals & Overlays */
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.82);z-index:30;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal-panel{background:linear-gradient(145deg,#1a1410,#0d0a06);border:1px solid var(--gold-dim);width:min(820px,95vw);max-height:86vh;overflow-y:auto;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.9)}
+.mth{font-family:var(--ft);font-size:1.35rem;color:var(--gold-light);letter-spacing:.08em;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+.mcl{cursor:pointer;color:var(--gold-dim);font-size:1rem;transition:color .2s}
+.mcl:hover{color:var(--gold)}
+.ms{margin-bottom:1.5rem}
+.ms h3{font-family:var(--ft);font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(201,151,58,.2);padding-bottom:.4rem;margin-bottom:.8rem}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem}
+.mca{background:rgba(255,255,255,.04);border:1px solid rgba(201,151,58,.15);padding:.75rem;text-align:center}
+.mca .dl{font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:.3rem}
+.mca .dv2{font-family:var(--ft);font-size:1.4rem;color:var(--gold-light);font-weight:700}
+.mca .dsb{font-size:.68rem;color:var(--stone-light);margin-top:.15rem}
+.cw{position:relative;width:100%;height:85px;background:rgba(0,0,0,.35);border:1px solid rgba(201,151,58,.12);overflow:hidden;margin-bottom:.5rem}
+.cl2{position:absolute;top:4px;left:6px;font-family:var(--ft);font-size:.58rem;letter-spacing:.08em;color:var(--gold-dim);text-transform:uppercase}
+.bll{display:flex;flex-direction:column;gap:.4rem}
+.br{display:flex;align-items:center;gap:.6rem;padding:.45rem .65rem;background:rgba(255,255,255,.03);border-left:2px solid var(--gold-dim)}
+.br .bn{font-family:var(--ft);font-size:.75rem;letter-spacing:.06em;flex:1}
+
+/* Sel panel */
+#selpanel{position:absolute;bottom:3.5rem;left:.75rem;width:220px;background:rgba(13,10,6,.94);border:1px solid var(--gold-dim);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));z-index:15;display:none;box-shadow:0 4px 20px rgba(0,0,0,.7)}
+#selpanel.open{display:block}
+#selpanel .sph{font-family:var(--ft);font-size:.82rem;letter-spacing:.08em;color:var(--gold-light);padding:.55rem .75rem;border-bottom:1px solid rgba(201,151,58,.2)}
+#selpanel .spb{padding:.65rem .75rem;display:flex;flex-direction:column;gap:.45rem}
+.sps{font-size:.75rem;color:var(--parch-dark)}
+.sps span{color:var(--gold-light);font-weight:700}
+.spw{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.2rem}
+.ws{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--gold-dim);background:rgba(255,255,255,.05);cursor:pointer;transition:background .15s}
+.ws.filled{background:var(--gold);box-shadow:0 0 6px rgba(201,151,58,.6)}
+.spbtn{padding:.35rem .7rem;background:linear-gradient(135deg,#3a2010,#5a3010);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:.3rem;transition:all .15s}
+.spbtn:hover{background:linear-gradient(135deg,#5a3010,#7a5010);color:var(--gold-light)}
+
+/* Top Right Action Bar */
+#top-actions{position:absolute;top:3.5rem;left:.75rem;display:flex;gap:.4rem;z-index:15}
+.act-btn{padding:.3rem .6rem;background:rgba(13,10,6,.9);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;border-radius:2px}
+.act-btn:hover{background:rgba(201,151,58,.2);border-color:var(--gold);color:var(--gold-light)}
+.act-btn.active{background:var(--gold);color:var(--ink);font-weight:700}
+
+/* Diplomacy Grid */
+.dip-leader{display:flex;gap:1rem;align-items:center;background:rgba(255,255,255,.03);padding:1rem;border-left:3px solid var(--gold-dim);margin-bottom:1rem}
+.dip-avatar{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;background:#000}
+.dip-avatar img{width:100%;height:100%;object-fit:cover;object-position:top}
+.dip-info h4{font-family:var(--ft);color:var(--gold-light);font-size:1.1rem}
+.dip-info p{font-size:.85rem;color:var(--parch-dark);font-style:italic}
+.dip-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+
+/* Tech Tree */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.tech-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,151,58,.2);padding:.85rem;display:flex;flex-direction:column;gap:.4rem;cursor:pointer;transition:all .2s}
+.tech-card:hover:not(.researched){border-color:var(--gold);transform:translateY(-2px)}
+.tech-card.researched{border-color:#4aff8a;background:rgba(74,255,138,.05)}
+.tech-title{font-family:var(--ft);font-size:.85rem;color:var(--gold-light);display:flex;justify-content:space-between}
+.tech-desc{font-size:.75rem;color:var(--parch-dark)}
+.tech-cost{font-size:.7rem;color:var(--gold-dim);font-family:var(--ft)}
+</style>
+</head>
+<body>
+
+<div id="ld">
+  <div class="ldt">KINGDOM</div>
+  <div class="ldbw"><div class="ldbf"></div></div>
+  <div class="ldtip">"ผู้ที่อ่านกราฟเศรษฐกิจและสร้างเครือข่ายได้เร็วกว่า คือผู้ชนะ"</div>
+</div>
+
+<!-- Main Menu -->
+<div id="screen-menu" class="screen">
+  <div id="mbg"></div><div id="mvig"></div>
+  <div class="ptcl" id="ptcl"></div>
+  <div id="mcnt">
+    <div>
+      <div class="logo-s">&#x2694; Project &#x2694;</div>
+      <div class="logo-t">KINGDOM</div>
+      <div class="logo-v">Master Prototype v1.0 &#x2014; Web Audio &#x00B7; Tech Tree &#x00B7; Diplomacy &#x00B7; Save/Load</div>
+    </div>
+    <div class="orn"><span style="color:var(--gold);font-size:1.2rem">&#x26DC;</span></div>
+    <div class="mact">
+      <button id="btn-new" class="bmenu pri">&#x25B6; New Campaign</button>
+      <button id="btn-load" class="bmenu sec">&#x21A9; Load Saved Game</button>
+      <button id="btn-gdd" class="bmenu sec">&#x1F4DA; Design Document</button>
+    </div>
+  </div>
+  <div class="mft">Project Kingdom &#x2014; Complete Medieval Strategy Simulation</div>
+</div>
+
+<!-- Race Selection -->
+<div id="screen-race" class="screen">
+  <div class="rhdr">
+    <h1>Choose Your Faction</h1>
+    <p>Each civilization commands a distinct philosophy, economy, and victory condition.</p>
+  </div>
+  <div class="rgrid">
+    <div class="rcard" data-race="human"><div class="rsm">&#x2713;</div>
+      <div class="rbn"><img src="../Assets/Character/Human/Human_Character_Sheet.png" alt="Human"/><div class="rbn-ov"></div><div class="rbn-nm">Human Kingdom</div><div class="rbdg">Diplomat</div></div>
+      <div class="rbdy">
+        <div class="rtag">"ชนะด้วยเครือข่ายและระบบการค้าเสรี"</div>
+        <div class="rsts">
+          <div class="str"><span class="slbl">Combat</span><div class="strk"><div class="sfil" data-val="30"></div></div></div>
+          <div class="str"><span class="slbl">Trade</span><div class="strk"><div class="sfil" data-val="95"></div></div></div>
+          <div class="str"><span class="slbl">Diplomacy</span><div class="strk"><div class="sfil" data-val="95"></div></div></div>
+          <div class="str"><span class="slbl">Growth</span><div class="strk"><div class="sfil" data-val="70"></div></div></div>
+        </div>
+        <div class="rpks">
+          <div class="pi"><span class="pic">&#x2726;</span> Trade price +25% &amp; Gold generation</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>Grand Embassy</strong> (+Influence)</div>
+          <div class="pi"><span class="pic">&#x2717;</span> ทหารพื้นฐานอ่อนแอกว่าเผ่าอื่น 20%</div>
+        </div>
+        <div class="rvc">&#x2691; Diplomatic Victory (Alliances &amp; Gold)</div>
+      </div>
+    </div>
+    <div class="rcard" data-race="orc"><div class="rsm">&#x2713;</div>
+      <div class="rbn"><img src="../Assets/Character/Orc/Orc_Character_Sheet.png" alt="Orc"/><div class="rbn-ov"></div><div class="rbn-nm">Orc Warclan</div><div class="rbdg">Warlord</div></div>
+      <div class="rbdy">
+        <div class="rtag">"ชนะด้วยความดุดัน ความเร็ว และกองทัพไร้พ่าย"</div>
+        <div class="rsts">
+          <div class="str"><span class="slbl">Combat</span><div class="strk"><div class="sfil" data-val="95"></div></div></div>
+          <div class="str"><span class="slbl">Trade</span><div class="strk"><div class="sfil" data-val="20"></div></div></div>
+          <div class="str"><span class="slbl">Diplomacy</span><div class="strk"><div class="sfil" data-val="15"></div></div></div>
+          <div class="str"><span class="slbl">Growth</span><div class="strk"><div class="sfil" data-val="80"></div></div></div>
+        </div>
+        <div class="rpks">
+          <div class="pi"><span class="pic">&#x2726;</span> ผลิตทหารเร็ว 2 เท่า &amp; พลังโจมตีสูง</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>War Totem</strong> (+40% Morale)</div>
+          <div class="pi"><span class="pic">&#x2717;</span> การทูตติดลบ ค่าค้าขายแพง</div>
+        </div>
+        <div class="rvc">&#x2691; Conquest Victory (Raze Enemies)</div>
+      </div>
+    </div>
+    <div class="rcard" data-race="elf"><div class="rsm">&#x2713;</div>
+      <div class="rbn"><img src="../Assets/Character/Elf/Elf_Character_Sheet.png" alt="Elf"/><div class="rbn-ov"></div><div class="rbn-nm">Elven Conclave</div><div class="rbdg">Conservator</div></div>
+      <div class="rbdy">
+        <div class="rtag">"ชนะด้วยความยั่งยืน สมดุลแห่งธรรมชาติ"</div>
+        <div class="rsts">
+          <div class="str"><span class="slbl">Combat</span><div class="strk"><div class="sfil" data-val="55"></div></div></div>
+          <div class="str"><span class="slbl">Trade</span><div class="strk"><div class="sfil" data-val="65"></div></div></div>
+          <div class="str"><span class="slbl">Diplomacy</span><div class="strk"><div class="sfil" data-val="80"></div></div></div>
+          <div class="str"><span class="slbl">Growth</span><div class="strk"><div class="sfil" data-val="45"></div></div></div>
+        </div>
+        <div class="rpks">
+          <div class="pi"><span class="pic">&#x2726;</span> ป่าไม้และอาหารฟื้นฟูได้ไม่จำกัด</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>Ancient Grove</strong> (Free Food &amp; Herb)</div>
+          <div class="pi"><span class="pic">&#x2717;</span> ประชากรเกิดช้ากว่าเผ่าอื่น</div>
+        </div>
+        <div class="rvc">&#x2691; Prosperity Victory (Max Happiness &amp; Grove)</div>
+      </div>
+    </div>
+    <div class="rcard" data-race="dwarf"><div class="rsm">&#x2713;</div>
+      <div class="rbn"><img src="../Assets/Character/Dwarf/Dwarf_Character_Sheet.png" alt="Dwarf"/><div class="rbn-ov"></div><div class="rbn-nm">Dwarf Stronghold</div><div class="rbdg">Industrialist</div></div>
+      <div class="rbdy">
+        <div class="rtag">"ชนะด้วยเทคโนโลยี การหลอมเหล็ก และวิศวกรรม"</div>
+        <div class="rsts">
+          <div class="str"><span class="slbl">Combat</span><div class="strk"><div class="sfil" data-val="75"></div></div></div>
+          <div class="str"><span class="slbl">Trade</span><div class="strk"><div class="sfil" data-val="80"></div></div></div>
+          <div class="str"><span class="slbl">Diplomacy</span><div class="strk"><div class="sfil" data-val="40"></div></div></div>
+          <div class="str"><span class="slbl">Growth</span><div class="strk"><div class="sfil" data-val="30"></div></div></div>
+        </div>
+        <div class="rpks">
+          <div class="pi"><span class="pic">&#x2726;</span> ขุดแร่หินและเหล็กเร็ว 3 เท่า</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>Deep Forge</strong> (Iron &rarr; Steel Mastery)</div>
+          <div class="pi"><span class="pic">&#x2717;</span> อัตราการเกิด -40% ต้องการเสบียงสูง</div>
+        </div>
+        <div class="rvc">&#x2691; Industrial Victory (Steel Monopoly)</div>
+      </div>
+    </div>
+  </div>
+  <div class="racts">
+    <button class="bg bk" id="btn-back">&#x2190; Main Menu</button>
+    <span class="si" id="seli">Select a faction to proceed</span>
+    <button class="bg pro" id="btn-proc" disabled>Begin Campaign &#x2192;</button>
+  </div>
+</div>
+
+<!-- In-Game Main Screen -->
+<div id="screen-game" class="screen">
+  <div id="htop">
+    <div id="hres">
+      <div class="rc">&#x1F4B0; <span class="rv" id="vg">500</span></div><div class="dv"></div>
+      <div class="rc">&#x1F33E; <span class="rv" id="vf">100</span></div>
+      <div class="rc">&#x1FAB5; <span class="rv" id="vw">60</span></div>
+      <div class="rc">&#x1FAA8; <span class="rv" id="vs">40</span></div>
+      <div class="rc">&#x2699;&#xFE0F; <span class="rv" id="vi">20</span></div><div class="dv"></div>
+      <div class="rc">&#x1F465; <span class="rv" id="vp">12</span>/<span style="color:var(--gold-dim)" id="vmp">50</span></div>
+      <div class="rc">&#x1F60A; <span class="rv" id="vh">75</span>%</div><div class="dv"></div>
+      <div class="rc">&#x2694; <span class="rv" id="vsol">0</span></div>
+    </div>
+    <div id="hfac">
+      <div class="femb" id="femb">&#x1F451;</div>
+      <div class="flbl" id="flbl">Human Kingdom</div>
+    </div>
+    <div id="htime">
+      <div class="tss" id="tss">&#x1F331; Spring</div>
+      <div class="tyr" id="tyr">Year 1, Day 1</div>
+    </div>
+  </div>
+
+  <div id="gworld">
+    <canvas id="wc"></canvas>
+    <div id="alog"></div>
+    <div id="tip"></div>
+    
+    <!-- Top Action Toolbar -->
+    <div id="top-actions">
+      <button class="act-btn" id="btn-f1">&#x1F4CA; Dashboard (F1)</button>
+      <button class="act-btn" id="btn-dip">&#x1F91D; Diplomacy</button>
+      <button class="act-btn" id="btn-tech">&#x1F52C; Tech Tree</button>
+      <button class="act-btn" id="btn-save">&#x1F4BE; Save</button>
+      <button class="act-btn" id="btn-sound">&#x1F50A; Sound: ON</button>
+    </div>
+
+    <!-- Minimap -->
+    <div id="mmw">
+      <div id="mml">Overview Map</div>
+      <canvas id="mmc"></canvas>
+    </div>
+
+    <!-- Selection / Worker Assignment panel -->
+    <div id="selpanel">
+      <div class="sph" id="sph">Selected Building</div>
+      <div class="spb" id="spb"></div>
+    </div>
+  </div>
+
+  <div id="hbot">
+    <div id="btb">
+      <button class="bb" data-b="house">&#x1F3E0; House<span class="bc">&#x1FAB5;10 &#x1FAA8;5</span></button>
+      <button class="bb" data-b="farm">&#x1F33E; Farm<span class="bc">&#x1FAB5;8</span></button>
+      <button class="bb" data-b="lumbermill">&#x1FA9A; Lumber<span class="bc">&#x1FAB5;15 &#x1FAA8;10</span></button>
+      <button class="bb" data-b="mine">&#x26CF; Mine<span class="bc">&#x1FAB5;10 &#x1FAA8;20</span></button>
+      <button class="bb" data-b="barracks">&#x2694; Barracks<span class="bc">&#x1FAB5;20 &#x1FAA8;15</span></button>
+      <button class="bb" data-b="watchtower">&#x1F5FC; Tower<span class="bc">&#x1FAB5;12 &#x1FAA8;8</span></button>
+      <button class="bb special" data-b="special" id="btn-special">&#x1F3DB; Unique<span class="bc" id="sp-cost">&#x1FAB5;30 &#x1FAA8;30</span></button>
+      <button class="bb" data-b="road">&#x1F6E4; Road<span class="bc">&#x1FAA8;2</span></button>
+    </div>
+    <div id="spc">
+      <span class="slbl2">Speed</span>
+      <button class="sb" data-spd="0">&#x23F8;</button>
+      <button class="sb act" data-spd="1">&#x25B6;</button>
+      <button class="sb" data-spd="2">&#x25B6;&#x25B6;</button>
+      <button class="sb" data-spd="3">&#x25B6;&#x25B6;&#x25B6;</button>
+    </div>
+    <div id="hs">Click map to build &#x00B7; Drag to pan &#x00B7; F1 for economy</div>
+  </div>
+</div>
+
+<!-- Modal 1: F1 Dashboard -->
+<div id="dash" class="modal-overlay">
+  <div class="modal-panel">
+    <div class="mth">
+      <span>&#x1F4CA; Kingdom Financial &amp; Population Dashboard</span>
+      <span class="mcl" id="dcl">&#x2715; Close</span>
+    </div>
+    <div class="ms">
+      <h3>Treasury &amp; Stockpile</h3>
+      <div class="mg" id="drg"></div>
+    </div>
+    <div class="ms">
+      <h3>Live Production Trends (Last 40 Ticks)</h3>
+      <div class="cw"><div class="cl2">Gold Reserves</div><canvas id="cgold" width="760" height="85"></canvas></div>
+      <div class="cw"><div class="cl2">Food Stockpile</div><canvas id="cfood" width="760" height="85"></canvas></div>
+    </div>
+    <div class="ms">
+      <h3>Kingdom Infrastructure &amp; Labor Allocation</h3>
+      <div class="bll" id="dbl"></div>
+    </div>
+    <div class="ms">
+      <h3>Diplomatic Intelligence &amp; Threat Analysis</h3>
+      <div class="mg" id="dintel"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Diplomacy -->
+<div id="dip-modal" class="modal-overlay">
+  <div class="modal-panel">
+    <div class="mth">
+      <span>&#x1F91D; Royal Diplomacy &amp; Treaties</span>
+      <span class="mcl" id="dip-close">&#x2715; Close</span>
+    </div>
+    <div id="dip-content"></div>
+  </div>
+</div>
+
+<!-- Modal 3: Tech Tree -->
+<div id="tech-modal" class="modal-overlay">
+  <div class="modal-panel">
+    <div class="mth">
+      <span>&#x1F52C; Era I Technology Tree</span>
+      <span class="mcl" id="tech-close">&#x2715; Close</span>
+    </div>
+    <div class="ms">
+      <h3>Civic &amp; Military Innovations</h3>
+      <div class="tech-grid" id="tech-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+// ══════════════════════════════════════════════════════════════════════════════
+//  PROJECT KINGDOM MASTER PROTOTYPE v1.0
+//  Architecture: Single Page Application with Web Audio, Fog of War,
+//  Unique Faction Sprites, Diplomacy Engine, Tech Tree, & Save/Load System.
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Sound Synthesizer (Web Audio API - Zero External Dependencies)
+class SoundFX {
+  constructor() {
+    this.ctx = null;
+    this.enabled = true;
+  }
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
+    }
+    if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+  }
+  playTone(freq, type, dur, vol = 0.15) {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+      gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + dur);
+    } catch(e){}
+  }
+  click() { this.playTone(800, 'sine', 0.05, 0.08); }
+  build() {
+    if (!this.enabled) return;
+    this.playTone(220, 'triangle', 0.1, 0.15);
+    setTimeout(() => this.playTone(440, 'triangle', 0.12, 0.15), 60);
+  }
+  coin() {
+    if (!this.enabled) return;
+    this.playTone(987.77, 'sine', 0.08, 0.12);
+    setTimeout(() => this.playTone(1318.51, 'sine', 0.14, 0.12), 70);
+  }
+  war() {
+    if (!this.enabled) return;
+    this.playTone(150, 'sawtooth', 0.4, 0.25);
+    setTimeout(() => this.playTone(110, 'sawtooth', 0.6, 0.25), 150);
+  }
+  victory() {
+    if (!this.enabled) return;
+    [523.25, 659.25, 783.99, 1046.50].forEach((f, idx) => {
+      setTimeout(() => this.playTone(f, 'triangle', 0.2, 0.2), idx * 100);
+    });
+  }
+  alert() { this.playTone(400, 'sine', 0.15, 0.1); }
+}
+const SFX = new SoundFX();
+
+// Building & Tile Definitions
+const T = {
+  GRASS:0, FOREST:1, WATER:2, MOUNTAIN:3, DIRT:4,
+  HOUSE:10, FARM:11, LUMBERMILL:12, BARRACKS:13, ROAD:14,
+  PALACE:15, WATCHTOWER:16, MINE:17, SPECIAL:18
+};
+const BUILDABLE = new Set([0, 4]);
+
+const BINFO = {
+  house:     {type:10, name:'House',       cost:{wood:10,stone:5}, desc:'Max Population +5',    vis:1, mw:0, img:null},
+  farm:      {type:11, name:'Farm',        cost:{wood:8},          desc:'Food +0.4 / tick',     vis:1, mw:3, img:null},
+  lumbermill:{type:12, name:'Lumber Mill', cost:{wood:15,stone:10},desc:'Wood +0.3 / tick',     vis:1, mw:3, img:null},
+  mine:      {type:17, name:'Mine',        cost:{wood:10,stone:20},desc:'Iron +0.15 / tick',    vis:1, mw:3, img:null},
+  barracks:  {type:13, name:'Barracks',    cost:{wood:20,stone:15},desc:'Trains Royal Soldiers',vis:2, mw:2, img:null},
+  watchtower:{type:16, name:'Watchtower',  cost:{wood:12,stone:8}, desc:'Vision Radius +4',    vis:5, mw:1, img:null},
+  special:   {type:18, name:'Unique Wonder',cost:{wood:30,stone:30},desc:'Faction Unique Building', vis:3, mw:2, img:null},
+  road:      {type:14, name:'Road',        cost:{stone:2},         desc:'Movement Speed +50%',  vis:1, mw:0, img:null},
+};
+
+const BCOSTS = {
+  10:{wood:10,stone:5}, 11:{wood:8}, 12:{wood:15,stone:10},
+  17:{wood:10,stone:20}, 13:{wood:20,stone:15}, 16:{wood:12,stone:8},
+  18:{wood:30,stone:30}, 14:{stone:2}
+};
+const BKEY = {house:10, farm:11, lumbermill:12, mine:17, barracks:13, watchtower:16, special:18, road:14};
+const BEM  = {10:'\u{1F3E0}', 11:'\u{1F33E}', 12:'\u{1FA9A}', 13:'\u2694', 14:'\u{1F6E4}', 15:'\u{1F3F0}', 16:'\u{1F5FC}', 17:'\u{26CF}', 18:'\u{1F3DB}'};
+const BNM  = {10:'House', 11:'Farm', 12:'Lumber Mill', 13:'Barracks', 14:'Road', 15:'Palace', 16:'Watchtower', 17:'Mine', 18:'Faction Wonder'};
+const TC   = {0:'#2d5c1e', 1:'#1a3d12', 2:'#1a3a5c', 3:'#4a4036', 4:'#6b5234', 10:'#8b4513', 11:'#7a9a20', 12:'#5c4528', 13:'#4a2828', 14:'#888070', 15:'#7a5010', 16:'#4a4036', 17:'#3a3028', 18:'#204060'};
+
+// Race Database with Art Assets
+const RDATA = {
+  human:{
+    name:'Human Kingdom', emb:'\u{1F451}', color:'#c94040',
+    specialName:'Grand Embassy', specialDesc:'Increases Trade +30% & diplomatic influence',
+    imgSheet:'../Assets/Character/Human/Human_Character_Sheet.png',
+    imgBld:'../Assets/Character/Human/Human_Building_GrandEmbassy.png',
+    imgMount:'../Assets/Character/Human/Human_Mount_Horse.png',
+    res:{gold:650,food:120,wood:70,stone:45,iron:15,pop:14,maxPop:50,happy:75}
+  },
+  orc:{
+    name:'Orc Warclan', emb:'\u{1F480}', color:'#4a9a30',
+    specialName:'War Totem', specialDesc:'Army training 2x faster & combat morale +40%',
+    imgSheet:'../Assets/Character/Orc/Orc_Character_Sheet.png',
+    imgBld:'../Assets/Character/Orc/Orc_Building_WarTotem.png',
+    imgMount:'../Assets/Character/Orc/Orc_Mount_Boar.png',
+    res:{gold:350,food:140,wood:90,stone:35,iron:25,pop:20,maxPop:65,happy:60}
+  },
+  elf:{
+    name:'Elven Conclave', emb:'\u{1F33F}', color:'#30c870',
+    specialName:'Ancient Grove', specialDesc:'Endless forest recovery & +0.6 Food/tick',
+    imgSheet:'../Assets/Character/Elf/Elf_Character_Sheet.png',
+    imgBld:'../Assets/Character/Elf/Elf_Building_AncientGrove.png',
+    imgMount:'../Assets/Character/Elf/Elf_Mount_GreatStag.png',
+    res:{gold:450,food:110,wood:110,stone:25,iron:10,pop:10,maxPop:40,happy:90}
+  },
+  dwarf:{
+    name:'Dwarf Stronghold', emb:'\u2692', color:'#c87820',
+    specialName:'Deep Forge', specialDesc:'Iron & Stone mining speed 3x & weapon forging',
+    imgSheet:'../Assets/Character/Dwarf/Dwarf_Character_Sheet.png',
+    imgBld:'../Assets/Character/Dwarf/Dwarf_Building_DeepForge.png',
+    imgMount:'../Assets/Character/Dwarf/Dwarf_Mount_MountainGoat.png',
+    res:{gold:550,food:80,wood:40,stone:90,iron:50,pop:8,maxPop:35,happy:70}
+  }
+};
+
+// Tech Tree Innovations
+const TECH_LIST = [
+  {id:'agr', name:'Advanced Agriculture', desc:'Farm production +30%', cost:{wood:20, gold:50}, researched:false, apply:(g)=>{ g.bonuses.farmEff = 1.3; }},
+  {id:'mas', name:'Masonry & Walls', desc:'Building HP +50% & Road cost -50%', cost:{stone:30, gold:60}, researched:false, apply:(g)=>{ g.buildings.forEach(b=>b.mhp*=1.5); }},
+  {id:'met', name:'Metallurgy', desc:'Mine iron output +40%', cost:{iron:20, gold:80}, researched:false, apply:(g)=>{ g.bonuses.mineEff = 1.4; }},
+  {id:'log', name:'Logistics Guild', desc:'Worker move speed +25% & Max Pop +15', cost:{food:30, wood:30}, researched:false, apply:(g)=>{ g.maxPop += 15; g.workers.forEach(w=>w.spd*=1.25); }},
+  {id:'arm', name:'Standing Army', desc:'Soldiers get +4 Attack & +30 HP', cost:{iron:25, gold:100}, researched:false, apply:(g)=>{ g.bonuses.soldierAtk = 11; }},
+];
+
+const SEASONS = ['\u{1F331} Spring', '\u2600 Summer', '\u{1F342} Autumn', '\u2744 Winter'];
+const HIST = 40;
+const GW = 34, GH = 24, TS = 40;
+
+let G = {};
+let canvas, ctx, mmC, mmX, selRace = null;
+let goldH = Array(HIST).fill(0), foodH = Array(HIST).fill(0);
+let weatherParticles = [];
+
+// Preload Images
+const PRELOADED_IMG = {};
+Object.entries(RDATA).forEach(([k, r]) => {
+  const s = new Image(); s.src = r.imgSheet; PRELOADED_IMG[k+'_sheet'] = s;
+  const b = new Image(); b.src = r.imgBld; PRELOADED_IMG[k+'_bld'] = s;
+});
+
+// Utilities
+function rnd(a,b){return Math.random()*(b-a)+a}
+function ri(a,b){return Math.floor(rnd(a,b+1))}
+function cl(v,lo,hi){return Math.min(hi,Math.max(lo,v))}
+function d2(ax,ay,bx,by){return Math.hypot(ax-bx,ay-by)}
+function nz(x,y){
+  const a=Math.sin(x*.41+42)*127.1, b=Math.sin(y*.37+42)*311.7, c=Math.sin((x+y)*.23+42)*74.3;
+  return Math.sin(a+b+c)*.7 + Math.sin(x*.11*y*.07+42)*.3;
+}
+function ig(x,y){return x>=0 && x<GW && y>=0 && y<GH}
+function ib(x,y){return ig(x,y) && BUILDABLE.has(G.grid[y][x])}
+
+// Initialization
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('ld').classList.add('hidden');
+    ss('menu');
+    initFloatingParticles();
+  }, 1800);
+});
+
+function ss(n){
+  ['menu','race','game'].forEach(k => {
+    document.getElementById('screen-'+k).classList.toggle('active', k===n);
+  });
+}
+
+function initFloatingParticles(){
+  const c = document.getElementById('ptcl');
+  for (let i=0; i<28; i++){
+    const p = document.createElement('div');
+    p.className = 'ptc';
+    p.style.cssText = `--dur:${6+Math.random()*10}s;--dl:${Math.random()*8}s;--dr:${(Math.random()-.5)*120}px;left:${Math.random()*100}%;width:${1.5+Math.random()*3}px;height:${1.5+Math.random()*3}px`;
+    c.appendChild(p);
+  }
+}
+
+// Menu interactions
+document.getElementById('btn-new').addEventListener('click', () => {
+  SFX.click();
+  ss('race');
+  animStatBars();
+});
+document.getElementById('btn-load').addEventListener('click', () => {
+  SFX.click();
+  loadSavedGame();
+});
+document.getElementById('btn-gdd').addEventListener('click', () => {
+  SFX.click();
+  window.open('../GDD_v3/GDD_v3/00-Index.md', '_blank');
+});
+
+function animStatBars(){
+  document.querySelectorAll('.sfil').forEach(f => {
+    const v = f.dataset.val;
+    requestAnimationFrame(() => { f.style.width = v+'%'; });
+  });
+}
+
+// Race selection
+document.querySelectorAll('.rcard').forEach(card => {
+  card.addEventListener('click', () => {
+    SFX.click();
+    document.querySelectorAll('.rcard').forEach(c => c.classList.remove('sel'));
+    card.classList.add('sel');
+    selRace = card.dataset.race;
+    document.getElementById('seli').textContent = 'Selected: ' + RDATA[selRace].name;
+    document.getElementById('btn-proc').disabled = false;
+  });
+});
+
+document.getElementById('btn-back').addEventListener('click', () => {
+  SFX.click();
+  ss('menu');
+  selRace = null;
+  document.querySelectorAll('.rcard').forEach(c => c.classList.remove('sel'));
+  document.getElementById('btn-proc').disabled = true;
+  document.getElementById('seli').textContent = 'Select a faction to proceed';
+});
+
+document.getElementById('btn-proc').addEventListener('click', () => {
+  if (!selRace) return;
+  SFX.coin();
+  initGameSession(selRace);
+  ss('game');
+});
+
+// Main Game Initialization
+function initGameSession(race, loadedData = null){
+  const rd = RDATA[race], r = rd.res;
+  
+  G = loadedData || {
+    race, faction: rd.name, emb: rd.emb, color: rd.color,
+    gold: r.gold, food: r.food, wood: r.wood, stone: r.stone, iron: r.iron,
+    pop: r.pop, maxPop: r.maxPop, happy: r.happy, soldiers: 0,
+    day: 1, year: 1, season: 0, tick: 0,
+    grid: [], fog: [], buildings: [], workers: [], units: [], aiu: [],
+    bonuses: { farmEff: 1.0, mineEff: 1.0, soldierAtk: 7 },
+    ai: {
+      race: (race==='orc'?'human':'orc'),
+      gold: 350, food: 90, wood: 60, stone: 40, pop: 10, soldiers: 0,
+      relation: 50, pact: 'neutral', px: 0, py: 0, placeT: 0
+    },
+    techs: TECH_LIST.map(t=>({...t})),
+    speed: 1, paused: false, selB: null, selTile: null,
+    camX: 0, camY: 0, drag: false, dsx: 0, dsy: 0, csx: 0, csy: 0, hx: -1, hy: -1,
+    nid: 1, war: 'peace', warD: false, popT: 0
+  };
+
+  // Update Special Button name in Toolbar
+  const spBtn = document.getElementById('btn-special');
+  spBtn.innerHTML = `&#x1F3DB; ${rd.specialName}<span class="bc" id="sp-cost">&#x1FAB5;30 &#x1FAA8;30</span>`;
+
+  document.getElementById('femb').textContent = rd.emb;
+  document.getElementById('flbl').textContent = rd.name;
+
+  if (!loadedData) {
+    genMap();
+    initFog();
+    placeAICity();
+    spawnWorkers(Math.min(r.pop, 14));
+  }
+
+  canvas = document.getElementById('wc');
+  ctx = canvas.getContext('2d');
+  mmC = document.getElementById('mmc');
+  mmX = mmC.getContext('2d');
+  mmC.width = GW * 4;
+  mmC.height = GH * 4;
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  const px = Math.floor(GW / 2), py = Math.floor(GH / 2);
+  G.camX = -(px * TS - canvas.width / 2 + TS / 2);
+  G.camY = -(py * TS - canvas.height / 2 + TS / 2);
+  clampCam();
+
+  initWeatherParticles();
+  updHUD();
+  setupToolbarEvents();
+  setupSpeedButtons();
+  setupCanvasEvents();
+  setupModals();
+  setupKeyboard();
+
+  if (G.simTimer) clearInterval(G.simTimer);
+  G.simTimer = setInterval(() => { if (!G.paused) simTick(); }, 500);
+
+  requestAnimationFrame(gameLoop);
+
+  showNotice(`\u{1F3F0} Welcome to ${rd.name}! Build farms & lumber mills to prosper.`, '#c9973a');
+  setTimeout(() => showNotice('\u{1F4A1} Hint: F1 for Dashboard \u00B7 Explore fog with Towers \u00B7 Check Diplomacy', '#4a9a30'), 3500);
+}
+
+// Map Generation
+function genMap(){
+  G.grid = [];
+  for (let y=0; y<GH; y++){
+    G.grid[y] = [];
+    for (let x=0; x<GW; x++) G.grid[y][x] = genTile(x, y);
+  }
+  const px = Math.floor(GW / 2), py = Math.floor(GH / 2);
+  clearArea(px, py, 2);
+  placeBld(px, py, T.PALACE, 'player', 0, 0);
+
+  [[px-1,py],[px+1,py],[px,py-1],[px,py+1]].forEach(([x,y]) => {
+    if (ig(x,y) && BUILDABLE.has(G.grid[y][x])) placeBld(x, y, T.ROAD, 'player', 0, 0);
+  });
+  placeBld(px+2, py+1, T.FARM, 'player', 0, 3);
+  placeBld(px-2, py+1, T.FARM, 'player', 0, 3);
+  placeBld(px+1, py-2, T.LUMBERMILL, 'player', 0, 3);
+}
+
+function genTile(x, y){
+  if (x<2 || x>GW-3 || y<2 || y>GH-3) return T.MOUNTAIN;
+  const n = nz(x, y);
+  if (n < -.35) return T.WATER;
+  if (n < -.1)  return T.GRASS;
+  if (n < .15)  return Math.random() < .35 ? T.FOREST : T.GRASS;
+  if (n < .45)  return Math.random() < .55 ? T.FOREST : T.GRASS;
+  return T.MOUNTAIN;
+}
+
+function clearArea(cx, cy, r){
+  for (let dy=-r; dy<=r; dy++) for (let dx=-r; dx<=r; dx++){
+    const x = cx+dx, y = cy+dy;
+    if (ig(x,y) && G.grid[y][x] === T.FOREST) G.grid[y][x] = T.GRASS;
+  }
+}
+
+function placeBld(x, y, type, owner, workers, mw){
+  G.grid[y][x] = type;
+  const info = Object.values(BINFO).find(b => b.type === type) || {vis:1, mw:0};
+  G.buildings.push({
+    x, y, type, owner,
+    workers: workers || 0,
+    mw: mw || info.mw || 0,
+    id: G.nid++,
+    hp: 100, mhp: 100
+  });
+}
+
+// Fog of War
+function initFog(){
+  G.fog = [];
+  for (let y=0; y<GH; y++) G.fog[y] = new Uint8Array(GW);
+  updateFog();
+}
+
+function updateFog(){
+  const vis = [];
+  for (let y=0; y<GH; y++) vis[y] = new Uint8Array(GW);
+
+  G.buildings.filter(b => b.owner === 'player').forEach(b => {
+    const info = Object.values(BINFO).find(d => d.type === b.type);
+    const vr = (info?.vis || 1) + (b.type === T.WATCHTOWER ? 3 : 0);
+    for (let dy=-vr; dy<=vr; dy++) for (let dx=-vr; dx<=vr; dx++){
+      const x = b.x+dx, y = b.y+dy;
+      if (ig(x,y) && Math.abs(dx)+Math.abs(dy) <= vr*1.4) vis[y][x] = 1;
+    }
+  });
+
+  G.workers.forEach(w => {
+    const tx = Math.floor(w.x / TS), ty = Math.floor(w.y / TS);
+    for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++){
+      const x = tx+dx, y = ty+dy;
+      if (ig(x,y)) vis[y][x] = 1;
+    }
+  });
+
+  for (let y=0; y<GH; y++) for (let x=0; x<GW; x++){
+    if (vis[y][x]) G.fog[y][x] = 1;
+    else if (G.fog[y][x] === 1) G.fog[y][x] = 2;
+  }
+}
+
+// AI Opponent City
+function placeAICity(){
+  const ax = ri(3, 8), ay = ri(3, 8);
+  clearArea(ax, ay, 3);
+  G.grid[ay][ax] = T.PALACE;
+  G.buildings.push({x:ax, y:ay, type:T.PALACE, owner:'ai', workers:0, mw:0, id:G.nid++, hp:250, mhp:250});
+  G.ai.px = ax; G.ai.py = ay;
+
+  [[ax+2,ay,T.FARM],[ax-2,ay,T.FARM],[ax,ay+2,T.LUMBERMILL],[ax+1,ay-1,T.BARRACKS]].forEach(([x,y,type]) => {
+    if (ig(x,y) && (G.grid[y][x] === T.GRASS || G.grid[y][x] === T.FOREST)){
+      G.grid[y][x] = type;
+      G.buildings.push({x,y,type,owner:'ai',workers:2,mw:2,id:G.nid++,hp:120,mhp:120});
+    }
+  });
+  for (let i=0; i<3; i++) spawnAISoldier();
+}
+
+// Population & Tiny Worker Simulation
+const WC = {human:'#e8b84b', orc:'#6aff4a', elf:'#4aff8a', dwarf:'#ffa84a'};
+function spawnWorkers(n){
+  const cx = Math.floor(GW / 2) * TS + TS / 2;
+  const cy = Math.floor(GH / 2) * TS + TS / 2;
+  for (let i=0; i<n; i++){
+    G.workers.push({
+      x: cx + (Math.random()-.5)*60,
+      y: cy + (Math.random()-.5)*60,
+      tx: cx, ty: cy,
+      spd: 0.75 + Math.random()*0.5,
+      wt: ri(30, 100),
+      color: WC[G.race] || '#e8b84b'
+    });
+    assignWanderGoal(G.workers[G.workers.length-1]);
+  }
+}
+
+function assignWanderGoal(w){
+  const h = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
+  const cx = (h ? h.x : GW/2) * TS + TS / 2;
+  const cy = (h ? h.y : GH/2) * TS + TS / 2;
+  w.tx = cl(cx + (Math.random()-.5)*220, TS, (GW-1)*TS);
+  w.ty = cl(cy + (Math.random()-.5)*220, TS, (GH-1)*TS);
+}
+
+function stepWorkers(){
+  G.workers.forEach(w => {
+    const dx = w.tx - w.x, dy = w.ty - w.y, d = Math.hypot(dx, dy);
+    if (d < 2){
+      w.wt--;
+      if (w.wt <= 0){
+        assignWanderGoal(w);
+        w.wt = ri(40, 120);
+      }
+    } else {
+      const s = w.spd * (G.speed || 1);
+      w.x += dx / d * s;
+      w.y += dy / d * s;
+    }
+  });
+}
+
+// Combat Units
+function spawnPlayerSoldier(){
+  const p = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
+  if (!p) return;
+  G.units.push({
+    x: p.x * TS + TS / 2, y: p.y * TS + TS / 2,
+    tx: p.x * TS + TS / 2, ty: p.y * TS + TS / 2,
+    spd: 0.7, hp: 80, mhp: 80, atk: G.bonuses.soldierAtk || 7
+  });
+  G.soldiers++;
+}
+
+function spawnAISoldier(){
+  G.aiu.push({
+    x: (G.ai.px + rnd(-.5, .5)) * TS + TS / 2,
+    y: (G.ai.py + rnd(-.5, .5)) * TS + TS / 2,
+    tx: G.ai.px * TS + TS / 2, ty: G.ai.py * TS + TS / 2,
+    spd: 0.55, hp: 70, mhp: 70, atk: 6, pt: 0
+  });
+}
+
+function stepUnits(){
+  const s = G.speed || 1;
+
+  // Player units
+  G.units.forEach(u => {
+    if (u.hp <= 0) return;
+    const dx = u.tx - u.x, dy = u.ty - u.y, d = Math.hypot(dx, dy);
+    if (d > 2){ u.x += dx / d * u.spd * s; u.y += dy / d * u.spd * s; }
+
+    if (G.war === 'war'){
+      let target = null, cd = Infinity;
+      G.aiu.forEach(a => {
+        if (a.hp > 0){
+          const dd = d2(u.x, u.y, a.x, a.y);
+          if (dd < cd){ cd = dd; target = a; }
+        }
+      });
+      if (target && cd < 65){
+        target.hp -= u.atk * 0.05 * s;
+        u.tx = target.x; u.ty = target.y;
+      }
+    }
+  });
+  G.units = G.units.filter(u => u.hp > 0);
+
+  // AI units
+  G.aiu.forEach(u => {
+    if (u.hp <= 0) return;
+    const dx = u.tx - u.x, dy = u.ty - u.y, d = Math.hypot(dx, dy);
+    if (d > 2){ u.x += dx / d * u.spd * s; u.y += dy / d * u.spd * s; }
+
+    if (G.war === 'war'){
+      if (G.units.length > 0){
+        let target = null, cd = Infinity;
+        G.units.forEach(pu => {
+          const dd = d2(u.x, u.y, pu.x, pu.y);
+          if (dd < cd){ cd = dd; target = pu; }
+        });
+        if (target){
+          u.tx = target.x; u.ty = target.y;
+          if (cd < 65) target.hp -= u.atk * 0.04 * s;
+        }
+      } else {
+        const pp = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
+        if (pp){ u.tx = pp.x * TS + TS / 2; u.ty = pp.y * TS + TS / 2; }
+      }
+    } else {
+      u.pt--;
+      if (u.pt <= 0){
+        u.tx = (G.ai.px + rnd(-3, 3)) * TS + TS / 2;
+        u.ty = (G.ai.py + rnd(-3, 3)) * TS + TS / 2;
+        u.pt = ri(60, 160);
+      }
+    }
+  });
+  G.aiu = G.aiu.filter(u => u.hp > 0);
+
+  // Check victory / defeat
+  if (G.war === 'war'){
+    if (!G.buildings.find(b => b.type === T.PALACE && b.owner === 'ai')) triggerVictory('conquest');
+    else if (!G.buildings.find(b => b.type === T.PALACE && b.owner === 'player')) triggerDefeat();
+  }
+}
+
+function declareWar(initiatedByPlayer = false){
+  if (G.war === 'war') return;
+  G.war = 'war';
+  G.warD = true;
+  G.ai.relation = 0;
+  G.ai.pact = 'war';
+  SFX.war();
+  showNotice(initiatedByPlayer ? '\u2694 WAR DECLARED! You march upon the enemy!' : '\u2694 WAR DECLARED! Enemy armies march toward your Palace!', '#ff2020');
+
+  G.aiu.forEach(u => {
+    const p = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
+    if (p){ u.tx = p.x * TS + TS / 2; u.ty = p.y * TS + TS / 2; }
+  });
+}
+
+function triggerVictory(type){
+  G.war = 'peace';
+  SFX.victory();
+  showNotice(`\u{1F3C6} VICTORY! You have achieved a glorious ${type.toUpperCase()} victory!`, '#ffd700');
+  G.gold += 1000;
+  G.happy = 100;
+}
+
+function triggerDefeat(){
+  G.war = 'peace';
+  showNotice('\u{1F480} DEFEAT! Your Palace has fallen to the enemy!', '#ff2020');
+  G.happy = Math.max(10, G.happy - 40);
+}
+
+// AI Economy & Builder AI
+function stepAI(){
+  const ai = G.ai, s = G.speed || 1;
+
+  G.buildings.filter(b => b.owner === 'ai').forEach(b => {
+    if (b.type === T.FARM) ai.food += 0.3 * s * Math.min(b.workers, b.mw || 1);
+    if (b.type === T.LUMBERMILL) ai.wood += 0.2 * s * Math.min(b.workers, b.mw || 1);
+  });
+
+  ai.food -= ai.pop * 0.015 * s;
+  ai.gold += 0.1 * s;
+  ai.food = Math.max(0, ai.food);
+
+  if (G.buildings.filter(b => b.owner === 'ai' && b.type === T.BARRACKS).length > 0 && G.tick % 90 === 0 && ai.food > 25){
+    spawnAISoldier();
+    ai.soldiers++;
+  }
+
+  ai.placeT = (ai.placeT || 0) + 1;
+  if (ai.placeT > 75 / Math.max(1, G.speed)){
+    ai.placeT = 0;
+    aiBuildExpansion();
+  }
+
+  // War trigger based on relation & military strength
+  if (!G.warD && ai.relation < 25 && ai.soldiers >= 4 && G.tick > 180 && Math.random() < 0.003 * s){
+    declareWar(false);
+  }
+}
+
+function aiBuildExpansion(){
+  const ai = G.ai;
+  const choices = [
+    {t:T.FARM, ok:ai.food<80},
+    {t:T.LUMBERMILL, ok:ai.wood<50},
+    {t:T.BARRACKS, ok:ai.soldiers<5},
+    {t:T.FARM, ok:true}
+  ];
+  const valid = choices.filter(c => c.ok);
+  if (!valid.length) return;
+  const type = valid[ri(0, valid.length-1)].t;
+
+  for (let tr=0; tr<25; tr++){
+    const x = cl(ai.px + ri(-5, 5), 1, GW-2);
+    const y = cl(ai.py + ri(-5, 5), 1, GH-2);
+    if (BUILDABLE.has(G.grid[y][x]) && !G.buildings.find(b => b.x===x && b.y===y)){
+      G.grid[y][x] = type;
+      G.buildings.push({x, y, type, owner:'ai', workers:2, mw:2, id:G.nid++, hp:100, mhp:100});
+      return;
+    }
+  }
+}
+
+// Weather System
+function initWeatherParticles(){
+  weatherParticles = [];
+  for (let i=0; i<45; i++){
+    weatherParticles.push({
+      x: Math.random() * (GW * TS),
+      y: Math.random() * (GH * TS),
+      s: 1.5 + Math.random() * 2,
+      v: 2 + Math.random() * 3
+    });
+  }
+}
+
+function renderWeather(ctx){
+  const s = G.season; // 0=Spring, 1=Summer, 2=Autumn, 3=Winter
+  if (s === 3){ // Snow
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    weatherParticles.forEach(p => {
+      p.y += p.v * 0.5;
+      p.x += Math.sin(p.y * 0.05) * 0.5;
+      if (p.y > GH * TS) p.y = 0;
+      if (p.x > GW * TS) p.x = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.s, 0, Math.PI*2);
+      ctx.fill();
+    });
+  } else if (s === 2){ // Rain
+    ctx.strokeStyle = 'rgba(150,200,255,0.4)';
+    ctx.lineWidth = 1.2;
+    weatherParticles.forEach(p => {
+      p.y += p.v * 2;
+      p.x += 1;
+      if (p.y > GH * TS) p.y = 0;
+      if (p.x > GW * TS) p.x = 0;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x + 2, p.y + 8);
+      ctx.stroke();
+    });
+  }
+}
+
+// Rendering Pipeline
+function resize(){
+  const w = document.getElementById('gworld');
+  canvas.width = w.clientWidth;
+  canvas.height = w.clientHeight;
+  clampCam();
+}
+
+function clampCam(){
+  if (!canvas) return;
+  G.camX = cl(G.camX, -(GW * TS - canvas.width), 0);
+  G.camY = cl(G.camY, -(GH * TS - canvas.height), 0);
+}
+
+function s2t(sx, sy){
+  return { tx: Math.floor((sx - G.camX) / TS), ty: Math.floor((sy - G.camY) / TS) };
+}
+
+function gameLoop(){
+  if (!G.paused){
+    stepWorkers();
+    stepUnits();
+  }
+  renderWorld();
+  renderMinimap();
+  requestAnimationFrame(gameLoop);
+}
+
+function renderWorld(){
+  if (!canvas || !ctx) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#0a0d06';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+  ctx.translate(G.camX, G.camY);
+
+  // Draw Grid Tiles
+  for (let y=0; y<GH; y++) for (let x=0; x<GW; x++) renderTile(x, y);
+
+  // Draw Grid Borders
+  ctx.strokeStyle = 'rgba(0,0,0,.15)';
+  ctx.lineWidth = .5;
+  for (let y=0; y<=GH; y++){ ctx.beginPath(); ctx.moveTo(0, y*TS); ctx.lineTo(GW*TS, y*TS); ctx.stroke(); }
+  for (let x=0; x<=GW; x++){ ctx.beginPath(); ctx.moveTo(x*TS, 0); ctx.lineTo(x*TS, GH*TS); ctx.stroke(); }
+
+  // Hover indicator
+  if (G.hx>=0 && G.hy>=0 && ig(G.hx, G.hy)){
+    const canBuild = G.selB && ib(G.hx, G.hy);
+    ctx.fillStyle = canBuild ? 'rgba(201,151,58,.28)' : 'rgba(255,255,255,.08)';
+    ctx.fillRect(G.hx*TS, G.hy*TS, TS, TS);
+    ctx.strokeStyle = canBuild ? 'rgba(201,151,58,.85)' : 'rgba(255,255,255,.2)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(G.hx*TS+1, G.hy*TS+1, TS-2, TS-2);
+  }
+
+  // Selected tile highlight
+  if (G.selTile){
+    ctx.strokeStyle = 'rgba(240,204,110,.95)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(G.selTile.tx*TS, G.selTile.ty*TS, TS, TS);
+  }
+
+  // Draw Entities
+  renderWorkers();
+  renderUnits();
+  renderWeather(ctx);
+
+  // War Territory Outline
+  if (G.war === 'war'){
+    ctx.strokeStyle = 'rgba(255,50,50,.3)';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([6, 4]);
+    ctx.strokeRect(G.ai.px*TS - 4*TS, G.ai.py*TS - 4*TS, 9*TS, 9*TS);
+    ctx.setLineDash([]);
+  }
+
+  ctx.restore();
+}
+
+function renderTile(x, y){
+  const t = G.grid[y][x], px = x * TS, py = y * TS, f = G.fog[y]?.[x] ?? 0;
+  ctx.fillStyle = TC[t] || '#2d5c1e';
+  ctx.fillRect(px, py, TS, TS);
+
+  if (f > 0){
+    switch(t){
+      case T.GRASS:    renderGrass(px, py, x, y); break;
+      case T.FOREST:   renderForest(px, py); break;
+      case T.WATER:    renderWater(px, py, x, y); break;
+      case T.MOUNTAIN: renderMountain(px, py); break;
+      default:         if (BEM[t]) renderBuilding(px, py, t, x, y); break;
+    }
+  }
+
+  // Fog of war shadows
+  if (f === 0) {
+    ctx.fillStyle = 'rgba(0,0,0,.96)';
+    ctx.fillRect(px, py, TS, TS);
+  } else if (f === 2) {
+    ctx.fillStyle = 'rgba(0,0,0,.55)';
+    ctx.fillRect(px, py, TS, TS);
+  }
+
+  // Red tint on AI territory
+  if (f > 0 && G.buildings.find(b => b.x===x && b.y===y && b.owner==='ai')){
+    ctx.fillStyle = 'rgba(220,0,0,.15)';
+    ctx.fillRect(px, py, TS, TS);
+  }
+}
+
+function renderGrass(px, py, x, y){
+  ctx.fillStyle = 'rgba(80,160,40,.22)';
+  const s = x * 3 + y * 7;
+  for (let i=0; i<3; i++){
+    const bx = px + ((s*(i+1)*11)%30) + 2, by = py + ((s*(i+1)*7)%30) + 5;
+    ctx.fillRect(bx, by, 1, 4);
+    ctx.fillRect(bx+1, by-2, 1, 3);
+  }
+}
+function renderForest(px, py){
+  const cx = px + TS/2, cy = py + TS*.45;
+  ctx.fillStyle = '#1a4a12';
+  ctx.beginPath(); ctx.arc(cx, cy, TS*.32, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#2a6a1a';
+  ctx.beginPath(); ctx.arc(cx-3, cy-2, TS*.22, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#3a2510';
+  ctx.fillRect(cx-2, cy+8, 4, 8);
+}
+function renderWater(px, py, x, y){
+  const t2 = (Date.now()*.001 + x*.5 + y*.3) % (Math.PI*2);
+  ctx.strokeStyle = 'rgba(100,180,220,.24)';
+  ctx.lineWidth = 1;
+  for (let i=0; i<3; i++){
+    ctx.beginPath();
+    const wy = py + 10 + i*10 + Math.sin(t2+i)*2;
+    ctx.moveTo(px+4, wy);
+    ctx.quadraticCurveTo(px+TS/2, wy-3, px+TS-4, wy);
+    ctx.stroke();
+  }
+}
+function renderMountain(px, py){
+  const mx = px + TS/2;
+  ctx.fillStyle = '#6a5a4a';
+  ctx.beginPath(); ctx.moveTo(mx, py+4); ctx.lineTo(px+TS-4, py+TS-4); ctx.lineTo(px+4, py+TS-4); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#e0ddd8';
+  ctx.beginPath(); ctx.moveTo(mx, py+4); ctx.lineTo(mx+8, py+16); ctx.lineTo(mx-8, py+16); ctx.closePath(); ctx.fill();
+}
+function renderBuilding(px, py, t, x, y){
+  const e = BEM[t];
+  if (!e) return;
+  if (t !== T.ROAD){
+    ctx.fillStyle = 'rgba(0,0,0,.3)';
+    ctx.fillRect(px+4, py+TS-8, TS-8, 6);
+  }
+  ctx.font = (t===T.PALACE ? '22' : '18') + 'px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(e, px+TS/2, py+TS/2);
+
+  if (t === T.PALACE || t === T.SPECIAL){
+    ctx.strokeStyle = 'rgba(201,151,58,.8)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(px+1, py+1, TS-2, TS-2);
+  }
+
+  const b = G.buildings.find(b => b.x===x && b.y===y);
+  if (b && b.hp < b.mhp){
+    const p = b.hp / b.mhp;
+    ctx.fillStyle = 'rgba(0,0,0,.7)';
+    ctx.fillRect(px+2, py+2, TS-4, 4);
+    ctx.fillStyle = p > .5 ? '#4aff8a' : p > .25 ? '#ffcc00' : '#ff4444';
+    ctx.fillRect(px+2, py+2, (TS-4)*p, 4);
+  }
+}
+
+function renderWorkers(){
+  G.workers.forEach(w => {
+    ctx.fillStyle = 'rgba(0,0,0,.4)';
+    ctx.beginPath(); ctx.ellipse(w.x, w.y+5, 4, 2, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = w.color;
+    ctx.beginPath(); ctx.arc(w.x, w.y-2, 4, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#f5d5a0';
+    ctx.beginPath(); ctx.arc(w.x, w.y-7, 3, 0, Math.PI*2); ctx.fill();
+  });
+}
+
+function renderUnits(){
+  // Player Soldiers
+  G.units.forEach(u => {
+    if (u.hp <= 0) return;
+    ctx.fillStyle = 'rgba(0,0,0,.4)';
+    ctx.beginPath(); ctx.ellipse(u.x, u.y+6, 5, 2.5, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#3a7ac8';
+    ctx.beginPath(); ctx.arc(u.x, u.y-1, 6, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#e0e8f0';
+    ctx.font = '8px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('\u2694', u.x, u.y-1);
+
+    const bw = 14, p = u.hp / u.mhp;
+    ctx.fillStyle = 'rgba(0,0,0,.6)';
+    ctx.fillRect(u.x-bw/2, u.y-13, bw, 3);
+    ctx.fillStyle = p > .5 ? '#4aff8a' : p > .25 ? '#ffcc00' : '#ff4444';
+    ctx.fillRect(u.x-bw/2, u.y-13, bw*p, 3);
+  });
+
+  // AI Soldiers
+  G.aiu.forEach(u => {
+    if (u.hp <= 0) return;
+    ctx.fillStyle = 'rgba(0,0,0,.4)';
+    ctx.beginPath(); ctx.ellipse(u.x, u.y+6, 5, 2.5, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#c83a3a';
+    ctx.beginPath(); ctx.arc(u.x, u.y-1, 6, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#f0d0d0';
+    ctx.font = '8px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('\u{1F480}', u.x, u.y-1);
+
+    const bw = 14, p = u.hp / u.mhp;
+    ctx.fillStyle = 'rgba(0,0,0,.6)';
+    ctx.fillRect(u.x-bw/2, u.y-13, bw, 3);
+    ctx.fillStyle = '#ff4444';
+    ctx.fillRect(u.x-bw/2, u.y-13, bw*p, 3);
+  });
+}
+
+function renderMinimap(){
+  if (!mmX) return;
+  const sc = 4;
+  mmX.fillStyle = '#0a0805';
+  mmX.fillRect(0, 0, GW * sc, GH * sc);
+
+  const MC = {0:'#3a7028', 1:'#1e4a14', 2:'#1e4470', 3:'#4a4036'};
+  for (let y=0; y<GH; y++) for (let x=0; x<GW; x++){
+    const f = G.fog[y]?.[x] ?? 0, t = G.grid[y][x];
+    if (f === 0){
+      mmX.fillStyle = '#040302';
+    } else {
+      const b = G.buildings.find(b => b.x===x && b.y===y);
+      mmX.fillStyle = b ? (b.owner === 'ai' ? '#9a2020' : '#c9973a') : (MC[t] || '#2d5c1e');
+      if (f === 2) mmX.globalAlpha = .5;
+    }
+    mmX.fillRect(x*sc, y*sc, sc, sc);
+    mmX.globalAlpha = 1;
+  }
+
+  // Camera viewport box
+  if (canvas){
+    const vx = -G.camX / TS * sc, vy = -G.camY / TS * sc;
+    const vw = canvas.width / TS * sc, vh = canvas.height / TS * sc;
+    mmX.strokeStyle = 'rgba(240,204,110,.85)';
+    mmX.lineWidth = 1;
+    mmX.strokeRect(vx, vy, vw, vh);
+  }
+
+  // Units blips
+  G.units.forEach(u => {
+    mmX.fillStyle = '#4a9af0';
+    mmX.fillRect(u.x / TS * sc - 1, u.y / TS * sc - 1, 3, 3);
+  });
+  G.aiu.forEach(u => {
+    mmX.fillStyle = '#f04a4a';
+    mmX.fillRect(u.x / TS * sc - 1, u.y / TS * sc - 1, 3, 3);
+  });
+}
+
+document.getElementById('mmc').addEventListener('click', e => {
+  SFX.click();
+  const r = e.target.getBoundingClientRect(), sc = 4;
+  const mx = (e.clientX - r.left) / sc, my = (e.clientY - r.top) / sc;
+  G.camX = -(mx * TS - canvas.width / 2);
+  G.camY = -(my * TS - canvas.height / 2);
+  clampCam();
+});
+
+// Canvas Interaction Events
+function setupCanvasEvents(){
+  canvas.addEventListener('mousedown', e => {
+    if (e.button === 1 || (e.button === 0 && !G.selB)){
+      G.drag = true;
+      G.dsx = e.clientX; G.dsy = e.clientY;
+      G.csx = G.camX; G.csy = G.camY;
+    }
+  });
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect(), sx = e.clientX - r.left, sy = e.clientY - r.top;
+    if (G.drag){
+      G.camX = G.csx + (e.clientX - G.dsx);
+      G.camY = G.csy + (e.clientY - G.dsy);
+      clampCam();
+    }
+    const {tx, ty} = s2t(sx, sy);
+    G.hx = tx; G.hy = ty;
+    updateMapTooltip(e, tx, ty);
+  });
+  canvas.addEventListener('mouseup', e => {
+    const mv = Math.abs(e.clientX - G.dsx) > 5 || Math.abs(e.clientY - G.dsy) > 5;
+    G.drag = false;
+    if (!mv && e.button === 0){
+      const r = canvas.getBoundingClientRect(), {tx, ty} = s2t(e.clientX - r.left, e.clientY - r.top);
+      if (G.selB) tryBuildStructure(tx, ty, G.selB);
+      else selectMapTile(tx, ty);
+    }
+  });
+  canvas.addEventListener('mouseleave', () => {
+    G.drag = false; G.hx = -1; G.hy = -1;
+    document.getElementById('tip').style.display = 'none';
+  });
+  canvas.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    cancelBuildingMode();
+    closeSelectionPanel();
+  });
+}
+
+function updateMapTooltip(e, tx, ty){
+  const tip = document.getElementById('tip');
+  if (!ig(tx, ty) || !(G.fog[ty]?.[tx] ?? 0)){
+    tip.style.display = 'none';
+    return;
+  }
+  const t = G.grid[ty][tx], b = G.buildings.find(b => b.x===tx && b.y===ty);
+  const tN = {0:'Fertile Grassland', 1:'Dense Forest', 2:'Deep Water', 3:'Mountain Ridge'};
+  const name = b ? ((BEM[b.type] || '') + ' ' + (b.type === T.SPECIAL ? RDATA[G.race].specialName : BNM[b.type] || 'Building')) : tN[t] || 'Unknown';
+  let html = `<strong>${name}</strong>`;
+  if (b){
+    html += `<div style="font-size:.65rem;color:${b.owner==='ai'?'#ff8080':'#80ff80'};margin-top:.1rem;text-transform:uppercase">${b.owner} Territory</div>`;
+    if (b.mw > 0) html += `<div>Assigned Laborers: ${b.workers} / ${b.mw}</div>`;
+  }
+  if (ib(tx, ty) && G.selB) html += `<div style="color:#6aff8a;margin-top:.2rem">\u2713 Buildable Plot</div>`;
+  tip.innerHTML = html;
+  tip.style.display = 'block';
+  tip.style.left = (e.clientX + 16) + 'px';
+  tip.style.top = (e.clientY - 12) + 'px';
+}
+
+function selectMapTile(tx, ty){
+  if (!ig(tx, ty) || !(G.fog[ty]?.[tx] ?? 0)) return;
+  const b = G.buildings.find(b => b.x===tx && b.y===ty && b.owner==='player');
+  if (b){
+    SFX.click();
+    G.selTile = {tx, ty};
+    openSelectionPanel(b);
+  } else {
+    G.selTile = null;
+    closeSelectionPanel();
+  }
+}
+
+function openSelectionPanel(b){
+  const isSpecial = b.type === T.SPECIAL;
+  const name = isSpecial ? RDATA[G.race].specialName : BNM[b.type];
+  const desc = isSpecial ? RDATA[G.race].specialDesc : (Object.values(BINFO).find(d => d.type === b.type)?.desc || '');
+
+  document.getElementById('sph').innerHTML = (BEM[b.type] || '') + ' ' + name;
+  const body = document.getElementById('spb');
+  body.innerHTML = `<div class="sps">Structure Durability: <span>${Math.floor(b.hp)} / ${b.mhp} HP</span></div>`;
+  if (desc) body.innerHTML += `<div class="sps" style="color:var(--gold-dim);font-style:italic">${desc}</div>`;
+
+  if (b.mw > 0){
+    body.innerHTML += `<div class="sps">Assigned Laborers: <span>${b.workers} / ${b.mw}</span></div>`;
+    const sd = document.createElement('div');
+    sd.className = 'spw';
+    for (let i=0; i<b.mw; i++){
+      const sl = document.createElement('div');
+      sl.className = 'ws' + (i < b.workers ? ' filled' : '');
+      sl.title = i < b.workers ? 'Remove worker' : 'Assign worker';
+      sl.addEventListener('click', () => {
+        if (i < b.workers){
+          b.workers = Math.max(0, b.workers - 1);
+          G.pop = Math.min(G.maxPop, G.pop + 1);
+          SFX.click();
+          showNotice('Laborer unassigned from facility', '#c9973a');
+        } else if (G.pop > 1){
+          b.workers = Math.min(b.mw, b.workers + 1);
+          G.pop = Math.max(1, G.pop - 1);
+          SFX.coin();
+          showNotice('Laborer assigned to production!', '#4aff8a');
+        } else {
+          showNotice('No free population available!', '#ff6a6a');
+        }
+        openSelectionPanel(b);
+      });
+      sd.appendChild(sl);
+    }
+    body.appendChild(sd);
+  }
+
+  if (b.type === T.BARRACKS){
+    const btn = document.createElement('button');
+    btn.className = 'spbtn';
+    btn.textContent = '\u2694 Recruit Soldier (\u{1F33E}20 \u{1F4B0}30)';
+    btn.addEventListener('click', () => {
+      if (G.food >= 20 && G.gold >= 30 && G.soldiers < 35){
+        G.food -= 20; G.gold -= 30;
+        spawnPlayerSoldier();
+        SFX.build();
+        showNotice('\u2694 Royal Soldier trained and deployed!', '#4a9af0');
+        openSelectionPanel(b);
+      } else {
+        showNotice('Insufficient provisions or treasury!', '#ff6a6a');
+      }
+    });
+    body.appendChild(btn);
+    body.innerHTML += `<div class="sps" style="margin-top:.3rem">Kingdom Garrison: <span>${G.soldiers} soldiers</span></div>`;
+  }
+
+  document.getElementById('selpanel').classList.add('open');
+}
+
+function closeSelectionPanel(){
+  G.selTile = null;
+  document.getElementById('selpanel').classList.remove('open');
+}
+
+// Building Toolbar System
+function setupToolbarEvents(){
+  document.querySelectorAll('.bb').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = BKEY[btn.dataset.b];
+      if (!type) return;
+      SFX.click();
+      if (G.selB === type){
+        cancelBuildingMode();
+        return;
+      }
+      G.selB = type;
+      document.querySelectorAll('.bb').forEach(b => b.classList.remove('act'));
+      btn.classList.add('act');
+      closeSelectionPanel();
+      const bName = type === T.SPECIAL ? RDATA[G.race].specialName : BNM[type];
+      setGameStatus(`Placing ${bName} \u2014 Left-click to place, Right-click to cancel`);
+    });
+  });
+}
+
+function cancelBuildingMode(){
+  G.selB = null;
+  document.querySelectorAll('.bb').forEach(b => b.classList.remove('act'));
+  setGameStatus('Click map to build \u00B7 Drag to pan \u00B7 F1 for economy');
+}
+
+function tryBuildStructure(tx, ty, type){
+  if (!ib(tx, ty)){
+    showNotice('\u26A0 Terrain is unsuitable for construction!', '#ff6a6a');
+    return;
+  }
+  const cost = BCOSTS[type] || {};
+  for (const [r, a] of Object.entries(cost)){
+    if (G[r] < a){
+      showNotice(`\u26A0 Insufficient ${r.toUpperCase()} (Requires ${a})!`, '#ff6a6a');
+      return;
+    }
+  }
+  for (const [r, a] of Object.entries(cost)) G[r] -= a;
+
+  const info = Object.values(BINFO).find(d => d.type === type) || {mw:0};
+  placeBld(tx, ty, type, 'player', 0, info.mw);
+
+  if (type === T.HOUSE) G.maxPop += 5;
+
+  SFX.build();
+  updateFog();
+  updHUD();
+  const bName = type === T.SPECIAL ? RDATA[G.race].specialName : BNM[type];
+  showNotice(`\u2713 ${bName} constructed successfully!`, '#4aff8a');
+}
+
+// Simulation Loop
+function simTick(){
+  G.tick++;
+  const sp = G.speed || 1;
+
+  // Production from player structures
+  G.buildings.filter(b => b.owner === 'player').forEach(b => {
+    const eff = b.mw > 0 ? Math.max(1, b.workers) / Math.max(1, b.mw) : 1;
+    if (b.type === T.FARM) G.food += 0.38 * eff * (G.bonuses.farmEff || 1.0) * sp;
+    if (b.type === T.LUMBERMILL) G.wood += 0.28 * eff * sp;
+    if (b.type === T.MINE) G.iron += 0.15 * eff * (G.bonuses.mineEff || 1.0) * sp;
+    if (b.type === T.PALACE) G.gold += 0.1 * sp;
+    if (b.type === T.SPECIAL){
+      if (G.race === 'human') G.gold += 0.25 * sp;
+      if (G.race === 'elf')   G.food += 0.5 * sp;
+      if (G.race === 'dwarf') G.iron += 0.3 * sp;
+    }
+  });
+
+  // Faction traits
+  if (G.race === 'human') G.gold += 0.04 * sp;
+  if (G.race === 'dwarf') G.iron += 0.06 * sp;
+  if (G.race === 'elf')   G.food += 0.08 * sp;
+
+  // Resource consumption
+  G.food -= G.pop * 0.02 * sp;
+  const upkeep = G.buildings.filter(b => b.owner === 'player' && b.type !== T.ROAD).length * 0.012 * sp;
+  G.gold -= upkeep;
+  G.gold -= G.soldiers * 0.05 * sp;
+
+  // Happiness evaluation
+  if (G.food < 15) G.happy = Math.max(10, G.happy - 0.35 * sp);
+  else if (G.food > 120) G.happy = Math.min(100, G.happy + 0.06 * sp);
+
+  // Population natural growth
+  G.popT = (G.popT || 0) + 1;
+  if (G.popT > 60 / sp){
+    G.popT = 0;
+    if (G.pop < G.maxPop && G.food > 25 && G.happy > 50){
+      const gc = G.race === 'dwarf' ? 0.4 : (G.race === 'elf' ? 0.6 : 1.0);
+      if (Math.random() < gc){
+        G.pop++;
+        G.food -= 6;
+        SFX.coin();
+        showNotice('\u{1F476} New citizens have settled in your kingdom!', '#6aff8a');
+      }
+    }
+  }
+
+  // Bounds
+  G.food = cl(G.food, 0, 99999);
+  G.wood = cl(G.wood, 0, 99999);
+  G.stone = cl(G.stone, 0, 99999);
+  G.iron = cl(G.iron, 0, 99999);
+  G.gold = cl(G.gold, 0, 999999);
+  G.happy = cl(G.happy, 0, 100);
+
+  // AI & Fog Tick
+  stepAI();
+  if (G.tick % 5 === 0) updateFog();
+
+  // Seasons & Calendar Progression
+  if (G.tick % 10 === 0){
+    G.day++;
+    if (G.day > 90){
+      G.day = 1;
+      G.season = (G.season + 1) % 4;
+      if (G.season === 0){
+        G.year++;
+        showNotice(`\u{1F4C5} Happy New Year! Welcome to Year ${G.year}!`, '#c9973a');
+        autoSaveGame();
+      }
+      showNotice(`\u{1F5D3} Season changed: ${SEASONS[G.season]}`, '#4a9a9a');
+    }
+  }
+
+  // Low Food Alert
+  if (G.tick % 35 === 0 && G.food < 25){
+    SFX.alert();
+    showNotice('\u{1F35E} Granary low on food! Citizens risk starvation!', '#ffcc00');
+  }
+
+  // Chart History
+  goldH.push(G.gold); if (goldH.length > HIST) goldH.shift();
+  foodH.push(G.food); if (foodH.length > HIST) foodH.shift();
+
+  updHUD();
+  if (document.getElementById('dash').classList.contains('open')) updateDashboardView();
+}
+
+// HUD Updates
+let prevHUD = {};
+function updHUD(){
+  const fds = {gold:'vg', food:'vf', wood:'vw', stone:'vs', iron:'vi', pop:'vp', maxPop:'vmp', happy:'vh', soldiers:'vsol'};
+  for (const [k, id] of Object.entries(fds)){
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const v = Math.floor(G[k] || 0);
+    el.textContent = v;
+    el.classList.remove('up', 'dn');
+    if (v > (prevHUD[k] ?? v)) el.classList.add('up');
+    if (v < (prevHUD[k] ?? v)) el.classList.add('dn');
+    prevHUD[k] = v;
+  }
+  document.getElementById('tss').textContent = SEASONS[G.season] || SEASONS[0];
+  document.getElementById('tyr').textContent = `Year ${G.year}, Day ${G.day}`;
+}
+
+// Modals Setup (Dashboard, Diplomacy, Tech Tree, Audio, Save)
+function setupModals(){
+  // F1 Dashboard
+  const dash = document.getElementById('dash');
+  document.getElementById('btn-f1').addEventListener('click', () => { SFX.click(); dash.classList.add('open'); updateDashboardView(); });
+  document.getElementById('dcl').addEventListener('click', () => { SFX.click(); dash.classList.remove('open'); });
+
+  // Diplomacy
+  const dipModal = document.getElementById('dip-modal');
+  document.getElementById('btn-dip').addEventListener('click', () => { SFX.click(); dipModal.classList.add('open'); updateDiplomacyView(); });
+  document.getElementById('dip-close').addEventListener('click', () => { SFX.click(); dipModal.classList.remove('open'); });
+
+  // Tech Tree
+  const techModal = document.getElementById('tech-modal');
+  document.getElementById('btn-tech').addEventListener('click', () => { SFX.click(); techModal.classList.add('open'); updateTechTreeView(); });
+  document.getElementById('tech-close').addEventListener('click', () => { SFX.click(); techModal.classList.remove('open'); });
+
+  // Save Game Button
+  document.getElementById('btn-save').addEventListener('click', () => {
+    SFX.coin();
+    saveGameToStorage();
+    showNotice('\u{1F4BE} Game saved successfully to LocalStorage!', '#4aff8a');
+  });
+
+  // Sound Toggle Button
+  const sndBtn = document.getElementById('btn-sound');
+  sndBtn.addEventListener('click', () => {
+    SFX.enabled = !SFX.enabled;
+    sndBtn.textContent = SFX.enabled ? '\u{1F50A} Sound: ON' : '\u{1F507} Sound: OFF';
+    sndBtn.classList.toggle('active', !SFX.enabled);
+    SFX.click();
+  });
+}
+
+function updateDashboardView(){
+  const rs = [
+    {l:'Royal Treasury', v:G.gold, i:'\u{1F4B0}', s:`Upkeep: ${(G.buildings.filter(b=>b.owner==='player'&&b.type!==T.ROAD).length*0.012*G.speed).toFixed(2)}/tick`},
+    {l:'Food Supplies', v:G.food, i:'\u{1F33E}', s:`${G.pop} citizens consuming`},
+    {l:'Timber Stock', v:G.wood, i:'\u{1FAB5}', s:`${G.buildings.filter(b=>b.owner==='player'&&b.type===T.LUMBERMILL).length} sawmills active`},
+    {l:'Quarry Stone', v:G.stone, i:'\u{1FAA8}', s:'Construction reserves'},
+    {l:'Iron & Metal', v:G.iron, i:'\u2699\uFE0F', s:`${G.buildings.filter(b=>b.owner==='player'&&b.type===T.MINE).length} active mines`},
+    {l:'Total Population', v:G.pop, i:'\u{1F465}', s:`Capacity: ${G.maxPop} citizens`},
+    {l:'Citizen Approval', v:G.happy+'%', i:'\u{1F60A}', s:G.happy>70?'Prospering':(G.happy>40?'Stable':'Unrest')},
+    {l:'Royal Garrison', v:G.soldiers, i:'\u2694', s:G.war==='war'?'\u2694 IN STATE OF WAR':'\u{1F54A} At Peace'}
+  ];
+  document.getElementById('drg').innerHTML = rs.map(r => `
+    <div class="mca">
+      <div class="dl">${r.i} ${r.l}</div>
+      <div class="dv2">${Math.floor(r.v)}</div>
+      <div class="dsb">${r.s}</div>
+    </div>
+  `).join('');
+
+  drawChart('cgold', goldH, '#c9973a', 'rgba(201,151,58,.15)');
+  drawChart('cfood', foodH, '#7a9a20', 'rgba(122,154,32,.15)');
+
+  document.getElementById('dbl').innerHTML = G.buildings.filter(b=>b.owner==='player').map(b => {
+    const name = b.type === T.SPECIAL ? RDATA[G.race].specialName : BNM[b.type];
+    return `
+      <div class="br">
+        <span style="font-size:1rem">${BEM[b.type] || '\u{1F3DB}'}</span>
+        <span class="bn">${name || 'Facility'}</span>
+        ${b.mw > 0 ? `<span style="font-size:.72rem;color:var(--gold-dim);margin-right:1rem">${b.workers}/${b.mw} Laborers</span>` : ''}
+        <span style="font-size:.68rem;color:#888">${Math.floor(b.hp)} / ${b.mhp} HP</span>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('dintel').innerHTML = [
+    {l:'Enemy Outposts', v:G.buildings.filter(b=>b.owner==='ai').length, i:'\u{1F3F4}'},
+    {l:'Enemy Vanguard', v:G.aiu.length, i:'\u{1F480}'},
+    {l:'Diplomatic Status', v:G.war==='war'?'\u2694 WAR':'\u{1F54A} '+G.ai.pact.toUpperCase(), i:'\u{1F30D}'},
+    {l:'Chronicles', v:`Year ${G.year}, Day ${G.day}`, i:'\u{1F4C5}'}
+  ].map(r => `
+    <div class="mca">
+      <div class="dl">${r.i} ${r.l}</div>
+      <div class="dv2" style="font-size:1.15rem">${r.v}</div>
+    </div>
+  `).join('');
+}
+
+function updateDiplomacyView(){
+  const aiRace = RDATA[G.ai.race];
+  const cnt = document.getElementById('dip-content');
+  cnt.innerHTML = `
+    <div class="dip-leader">
+      <div class="dip-avatar"><img src="${aiRace.imgSheet}" alt="${aiRace.name}"/></div>
+      <div class="dip-info">
+        <h4>${aiRace.name}</h4>
+        <p>Diplomatic Relations: <strong>${G.ai.relation} / 100</strong> (${G.ai.relation > 60 ? 'Friendly' : (G.ai.relation > 30 ? 'Cautious' : 'Hostile')})</p>
+        <p>Treaty Status: <strong>${G.ai.pact.toUpperCase()}</strong></p>
+      </div>
+    </div>
+    <div class="ms">
+      <h3>Envoy Actions</h3>
+      <div class="dip-actions">
+        <button class="bg pro" id="btn-gift">&#x1F381; Send Gift (50 Gold &rarr; +20 Rel)</button>
+        <button class="bg pro" id="btn-pact">&#x1F91D; Sign Trade Pact (Req. 60+ Rel)</button>
+        <button class="bg bk" style="border-color:#ff4444;color:#ff6666" id="btn-decl-war">&#x2694; Declare War</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('btn-gift').addEventListener('click', () => {
+    if (G.gold >= 50){
+      G.gold -= 50;
+      G.ai.relation = Math.min(100, G.ai.relation + 20);
+      SFX.coin();
+      showNotice('\u{1F381} The envoy delivered the royal gifts! Relations improved.', '#4aff8a');
+      updateDiplomacyView();
+    } else {
+      showNotice('Not enough gold in the royal treasury!', '#ff6a6a');
+    }
+  });
+
+  document.getElementById('btn-pact').addEventListener('click', () => {
+    if (G.ai.relation >= 60){
+      G.ai.pact = 'Trade Alliance';
+      G.gold += 150;
+      SFX.victory();
+      showNotice('\u{1F91D} Trade alliance established! Received 150 Gold tribute.', '#4aff8a');
+      updateDiplomacyView();
+    } else {
+      showNotice('Relations are too strained to sign a treaty (Requires 60+ Relation)!', '#ffcc00');
+    }
+  });
+
+  document.getElementById('btn-decl-war').addEventListener('click', () => {
+    document.getElementById('dip-modal').classList.remove('open');
+    declareWar(true);
+  });
+}
+
+function updateTechTreeView(){
+  const grid = document.getElementById('tech-grid');
+  grid.innerHTML = G.techs.map(t => `
+    <div class="tech-card ${t.researched ? 'researched' : ''}" data-tid="${t.id}">
+      <div class="tech-title">
+        <span>${t.name}</span>
+        <span>${t.researched ? '\u2713 Researched' : ''}</span>
+      </div>
+      <div class="tech-desc">${t.desc}</div>
+      <div class="tech-cost">${t.researched ? '' : Object.entries(t.cost).map(([k,v])=>v+' '+k).join(', ')}</div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.tech-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const tid = card.dataset.tid;
+      const tech = G.techs.find(t => t.id === tid);
+      if (!tech || tech.researched) return;
+
+      for (const [r, a] of Object.entries(tech.cost)){
+        if (G[r] < a){
+          showNotice(`\u26A0 Need ${a} ${r.toUpperCase()} to research ${tech.name}!`, '#ff6a6a');
+          return;
+        }
+      }
+      for (const [r, a] of Object.entries(tech.cost)) G[r] -= a;
+
+      tech.researched = true;
+      tech.apply(G);
+      SFX.victory();
+      showNotice(`\u{1F52C} Researched: ${tech.name}!`, '#4aff8a');
+      updateTechTreeView();
+      updHUD();
+    });
+  });
+}
+
+function drawChart(id, data, stroke, fill){
+  const c = document.getElementById(id);
+  if (!c) return;
+  const cx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  cx.clearRect(0, 0, w, h);
+  if (!data.length) return;
+
+  const mx = Math.max(...data, 1), mn = Math.min(...data, 0), range = mx - mn || 1;
+  const pts = data.map((v, i) => ({
+    x: (i / Math.max(data.length - 1, 1)) * w,
+    y: h - ((v - mn) / range) * (h - 10) - 5
+  }));
+
+  // Fill
+  cx.beginPath();
+  cx.moveTo(pts[0].x, h);
+  pts.forEach(p => cx.lineTo(p.x, p.y));
+  cx.lineTo(pts[pts.length - 1].x, h);
+  cx.closePath();
+  cx.fillStyle = fill;
+  cx.fill();
+
+  // Line
+  cx.beginPath();
+  cx.moveTo(pts[0].x, pts[0].y);
+  pts.forEach(p => cx.lineTo(p.x, p.y));
+  cx.strokeStyle = stroke;
+  cx.lineWidth = 1.6;
+  cx.stroke();
+
+  // Value text
+  cx.fillStyle = stroke;
+  cx.font = '10px monospace';
+  cx.textAlign = 'right';
+  cx.fillText(Math.floor(data[data.length - 1]), w - 6, 15);
+}
+
+// Speed Control
+function setupSpeedButtons(){
+  document.querySelectorAll('.sb').forEach(btn => {
+    btn.addEventListener('click', () => {
+      SFX.click();
+      const s = parseInt(btn.dataset.spd);
+      G.speed = s;
+      G.paused = s === 0;
+      document.querySelectorAll('.sb').forEach(b => b.classList.remove('act'));
+      btn.classList.add('act');
+    });
+  });
+}
+
+// Keyboard Shortcuts
+function setupKeyboard(){
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F1' || e.key === 'f'){
+      e.preventDefault();
+      SFX.click();
+      const dash = document.getElementById('dash');
+      if (dash.classList.contains('open')) dash.classList.remove('open');
+      else { dash.classList.add('open'); updateDashboardView(); }
+    }
+    if (e.key === 'Escape'){
+      cancelBuildingMode();
+      closeSelectionPanel();
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+    }
+    if (e.key === 'w' || e.key === 'W') declareWar(true);
+  });
+}
+
+// Save & Load Engine (LocalStorage)
+function saveGameToStorage(){
+  try {
+    const saveData = {
+      ...G,
+      simTimer: null,
+      saveDate: new Date().toISOString()
+    };
+    localStorage.setItem('PROJECT_KINGDOM_SAVE', JSON.stringify(saveData));
+  } catch(e){
+    console.error('Save error', e);
+  }
+}
+
+function autoSaveGame(){
+  saveGameToStorage();
+  showNotice('\u{1F4BE} Auto-saved kingdom state.', 'rgba(201,151,58,0.7)');
+}
+
+function loadSavedGame(){
+  try {
+    const raw = localStorage.getItem('PROJECT_KINGDOM_SAVE');
+    if (!raw){
+      alert('No saved campaign found!');
+      return;
+    }
+    const data = JSON.parse(raw);
+    initGameSession(data.race, data);
+    ss('game');
+    showNotice(`\u{1F4BE} Campaign Loaded: Year ${data.year}, Day ${data.day}`, '#4aff8a');
+  } catch(e){
+    alert('Failed to load saved game data!');
+  }
+}
+
+// Notifications
+function showNotice(msg, color){
+  const log = document.getElementById('alog');
+  const item = document.createElement('div');
+  item.className = 'ait';
+  item.style.setProperty('--ac', color || '#c9973a');
+  item.textContent = msg;
+  log.prepend(item);
+  setTimeout(() => item.remove(), 4200);
+}
+
+function setGameStatus(msg){
+  document.getElementById('hs').textContent = msg;
+}
+</script>
+</body>
+</html>
