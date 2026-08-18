@@ -17,17 +17,18 @@ playable_prototype: "[[Game/index.html]]"
 # 👑 Project Kingdom — Master Dashboard & Development Hub
 
 > **Game Concept:** เกมสร้างเมือง 2D Pixel Art ผสมผสานระบบเศรษฐกิจสมจริง (Physical Logistics), การทูต (Diplomacy), การวิจัย (Tech Tree) และสงครามชิงดินแดน (Conquest) ระหว่าง 4 มหาเผ่าพันธุ์
-> **สถานะปัจจุบัน:** 🟢 **Master Prototype v1.0 (Playable HTML5/JS Web Prototype Completed)**
+> **สถานะปัจจุบัน:** 🟢 **Master Prototype v1.2 (Transparent Character Sheet Sprites & Animated Mounts)**
 
 ---
 
 ## 🎮 วิธีเปิดเล่นเกม Prototype (Playable Demo)
 
-1. **เปิดไฟล์ใน Browser:** [`Game/index.html`](file:///G:/ไดรฟ์ของฉัน/SecondBrain/Second%20Brain/04_PROJECTS/Kingdom/Game/index.html)
+1. **เปิดไฟล์ใน Browser:** [`Game/index.html`](file:///G:/ไดรฟ์ของฉัน/SecondBrain/Second%20Brain/04_PROJECTS/Kingdom/Game/index.html) หรือเล่นออนไลน์ผ่าน GitHub Pages
 2. **การควบคุม (Controls):**
    - **คลิกซ้าย (Left Click):** เลือกเผ่า, เลือกอาคารเพื่อวาง, มอบหมายคนงาน (Worker Assignment)
    - **คลิกขวา (Right Click) / ESC:** ยกเลิกการสร้าง / ปิดหน้าต่าง
    - **ลากเมาส์ (Drag Mouse):** เลื่อนมุมมองแผนที่ (Pan Camera)
+   - **หมุนลูกกลิ้งเมาส์ (Mouse Wheel Zoom) / ปุ่ม `+` `-` `1x`:** ซูมดูตัวละครพิกเซลอาร์ตแบบคมชัดระดับ 250%
    - **F1 / ปุ่ม Dashboard:** เปิดหน้ารายงานเศรษฐกิจและกราฟคลังหลวง (Treasury & Stockpile)
    - **ปุ่ม Diplomacy (การทูต):** เจรจากับ AI Faction ส่งของขวัญ (+ความสัมพันธ์), ทำสัญญาการค้า, หรือประกาศสงคราม
    - **ปุ่ม Tech Tree (วิจัย):** ปลดล็อกเทคโนโลยีการเกษตร, กำแพงหิน, การหลอมเหล็ก, กิลด์คนงาน, กองทัพประจำการ
