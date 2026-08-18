@@ -70,36 +70,31 @@ agent_in_charge: "[[Agent_Marshmallow.md]]"
 
 ---
 
-## 📋 Checklist สถานะรูปภาพ
+## 📋 Checklist สถานะรูปภาพและการเชื่อมต่อในเกม
 
-> ติ๊กได้จริง — คลิกที่กล่องหน้าแต่ละบรรทัดเพื่อ Mark ว่าเสร็จแล้ว
+> สถานะการเชื่อมต่อ: **✅ นำเข้าเกม v1.2 เรียบร้อย (ตัดขอบโปร่งใส & ทำระบบอนิเมชันเดิน + สัตว์ขี่ + Wonder)**
 
-**Human**
-- [x] Character Sheet
-- [x] Mount (Horse)
-- [x] Building (Grand Embassy)
+**👤 Characters & Mounts (ครบ 4 เผ่า — นำเข้าเกมแล้ว)**
+- [x] Human: Character Sheet & Mount (Horse)
+- [x] Elf: Character Sheet & Mount (Great Stag)
+- [x] Orc: Character Sheet & Mount (Boar)
+- [x] Dwarf: Character Sheet & Mount (Mountain Goat)
 
-**Elf**
-- [x] Character Sheet
-- [x] Mount (Great Stag)
-- [x] Building (Ancient Grove)
+**🏛️ Faction Wonders (ครบ 4 เผ่า — นำเข้าเกมแล้ว)**
+- [x] Human: Grand Embassy
+- [x] Elf: Ancient Grove
+- [x] Orc: War Totem
+- [x] Dwarf: Deep Forge
 
-**Orc**
-- [x] Character Sheet
-- [x] Mount (Boar)
-- [x] Building (War Totem)
-
-**Dwarf**
-- [x] Character Sheet
-- [x] Mount (Mountain Goat)
-- [x] Building (Deep Forge)
-
-**Scenes**
-- [x] Town Day/Night Cycle (มีอยู่แล้ว — รอสร้างใหม่ตาม Prompt เดิม)
+**⏳ Upcoming Assets to Create (รายการรูปที่แนะนำทำต่อเพื่อความสมบูรณ์แบบ):**
+- [ ] **Standard Buildings Sheet** (House, Farm, Lumber Mill, Mine, Barracks, Watchtower, Road)
+- [ ] **Environment Props** (Oak Tree, Pine Tree, Mountain Rock, Iron Ore Deposit)
+- [ ] **UI Resource Icons** (Gold Coin, Food Grain, Wood Log, Stone Block, Iron Ingot)
+- [ ] **Victory & Defeat Art** (Victory Banner, Conquest/Defeat Splash Scene)
 
 ---
 
-## 📐 Naming Convention (สำคัญ — ต้องตั้งชื่อไฟล์ตรงนี้เป๊ะ)
+## 📐 Naming Convention (บันทึกโครงสร้างไฟล์)
 
 ```
 Assets/Character/Human/Human_Character_Sheet.png
@@ -111,14 +106,15 @@ Assets/Character/Orc/Orc_Mount_Boar.png
 Assets/Character/Dwarf/Dwarf_Character_Sheet.png
 Assets/Character/Dwarf/Dwarf_Mount_MountainGoat.png
 
-Assets/Building/Human_Building_GrandEmbassy.png
-Assets/Building/Elf_Building_AncientGrove.png
-Assets/Building/Orc_Building_WarTotem.png
-Assets/Building/Dwarf_Building_DeepForge.png
+Assets/Character/Human/Human_Building_GrandEmbassy.png
+Assets/Character/Elf/Elf_Building_AncientGrove.png
+Assets/Character/Orc/Orc_Building_WarTotem.png
+Assets/Character/Dwarf/Dwarf_Building_DeepForge.png
 
 Assets/Scenes/day_night_town_scene.png
 ```
 
-ดูรายละเอียด Prompt สำหรับสร้างแต่ละรูปที่ [[16-Art-Asset-Prompts]]
+ดูรายละเอียดคำสั่ง Prompt สำหรับสร้างรูปแต่ละหมวดได้ที่: [[16-Art-Asset-Prompts]]
+กลับสู่หน้าควบคุมหลัก: [[Project_Kingdom_Master_Hub]]
 
 

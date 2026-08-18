@@ -119,41 +119,56 @@ same pixel density (not more detailed, not less).
 
 ---
 
-## 3️⃣ หมวดภูมิทัศน์ (Landscape / Tiles) — เหมาะกับ AI Generate เต็มที่
+## 2.5️⃣ หมวดสิ่งก่อสร้างพื้นฐาน (Standard Buildings Sheet)
 
-> จุดนี้ AI Generate ได้อย่างอิสระ เพราะ Consistency ไม่กระทบเท่า Character/Building
-
-**คำอธิบายไทย:**
-- ใช้สำหรับพื้นหญ้า, ป่า, ภูเขา, น้ำ, ถนน ฯลฯ
-
-**English Prompt (Template):**
+**English Prompt:**
 ```
-16-bit pixel art tileset, seamless tile, top-down game map style, 
-[insert terrain type e.g. "lush grassland with small flower details" / 
-"dense pine forest floor with fallen logs" / "rocky mountain terrain with 
-grey stone texture" / "calm blue river water with subtle wave animation frames"].
+16-bit pixel art, top-down RPG medieval fantasy building sprite sheet, 
+including 6 distinct structures:
+1. Small cozy wooden house with tiled roof
+2. Farmland patch with golden wheat rows
+3. Lumber mill sawmill with stacked logs and saw
+4. Iron mine cave entrance with stone tunnel and wooden support beams
+5. Military barracks training yard with faction banners and training dummy
+6. Stone and timber watchtower guard post
 
-Color palette: vibrant but not oversaturated, matching a warm medieval 
-fantasy kingdom builder game. Must tile seamlessly on all four edges.
+Isolated on dark neutral background, matching kingdom builder pixel art style, 
+crisp pixel edges, clean palette, top-down 3/4 perspective.
 ```
 
 ---
 
-## 4️⃣ หมวดเอฟเฟกต์/แสง (VFX & Lighting)
+## 3️⃣ หมวดภูมิทัศน์และธรรมชาติ (Landscape / Environment Props)
 
-**English Prompt (Template):**
+**English Prompt:**
 ```
-16-bit pixel art lighting effect, top-down view, [insert effect e.g. 
-"warm torch flame flicker animation, 4 frames" / "soft moonlight glow 
-overlay for night scenes" / "dust cloud effect for marching army units"].
+16-bit pixel art environment props and tileset, top-down RPG style:
+- Lush green oak tree, snowy pine tree, fallen mossy log
+- Grey granite boulder, glowing iron ore crystal rock
+- Natural stone path road tile, wooden bridge tile
 
-Must be compatible with a medieval fantasy pixel art kingdom-building game, 
-transparent background (PNG), consistent pixel scale with existing 
-character sprites.
+Clean pixel clusters, vibrant medieval fantasy palette, isolated on dark neutral background.
+```
+
+---
+
+## 4️⃣ หมวดไอคอนทรัพยากร (UI Resource Icons 24x24)
+
+**English Prompt:**
+```
+16-bit pixel art fantasy game UI icon set, 24x24 pixel scale:
+- Pouch of shining gold coins (Gold)
+- Golden wheat sheaf and loaf of bread (Food)
+- Stack of chopped wooden logs (Wood)
+- Chiseled granite stone brick (Stone)
+- Smelted steel iron ingot bar (Iron)
+
+Crisp pixel outline, high contrast readability, dark neutral background.
 ```
 
 ---
 
 ## 📌 หมายเหตุการใช้งาน
-- ทุกครั้งที่ต้องการภาพใหม่ (อาคาร Unique อื่น ๆ, หน่วยพิเศษเพิ่มเติม, ฉากใหม่) ให้ขอ Prompt ในรูปแบบเดียวกันนี้จาก Claude
-- เก็บภาพที่ Generate สำเร็จแล้วไว้เป็น Reference สำหรับ Prompt ครั้งต่อไป เพื่อรักษาความสม่ำเสมอของสไตล์
+- เก็บภาพที่สร้างสำเร็จไว้ในโฟลเดอร์ `04_PROJECTS/Kingdom/Assets/`
+- เมื่อนำไฟล์มาวางแล้ว แจ้งตัวช่วยพัฒนาเพื่อเชื่อมต่อระบบเรนเดอร์ในเกมและอัปเดตลง [[18-Asset-Gallery]] ทันที
+- ติดตามความก้าวหน้ารวมของโปรเจกต์ได้ที่: [[Project_Kingdom_Master_Hub]]
