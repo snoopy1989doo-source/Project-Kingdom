@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Project Kingdom — Master Prototype v1.0</title>
+<title>Project Kingdom — Master Prototype v1.1 (Full Sprite Edition)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
@@ -175,6 +175,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .act-btn:hover{background:rgba(201,151,58,.2);border-color:var(--gold);color:var(--gold-light)}
 .act-btn.active{background:var(--gold);color:var(--ink);font-weight:700}
 
+/* Zoom Controls */
+#zoom-controls{position:absolute;top:3.5rem;right:17rem;display:flex;gap:.3rem;z-index:15}
+.zm-btn{width:26px;height:24px;background:rgba(13,10,6,.9);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:var(--ft);font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;border-radius:2px}
+.zm-btn:hover{background:var(--gold);color:var(--ink)}
+
 /* Diplomacy Grid */
 .dip-leader{display:flex;gap:1rem;align-items:center;background:rgba(255,255,255,.03);padding:1rem;border-left:3px solid var(--gold-dim);margin-bottom:1rem}
 .dip-avatar{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;background:#000}
@@ -198,7 +203,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 <div id="ld">
   <div class="ldt">KINGDOM</div>
   <div class="ldbw"><div class="ldbf"></div></div>
-  <div class="ldtip">"ผู้ที่อ่านกราฟเศรษฐกิจและสร้างเครือข่ายได้เร็วกว่า คือผู้ชนะ"</div>
+  <div class="ldtip">"กำลังโหลดสไปรต์ตัวละครจาก Character Sheet..."</div>
 </div>
 
 <!-- Main Menu -->
@@ -209,7 +214,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
     <div>
       <div class="logo-s">&#x2694; Project &#x2694;</div>
       <div class="logo-t">KINGDOM</div>
-      <div class="logo-v">Master Prototype v1.0 &#x2014; Web Audio &#x00B7; Tech Tree &#x00B7; Diplomacy &#x00B7; Save/Load</div>
+      <div class="logo-v">Master Prototype v1.1 &#x2014; Full Sprite Character Sheet Edition</div>
     </div>
     <div class="orn"><span style="color:var(--gold);font-size:1.2rem">&#x26DC;</span></div>
     <div class="mact">
@@ -218,14 +223,14 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
       <button id="btn-gdd" class="bmenu sec">&#x1F4DA; Design Document</button>
     </div>
   </div>
-  <div class="mft">Project Kingdom &#x2014; Complete Medieval Strategy Simulation</div>
+  <div class="mft">Project Kingdom &#x2014; Authentic Pixel Art Strategy Simulation</div>
 </div>
 
 <!-- Race Selection -->
 <div id="screen-race" class="screen">
   <div class="rhdr">
     <h1>Choose Your Faction</h1>
-    <p>Each civilization commands a distinct philosophy, economy, and victory condition.</p>
+    <p>Each civilization features authentic animated pixel art characters &amp; mount riders.</p>
   </div>
   <div class="rgrid">
     <div class="rcard" data-race="human"><div class="rsm">&#x2713;</div>
@@ -240,7 +245,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
         </div>
         <div class="rpks">
           <div class="pi"><span class="pic">&#x2726;</span> Trade price +25% &amp; Gold generation</div>
-          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>Grand Embassy</strong> (+Influence)</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Wonder: <strong>Grand Embassy</strong> (+Influence)</div>
           <div class="pi"><span class="pic">&#x2717;</span> ทหารพื้นฐานอ่อนแอกว่าเผ่าอื่น 20%</div>
         </div>
         <div class="rvc">&#x2691; Diplomatic Victory (Alliances &amp; Gold)</div>
@@ -258,7 +263,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
         </div>
         <div class="rpks">
           <div class="pi"><span class="pic">&#x2726;</span> ผลิตทหารเร็ว 2 เท่า &amp; พลังโจมตีสูง</div>
-          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>War Totem</strong> (+40% Morale)</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Wonder: <strong>War Totem</strong> (+40% Morale)</div>
           <div class="pi"><span class="pic">&#x2717;</span> การทูตติดลบ ค่าค้าขายแพง</div>
         </div>
         <div class="rvc">&#x2691; Conquest Victory (Raze Enemies)</div>
@@ -276,7 +281,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
         </div>
         <div class="rpks">
           <div class="pi"><span class="pic">&#x2726;</span> ป่าไม้และอาหารฟื้นฟูได้ไม่จำกัด</div>
-          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>Ancient Grove</strong> (Free Food &amp; Herb)</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Wonder: <strong>Ancient Grove</strong> (Free Food &amp; Herb)</div>
           <div class="pi"><span class="pic">&#x2717;</span> ประชากรเกิดช้ากว่าเผ่าอื่น</div>
         </div>
         <div class="rvc">&#x2691; Prosperity Victory (Max Happiness &amp; Grove)</div>
@@ -294,7 +299,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
         </div>
         <div class="rpks">
           <div class="pi"><span class="pic">&#x2726;</span> ขุดแร่หินและเหล็กเร็ว 3 เท่า</div>
-          <div class="pi"><span class="pic">&#x2726;</span> Unique: <strong>Deep Forge</strong> (Iron &rarr; Steel Mastery)</div>
+          <div class="pi"><span class="pic">&#x2726;</span> Wonder: <strong>Deep Forge</strong> (Iron &rarr; Steel Mastery)</div>
           <div class="pi"><span class="pic">&#x2717;</span> อัตราการเกิด -40% ต้องการเสบียงสูง</div>
         </div>
         <div class="rvc">&#x2691; Industrial Victory (Steel Monopoly)</div>
@@ -345,6 +350,13 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
       <button class="act-btn" id="btn-sound">&#x1F50A; Sound: ON</button>
     </div>
 
+    <!-- Zoom Toolbar -->
+    <div id="zoom-controls">
+      <button class="zm-btn" id="btn-zin" title="Zoom In (+)">+</button>
+      <button class="zm-btn" id="btn-zrst" title="Reset Zoom (1x)">1x</button>
+      <button class="zm-btn" id="btn-zout" title="Zoom Out (-)">-</button>
+    </div>
+
     <!-- Minimap -->
     <div id="mmw">
       <div id="mml">Overview Map</div>
@@ -376,7 +388,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
       <button class="sb" data-spd="2">&#x25B6;&#x25B6;</button>
       <button class="sb" data-spd="3">&#x25B6;&#x25B6;&#x25B6;</button>
     </div>
-    <div id="hs">Click map to build &#x00B7; Drag to pan &#x00B7; F1 for economy</div>
+    <div id="hs">Click map to build &#x00B7; Mouse Wheel to Zoom &#x00B7; Drag to pan</div>
   </div>
 </div>
 
@@ -435,17 +447,14 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 <script>
 'use strict';
 // ══════════════════════════════════════════════════════════════════════════════
-//  PROJECT KINGDOM MASTER PROTOTYPE v1.0
-//  Architecture: Single Page Application with Web Audio, Fog of War,
-//  Unique Faction Sprites, Diplomacy Engine, Tech Tree, & Save/Load System.
+//  PROJECT KINGDOM MASTER PROTOTYPE v1.1 — FULL SPRITE EDITION
+//  Features: Real Pixel Art Characters sliced from Character Sheets,
+//  Animated Walk Cycles, Mount Riders, Faction Wonder Sprites, & Zoom Control.
 // ══════════════════════════════════════════════════════════════════════════════
 
-// Sound Synthesizer (Web Audio API - Zero External Dependencies)
+// Sound Synthesizer
 class SoundFX {
-  constructor() {
-    this.ctx = null;
-    this.enabled = true;
-  }
+  constructor() { this.ctx = null; this.enabled = true; }
   init() {
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -505,14 +514,14 @@ const T = {
 const BUILDABLE = new Set([0, 4]);
 
 const BINFO = {
-  house:     {type:10, name:'House',       cost:{wood:10,stone:5}, desc:'Max Population +5',    vis:1, mw:0, img:null},
-  farm:      {type:11, name:'Farm',        cost:{wood:8},          desc:'Food +0.4 / tick',     vis:1, mw:3, img:null},
-  lumbermill:{type:12, name:'Lumber Mill', cost:{wood:15,stone:10},desc:'Wood +0.3 / tick',     vis:1, mw:3, img:null},
-  mine:      {type:17, name:'Mine',        cost:{wood:10,stone:20},desc:'Iron +0.15 / tick',    vis:1, mw:3, img:null},
-  barracks:  {type:13, name:'Barracks',    cost:{wood:20,stone:15},desc:'Trains Royal Soldiers',vis:2, mw:2, img:null},
-  watchtower:{type:16, name:'Watchtower',  cost:{wood:12,stone:8}, desc:'Vision Radius +4',    vis:5, mw:1, img:null},
-  special:   {type:18, name:'Unique Wonder',cost:{wood:30,stone:30},desc:'Faction Unique Building', vis:3, mw:2, img:null},
-  road:      {type:14, name:'Road',        cost:{stone:2},         desc:'Movement Speed +50%',  vis:1, mw:0, img:null},
+  house:     {type:10, name:'House',       cost:{wood:10,stone:5}, desc:'Max Population +5',    vis:1, mw:0},
+  farm:      {type:11, name:'Farm',        cost:{wood:8},          desc:'Food +0.4 / tick',     vis:1, mw:3},
+  lumbermill:{type:12, name:'Lumber Mill', cost:{wood:15,stone:10},desc:'Wood +0.3 / tick',     vis:1, mw:3},
+  mine:      {type:17, name:'Mine',        cost:{wood:10,stone:20},desc:'Iron +0.15 / tick',    vis:1, mw:3},
+  barracks:  {type:13, name:'Barracks',    cost:{wood:20,stone:15},desc:'Trains Royal Soldiers',vis:2, mw:2},
+  watchtower:{type:16, name:'Watchtower',  cost:{wood:12,stone:8}, desc:'Vision Radius +4',    vis:5, mw:1},
+  special:   {type:18, name:'Unique Wonder',cost:{wood:30,stone:30},desc:'Faction Unique Building', vis:3, mw:2},
+  road:      {type:14, name:'Road',        cost:{stone:2},         desc:'Movement Speed +50%',  vis:1, mw:0},
 };
 
 const BCOSTS = {
@@ -525,7 +534,7 @@ const BEM  = {10:'\u{1F3E0}', 11:'\u{1F33E}', 12:'\u{1FA9A}', 13:'\u2694', 14:'\
 const BNM  = {10:'House', 11:'Farm', 12:'Lumber Mill', 13:'Barracks', 14:'Road', 15:'Palace', 16:'Watchtower', 17:'Mine', 18:'Faction Wonder'};
 const TC   = {0:'#2d5c1e', 1:'#1a3d12', 2:'#1a3a5c', 3:'#4a4036', 4:'#6b5234', 10:'#8b4513', 11:'#7a9a20', 12:'#5c4528', 13:'#4a2828', 14:'#888070', 15:'#7a5010', 16:'#4a4036', 17:'#3a3028', 18:'#204060'};
 
-// Race Database with Art Assets
+// Race Data with Assets
 const RDATA = {
   human:{
     name:'Human Kingdom', emb:'\u{1F451}', color:'#c94040',
@@ -561,6 +570,14 @@ const RDATA = {
   }
 };
 
+// Preload Sprite Sheet Images
+const SPRITES = {};
+Object.entries(RDATA).forEach(([k, r]) => {
+  const s = new Image(); s.src = r.imgSheet; SPRITES[k+'_sheet'] = s;
+  const b = new Image(); b.src = r.imgBld; SPRITES[k+'_bld'] = b;
+  const m = new Image(); m.src = r.imgMount; SPRITES[k+'_mount'] = m;
+});
+
 // Tech Tree Innovations
 const TECH_LIST = [
   {id:'agr', name:'Advanced Agriculture', desc:'Farm production +30%', cost:{wood:20, gold:50}, researched:false, apply:(g)=>{ g.bonuses.farmEff = 1.3; }},
@@ -578,13 +595,6 @@ let G = {};
 let canvas, ctx, mmC, mmX, selRace = null;
 let goldH = Array(HIST).fill(0), foodH = Array(HIST).fill(0);
 let weatherParticles = [];
-
-// Preload Images
-const PRELOADED_IMG = {};
-Object.entries(RDATA).forEach(([k, r]) => {
-  const s = new Image(); s.src = r.imgSheet; PRELOADED_IMG[k+'_sheet'] = s;
-  const b = new Image(); b.src = r.imgBld; PRELOADED_IMG[k+'_bld'] = s;
-});
 
 // Utilities
 function rnd(a,b){return Math.random()*(b-a)+a}
@@ -604,7 +614,7 @@ window.addEventListener('load', () => {
     document.getElementById('ld').classList.add('hidden');
     ss('menu');
     initFloatingParticles();
-  }, 1800);
+  }, 1200);
 });
 
 function ss(n){
@@ -690,12 +700,12 @@ function initGameSession(race, loadedData = null){
       relation: 50, pact: 'neutral', px: 0, py: 0, placeT: 0
     },
     techs: TECH_LIST.map(t=>({...t})),
+    zoom: 1.0,
     speed: 1, paused: false, selB: null, selTile: null,
     camX: 0, camY: 0, drag: false, dsx: 0, dsy: 0, csx: 0, csy: 0, hx: -1, hy: -1,
     nid: 1, war: 'peace', warD: false, popT: 0
   };
 
-  // Update Special Button name in Toolbar
   const spBtn = document.getElementById('btn-special');
   spBtn.innerHTML = `&#x1F3DB; ${rd.specialName}<span class="bc" id="sp-cost">&#x1FAB5;30 &#x1FAA8;30</span>`;
 
@@ -720,8 +730,8 @@ function initGameSession(race, loadedData = null){
   window.addEventListener('resize', resize);
 
   const px = Math.floor(GW / 2), py = Math.floor(GH / 2);
-  G.camX = -(px * TS - canvas.width / 2 + TS / 2);
-  G.camY = -(py * TS - canvas.height / 2 + TS / 2);
+  G.camX = -(px * TS * G.zoom - canvas.width / 2 + (TS * G.zoom) / 2);
+  G.camY = -(py * TS * G.zoom - canvas.height / 2 + (TS * G.zoom) / 2);
   clampCam();
 
   initWeatherParticles();
@@ -730,6 +740,7 @@ function initGameSession(race, loadedData = null){
   setupSpeedButtons();
   setupCanvasEvents();
   setupModals();
+  setupZoomControls();
   setupKeyboard();
 
   if (G.simTimer) clearInterval(G.simTimer);
@@ -737,8 +748,8 @@ function initGameSession(race, loadedData = null){
 
   requestAnimationFrame(gameLoop);
 
-  showNotice(`\u{1F3F0} Welcome to ${rd.name}! Build farms & lumber mills to prosper.`, '#c9973a');
-  setTimeout(() => showNotice('\u{1F4A1} Hint: F1 for Dashboard \u00B7 Explore fog with Towers \u00B7 Check Diplomacy', '#4a9a30'), 3500);
+  showNotice(`\u{1F3F0} Welcome to ${rd.name}! Pixel art characters loaded from sheet.`, '#c9973a');
+  setTimeout(() => showNotice('\u{1F50D} Tip: Use mouse wheel to Zoom in/out to view character sprites up close!', '#4a9a30'), 3500);
 }
 
 // Map Generation
@@ -841,18 +852,20 @@ function placeAICity(){
 }
 
 // Population & Tiny Worker Simulation
-const WC = {human:'#e8b84b', orc:'#6aff4a', elf:'#4aff8a', dwarf:'#ffa84a'};
 function spawnWorkers(n){
   const cx = Math.floor(GW / 2) * TS + TS / 2;
   const cy = Math.floor(GH / 2) * TS + TS / 2;
+  const roles = [0, 1, 0, 1, 4]; // 0=Farmer, 1=Builder, 4=Merchant
   for (let i=0; i<n; i++){
     G.workers.push({
       x: cx + (Math.random()-.5)*60,
       y: cy + (Math.random()-.5)*60,
       tx: cx, ty: cy,
-      spd: 0.75 + Math.random()*0.5,
+      dir: 1,
+      role: roles[i % roles.length],
+      spd: 0.75 + Math.random()*0.4,
       wt: ri(30, 100),
-      color: WC[G.race] || '#e8b84b'
+      animTimer: Math.random() * 100
     });
     assignWanderGoal(G.workers[G.workers.length-1]);
   }
@@ -869,6 +882,7 @@ function assignWanderGoal(w){
 function stepWorkers(){
   G.workers.forEach(w => {
     const dx = w.tx - w.x, dy = w.ty - w.y, d = Math.hypot(dx, dy);
+    if (dx !== 0) w.dir = dx > 0 ? 1 : -1;
     if (d < 2){
       w.wt--;
       if (w.wt <= 0){
@@ -887,20 +901,33 @@ function stepWorkers(){
 function spawnPlayerSoldier(){
   const p = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
   if (!p) return;
+  const isMounted = G.soldiers % 3 === 0; // Every 3rd soldier is elite mounted knight!
   G.units.push({
     x: p.x * TS + TS / 2, y: p.y * TS + TS / 2,
     tx: p.x * TS + TS / 2, ty: p.y * TS + TS / 2,
-    spd: 0.7, hp: 80, mhp: 80, atk: G.bonuses.soldierAtk || 7
+    dir: 1,
+    isMounted,
+    spd: isMounted ? 0.95 : 0.7,
+    hp: isMounted ? 110 : 80,
+    mhp: isMounted ? 110 : 80,
+    atk: G.bonuses.soldierAtk || (isMounted ? 10 : 7)
   });
   G.soldiers++;
 }
 
 function spawnAISoldier(){
+  const isMounted = G.aiu.length % 3 === 0;
   G.aiu.push({
     x: (G.ai.px + rnd(-.5, .5)) * TS + TS / 2,
     y: (G.ai.py + rnd(-.5, .5)) * TS + TS / 2,
     tx: G.ai.px * TS + TS / 2, ty: G.ai.py * TS + TS / 2,
-    spd: 0.55, hp: 70, mhp: 70, atk: 6, pt: 0
+    dir: -1,
+    isMounted,
+    spd: isMounted ? 0.85 : 0.6,
+    hp: isMounted ? 95 : 70,
+    mhp: isMounted ? 95 : 70,
+    atk: isMounted ? 8 : 6,
+    pt: 0
   });
 }
 
@@ -911,6 +938,7 @@ function stepUnits(){
   G.units.forEach(u => {
     if (u.hp <= 0) return;
     const dx = u.tx - u.x, dy = u.ty - u.y, d = Math.hypot(dx, dy);
+    if (dx !== 0) u.dir = dx > 0 ? 1 : -1;
     if (d > 2){ u.x += dx / d * u.spd * s; u.y += dy / d * u.spd * s; }
 
     if (G.war === 'war'){
@@ -933,6 +961,7 @@ function stepUnits(){
   G.aiu.forEach(u => {
     if (u.hp <= 0) return;
     const dx = u.tx - u.x, dy = u.ty - u.y, d = Math.hypot(dx, dy);
+    if (dx !== 0) u.dir = dx > 0 ? 1 : -1;
     if (d > 2){ u.x += dx / d * u.spd * s; u.y += dy / d * u.spd * s; }
 
     if (G.war === 'war'){
@@ -1021,7 +1050,6 @@ function stepAI(){
     aiBuildExpansion();
   }
 
-  // War trigger based on relation & military strength
   if (!G.warD && ai.relation < 25 && ai.soldiers >= 4 && G.tick > 180 && Math.random() < 0.003 * s){
     declareWar(false);
   }
@@ -1064,9 +1092,9 @@ function initWeatherParticles(){
 }
 
 function renderWeather(ctx){
-  const s = G.season; // 0=Spring, 1=Summer, 2=Autumn, 3=Winter
+  const s = G.season;
   if (s === 3){ // Snow
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
     weatherParticles.forEach(p => {
       p.y += p.v * 0.5;
       p.x += Math.sin(p.y * 0.05) * 0.5;
@@ -1077,7 +1105,7 @@ function renderWeather(ctx){
       ctx.fill();
     });
   } else if (s === 2){ // Rain
-    ctx.strokeStyle = 'rgba(150,200,255,0.4)';
+    ctx.strokeStyle = 'rgba(150,200,255,0.45)';
     ctx.lineWidth = 1.2;
     weatherParticles.forEach(p => {
       p.y += p.v * 2;
@@ -1092,7 +1120,7 @@ function renderWeather(ctx){
   }
 }
 
-// Rendering Pipeline
+// Canvas & Zoom Navigation
 function resize(){
   const w = document.getElementById('gworld');
   canvas.width = w.clientWidth;
@@ -1102,12 +1130,43 @@ function resize(){
 
 function clampCam(){
   if (!canvas) return;
-  G.camX = cl(G.camX, -(GW * TS - canvas.width), 0);
-  G.camY = cl(G.camY, -(GH * TS - canvas.height), 0);
+  const z = G.zoom || 1.0;
+  const mapW = GW * TS * z;
+  const mapH = GH * TS * z;
+  G.camX = cl(G.camX, -(mapW - canvas.width), 0);
+  G.camY = cl(G.camY, -(mapH - canvas.height), 0);
 }
 
 function s2t(sx, sy){
-  return { tx: Math.floor((sx - G.camX) / TS), ty: Math.floor((sy - G.camY) / TS) };
+  const z = G.zoom || 1.0;
+  return {
+    tx: Math.floor((sx - G.camX) / (TS * z)),
+    ty: Math.floor((sy - G.camY) / (TS * z))
+  };
+}
+
+function setupZoomControls(){
+  document.getElementById('btn-zin').addEventListener('click', () => { setZoom(G.zoom + 0.25); });
+  document.getElementById('btn-zout').addEventListener('click', () => { setZoom(G.zoom - 0.25); });
+  document.getElementById('btn-zrst').addEventListener('click', () => { setZoom(1.0); });
+
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? 0.15 : -0.15;
+    setZoom(G.zoom + delta);
+  }, {passive:false});
+}
+
+function setZoom(newZoom){
+  const oldZoom = G.zoom || 1.0;
+  G.zoom = cl(newZoom, 0.6, 2.5);
+  const factor = G.zoom / oldZoom;
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  G.camX = cx - (cx - G.camX) * factor;
+  G.camY = cy - (cy - G.camY) * factor;
+  clampCam();
+  document.getElementById('btn-zrst').textContent = `${Math.round(G.zoom * 100)}%`;
 }
 
 function gameLoop(){
@@ -1120,6 +1179,84 @@ function gameLoop(){
   requestAnimationFrame(gameLoop);
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+//  SPRITE RENDERING ENGINE (Authentic Pixel Art Slicer)
+// ══════════════════════════════════════════════════════════════════════════════
+function drawCharacterSprite(ctx, race, row, col, x, y, size = 32, dir = 1){
+  const img = SPRITES[race+'_sheet'];
+  if (!img || !img.complete || img.naturalWidth === 0){
+    // Fallback colored dot if sprite not yet loaded
+    ctx.fillStyle = WC[race] || '#c9973a';
+    ctx.beginPath(); ctx.arc(x, y, size/4, 0, Math.PI*2); ctx.fill();
+    return;
+  }
+
+  const W = img.naturalWidth;
+  const H = img.naturalHeight;
+
+  // Grid metrics for standard 1254x1254 Character Sheet
+  const headerRatio = 0.088; // Top title header
+  const usableH = H * (1.0 - headerRatio);
+  const rowH = usableH / 7.0;
+  const colW = W / 4.0;
+
+  const sx = col * colW + colW * 0.12;
+  const sy = H * headerRatio + row * rowH + rowH * 0.05;
+  const sw = colW * 0.76;
+  const sh = rowH * 0.88;
+
+  ctx.save();
+  ctx.translate(x, y);
+  if (dir < 0) ctx.scale(-1, 1);
+  ctx.drawImage(img, sx, sy, sw, sh, -size/2, -size + 4, size, size);
+  ctx.restore();
+}
+
+function drawMountSprite(ctx, race, col, x, y, size = 42, dir = 1){
+  const img = SPRITES[race+'_mount'];
+  if (!img || !img.complete || img.naturalWidth === 0){
+    // Fallback to soldier on character sheet
+    drawCharacterSprite(ctx, race, 2, col, x, y, size * 0.8, dir);
+    return;
+  }
+
+  const W = img.naturalWidth;
+  const H = img.naturalHeight;
+  const colW = W / 4.0;
+  const headerH = H * 0.18;
+  const sw = colW * 0.85;
+  const sh = (H - headerH) * 0.82;
+  const sx = col * colW + colW * 0.08;
+  const sy = headerH + (H - headerH) * 0.08;
+
+  ctx.save();
+  ctx.translate(x, y);
+  if (dir < 0) ctx.scale(-1, 1);
+  ctx.drawImage(img, sx, sy, sw, sh, -size/2, -size + 6, size, size);
+  ctx.restore();
+}
+
+function drawWonderBuilding(ctx, race, px, py, size = 40){
+  const img = SPRITES[race+'_bld'];
+  if (!img || !img.complete || img.naturalWidth === 0){
+    ctx.font = '24px serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('\u{1F3DB}', px + size/2, py + size/2);
+    return;
+  }
+  // Wonder is side-by-side Day / Night in 1 image. Crop Left Half (Day).
+  const W = img.naturalWidth;
+  const H = img.naturalHeight;
+  const isNight = G.season === 3; // Winter/Night theme
+  const sx = isNight ? W / 2 : 0;
+  const sy = 0;
+  const sw = W / 2;
+  const sh = H;
+
+  ctx.drawImage(img, sx, sy, sw, sh, px - 4, py - 8, size + 8, size + 10);
+}
+
+// World Render Loop
 function renderWorld(){
   if (!canvas || !ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1128,11 +1265,13 @@ function renderWorld(){
 
   ctx.save();
   ctx.translate(G.camX, G.camY);
+  const z = G.zoom || 1.0;
+  ctx.scale(z, z);
 
-  // Draw Grid Tiles
+  // Tiles
   for (let y=0; y<GH; y++) for (let x=0; x<GW; x++) renderTile(x, y);
 
-  // Draw Grid Borders
+  // Grid Lines
   ctx.strokeStyle = 'rgba(0,0,0,.15)';
   ctx.lineWidth = .5;
   for (let y=0; y<=GH; y++){ ctx.beginPath(); ctx.moveTo(0, y*TS); ctx.lineTo(GW*TS, y*TS); ctx.stroke(); }
@@ -1155,12 +1294,12 @@ function renderWorld(){
     ctx.strokeRect(G.selTile.tx*TS, G.selTile.ty*TS, TS, TS);
   }
 
-  // Draw Entities
+  // Render Entities (Characters, Mounts, Soldiers)
   renderWorkers();
   renderUnits();
   renderWeather(ctx);
 
-  // War Territory Outline
+  // War Outline
   if (G.war === 'war'){
     ctx.strokeStyle = 'rgba(255,50,50,.3)';
     ctx.lineWidth = 3;
@@ -1241,6 +1380,10 @@ function renderMountain(px, py){
   ctx.beginPath(); ctx.moveTo(mx, py+4); ctx.lineTo(mx+8, py+16); ctx.lineTo(mx-8, py+16); ctx.closePath(); ctx.fill();
 }
 function renderBuilding(px, py, t, x, y){
+  if (t === T.SPECIAL){
+    drawWonderBuilding(ctx, G.race, px, py, TS);
+    return;
+  }
   const e = BEM[t];
   if (!e) return;
   if (t !== T.ROAD){
@@ -1252,7 +1395,7 @@ function renderBuilding(px, py, t, x, y){
   ctx.textBaseline = 'middle';
   ctx.fillText(e, px+TS/2, py+TS/2);
 
-  if (t === T.PALACE || t === T.SPECIAL){
+  if (t === T.PALACE){
     ctx.strokeStyle = 'rgba(201,151,58,.8)';
     ctx.lineWidth = 2;
     ctx.strokeRect(px+1, py+1, TS-2, TS-2);
@@ -1269,51 +1412,55 @@ function renderBuilding(px, py, t, x, y){
 }
 
 function renderWorkers(){
+  const animFrame = Math.floor((Date.now() / 150) % 4); // 0=Idle, 1=Walk1, 2=Walk2, 3=Walk3
   G.workers.forEach(w => {
-    ctx.fillStyle = 'rgba(0,0,0,.4)';
-    ctx.beginPath(); ctx.ellipse(w.x, w.y+5, 4, 2, 0, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = w.color;
-    ctx.beginPath(); ctx.arc(w.x, w.y-2, 4, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#f5d5a0';
-    ctx.beginPath(); ctx.arc(w.x, w.y-7, 3, 0, Math.PI*2); ctx.fill();
+    const isMoving = Math.hypot(w.tx - w.x, w.ty - w.y) > 2;
+    const col = isMoving ? (animFrame === 0 ? 1 : animFrame) : 0;
+    drawCharacterSprite(ctx, G.race, w.role || 0, col, w.x, w.y, 30, w.dir || 1);
   });
 }
 
 function renderUnits(){
+  const animFrame = Math.floor((Date.now() / 150) % 4);
+
   // Player Soldiers
   G.units.forEach(u => {
     if (u.hp <= 0) return;
-    ctx.fillStyle = 'rgba(0,0,0,.4)';
-    ctx.beginPath(); ctx.ellipse(u.x, u.y+6, 5, 2.5, 0, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#3a7ac8';
-    ctx.beginPath(); ctx.arc(u.x, u.y-1, 6, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#e0e8f0';
-    ctx.font = '8px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('\u2694', u.x, u.y-1);
+    const isMoving = Math.hypot(u.tx - u.x, u.ty - u.y) > 2;
+    const col = isMoving ? (animFrame === 0 ? 1 : animFrame) : 0;
 
-    const bw = 14, p = u.hp / u.mhp;
-    ctx.fillStyle = 'rgba(0,0,0,.6)';
-    ctx.fillRect(u.x-bw/2, u.y-13, bw, 3);
+    if (u.isMounted){
+      drawMountSprite(ctx, G.race, col, u.x, u.y, 38, u.dir || 1);
+    } else {
+      // Row 2 = Soldier / Guard
+      drawCharacterSprite(ctx, G.race, 2, col, u.x, u.y, 32, u.dir || 1);
+    }
+
+    // Health bar
+    const bw = 16, p = u.hp / u.mhp;
+    ctx.fillStyle = 'rgba(0,0,0,.65)';
+    ctx.fillRect(u.x - bw/2, u.y - 32, bw, 3.5);
     ctx.fillStyle = p > .5 ? '#4aff8a' : p > .25 ? '#ffcc00' : '#ff4444';
-    ctx.fillRect(u.x-bw/2, u.y-13, bw*p, 3);
+    ctx.fillRect(u.x - bw/2, u.y - 32, bw * p, 3.5);
   });
 
   // AI Soldiers
   G.aiu.forEach(u => {
     if (u.hp <= 0) return;
-    ctx.fillStyle = 'rgba(0,0,0,.4)';
-    ctx.beginPath(); ctx.ellipse(u.x, u.y+6, 5, 2.5, 0, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#c83a3a';
-    ctx.beginPath(); ctx.arc(u.x, u.y-1, 6, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#f0d0d0';
-    ctx.font = '8px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('\u{1F480}', u.x, u.y-1);
+    const isMoving = Math.hypot(u.tx - u.x, u.ty - u.y) > 2;
+    const col = isMoving ? (animFrame === 0 ? 1 : animFrame) : 0;
 
-    const bw = 14, p = u.hp / u.mhp;
-    ctx.fillStyle = 'rgba(0,0,0,.6)';
-    ctx.fillRect(u.x-bw/2, u.y-13, bw, 3);
+    if (u.isMounted){
+      drawMountSprite(ctx, G.ai.race, col, u.x, u.y, 38, u.dir || -1);
+    } else {
+      drawCharacterSprite(ctx, G.ai.race, 2, col, u.x, u.y, 32, u.dir || -1);
+    }
+
+    const bw = 16, p = u.hp / u.mhp;
+    ctx.fillStyle = 'rgba(0,0,0,.65)';
+    ctx.fillRect(u.x - bw/2, u.y - 32, bw, 3.5);
     ctx.fillStyle = '#ff4444';
-    ctx.fillRect(u.x-bw/2, u.y-13, bw*p, 3);
+    ctx.fillRect(u.x - bw/2, u.y - 32, bw * p, 3.5);
   });
 }
 
@@ -1337,16 +1484,17 @@ function renderMinimap(){
     mmX.globalAlpha = 1;
   }
 
-  // Camera viewport box
+  // Viewport box
   if (canvas){
-    const vx = -G.camX / TS * sc, vy = -G.camY / TS * sc;
-    const vw = canvas.width / TS * sc, vh = canvas.height / TS * sc;
+    const z = G.zoom || 1.0;
+    const vx = -G.camX / (TS * z) * sc, vy = -G.camY / (TS * z) * sc;
+    const vw = canvas.width / (TS * z) * sc, vh = canvas.height / (TS * z) * sc;
     mmX.strokeStyle = 'rgba(240,204,110,.85)';
     mmX.lineWidth = 1;
     mmX.strokeRect(vx, vy, vw, vh);
   }
 
-  // Units blips
+  // Units
   G.units.forEach(u => {
     mmX.fillStyle = '#4a9af0';
     mmX.fillRect(u.x / TS * sc - 1, u.y / TS * sc - 1, 3, 3);
@@ -1360,9 +1508,10 @@ function renderMinimap(){
 document.getElementById('mmc').addEventListener('click', e => {
   SFX.click();
   const r = e.target.getBoundingClientRect(), sc = 4;
+  const z = G.zoom || 1.0;
   const mx = (e.clientX - r.left) / sc, my = (e.clientY - r.top) / sc;
-  G.camX = -(mx * TS - canvas.width / 2);
-  G.camY = -(my * TS - canvas.height / 2);
+  G.camX = -(mx * TS * z - canvas.width / 2);
+  G.camY = -(my * TS * z - canvas.height / 2);
   clampCam();
 });
 
@@ -1530,7 +1679,7 @@ function setupToolbarEvents(){
 function cancelBuildingMode(){
   G.selB = null;
   document.querySelectorAll('.bb').forEach(b => b.classList.remove('act'));
-  setGameStatus('Click map to build \u00B7 Drag to pan \u00B7 F1 for economy');
+  setGameStatus('Click map to build \u00B7 Mouse Wheel to Zoom \u00B7 Drag to pan');
 }
 
 function tryBuildStructure(tx, ty, type){
@@ -1667,7 +1816,7 @@ function updHUD(){
   document.getElementById('tyr').textContent = `Year ${G.year}, Day ${G.day}`;
 }
 
-// Modals Setup (Dashboard, Diplomacy, Tech Tree, Audio, Save)
+// Modals Setup
 function setupModals(){
   // F1 Dashboard
   const dash = document.getElementById('dash');
@@ -1905,10 +2054,12 @@ function setupKeyboard(){
       document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
     }
     if (e.key === 'w' || e.key === 'W') declareWar(true);
+    if (e.key === '+' || e.key === '=') setZoom(G.zoom + 0.25);
+    if (e.key === '-' || e.key === '_') setZoom(G.zoom - 0.25);
   });
 }
 
-// Save & Load Engine (LocalStorage)
+// Save & Load Engine
 function saveGameToStorage(){
   try {
     const saveData = {
