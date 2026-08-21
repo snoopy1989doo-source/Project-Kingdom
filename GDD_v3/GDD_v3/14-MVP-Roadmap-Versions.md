@@ -29,7 +29,7 @@ related:
 ---
 
 ## MVP Scope (Prototype/Testing Phase) — ✅ Completed (Master Prototype v1.0)
-*ทดสอบระบบ Playable Prototype ในเบราว์เซอร์ได้ที่ `[[Game/index.html]]` หรือผ่าน `[[Project_Kingdom_Master_Hub]]`*
+*ทดสอบระบบ Playable Prototype ในเบราว์เซอร์ได้ที่ `Game/index.html` หรือผ่าน `[[Project_Kingdom_Master_Hub]]`*
 
 | ระบบ | MVP Scope | สถานะใน Master Prototype v1.0 |
 |---|---|---|

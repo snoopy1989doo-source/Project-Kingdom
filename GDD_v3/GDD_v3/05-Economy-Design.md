@@ -16,7 +16,7 @@ priority: core-pillar
 Tier 1 (Raw):       Wood, Stone, Iron Ore, Gold Ore, Water
 Tier 2 (Processed): Firewood, Charcoal, Iron Ingot, Flour, Cloth
 Tier 3 (Advanced):  Steel*, Bread, Tools, Weapons, Armor, Medicine, Horses
-(* Steel ผลิตได้เฉพาะ Dwarf Deep Forge เท่านั้น — ดู [[03-Races/Dwarf]])
+(* Steel ผลิตได้เฉพาะ Dwarf Deep Forge เท่านั้น — ดู 03-Races/Dwarf)
 ```
 
 ## Dynamic Price System

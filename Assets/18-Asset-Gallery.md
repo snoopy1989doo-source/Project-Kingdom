@@ -5,7 +5,7 @@ tags:
   - gallery
 version: "3.0"
 status: in-progress — ยังไม่มีไฟล์รูปจริง กำลังทยอยสร้างใหม่
-agent_in_charge: "[[Agent_Marshmallow.md]]"
+agent_in_charge: "[[Agent_Marshmallow]]"
 ---
 
 # 🎨 Asset Gallery — Project Kingdom
@@ -18,46 +18,51 @@ agent_in_charge: "[[Agent_Marshmallow.md]]"
 ## 👤 Characters (รวม Mount ในโฟลเดอร์เดียวกับเผ่า)
 
 ### Human
-![[Human_Character_Sheet.png|500]]
-![[Human_Mount_Horse.png|500]]
-🔗 [[03-Races/Human|→ ดูสเปค Human]]
+!500
+!500
+🔗 → ดูสเปค Human
 
 ---
 
 ### Elf
-![[Elf_Character_Sheet.png|500]]
-![[Elf_Mount_GreatStag.png|500]]
-🔗 [[03-Races/Elf|→ ดูสเปค Elf]]
+!500
+!500
+🔗 → ดูสเปค Elf
 
 ---
 
 ### Orc
-![[Orc_Character_Sheet.png|500]]
-![[Orc_Mount_Boar.png|500]]
-🔗 [[03-Races/Orc|→ ดูสเปค Orc]]
+!500
+!500
+🔗 → ดูสเปค Orc
 
 ---
 
 ### Dwarf
-![[Dwarf_Character_Sheet.png|500]]
-![[Dwarf_Mount_MountainGoat.png|500]]
-🔗 [[03-Races/Dwarf|→ ดูสเปค Dwarf]]
+!500
+!500
+🔗 → ดูสเปค Dwarf
 
 ---
 
-## 🏛️ Buildings
+## 🏛️ Buildings (สิ่งปลูกสร้าง)
 
-### Human — Grand Embassy
-![[Human_Building_GrandEmbassy.png|500]]
+### 👑 Human Buildings (ครบ 5 หลัง + รอกำหนดส่ง Farm)
+- **Watchtower (หอคอย):** ![[Assets/Building/Human/Human_Building_Watchtower.jpg|500]]
+- **House (บ้านพัก):** ![[Assets/Building/Human/Human_Building_House.jpg|500]]
+- **Lumber Mill (โรงเลื่อยไม้):** ![[Assets/Building/Human/Human_Building_LumberMill.jpg|500]]
+- **Mine (เหมืองหิน):** ![[Assets/Building/Human/Human_Building_Mine.jpg|500]]
+- **Barracks (ค่ายทหาร):** ![[Assets/Building/Human/Human_Building_Barracks.jpg|500]]
+- **Grand Embassy (Wonder):** ![[Assets/Character/Human/Human_Building_GrandEmbassy.png|500]]
+- *Farm (ฟาร์มเกษตร): รออัปเดตไฟล์จากผู้ใช้*
 
-### Elf — Ancient Grove
-![[Elf_Building_AncientGrove.png|500]]
+---
 
-### Orc — War Totem
-![[Orc_Building_WarTotem.png|500]]
-
-### Dwarf — Deep Forge
-![[Dwarf_Building_DeepForge.png|500]]
+### 🌿 Faction Wonders (มหาอาคารประจำเผ่า)
+- **Human — Grand Embassy:** ![[Assets/Character/Human/Human_Building_GrandEmbassy.png|500]]
+- **Elf — Ancient Grove:** ![[Assets/Character/Elf/Elf_Building_AncientGrove.png|500]]
+- **Orc — War Totem:** ![[Assets/Character/Orc/Orc_Building_WarTotem.png|500]]
+- **Dwarf — Deep Forge:** ![[Assets/Character/Dwarf/Dwarf_Building_DeepForge.png|500]]
 
 🔗 [[11-Building-Resource-Flow|→ ดูรายละเอียด Building Tree ทั้งหมด]]
 
@@ -66,13 +71,22 @@ agent_in_charge: "[[Agent_Marshmallow.md]]"
 ## 🌆 Scenes
 
 ### Town — Day/Night Cycle
-![[day_night_town_scene.png|600]]
+![[Assets/Scenes/day_night_town_scene.png|600]]
 
 ---
 
 ## 📋 Checklist สถานะรูปภาพและการเชื่อมต่อในเกม
 
-> สถานะการเชื่อมต่อ: **✅ นำเข้าเกม v1.2 เรียบร้อย (ตัดขอบโปร่งใส & ทำระบบอนิเมชันเดิน + สัตว์ขี่ + Wonder)**
+> สถานะการเชื่อมต่อ: **✅ นำเข้าเกม v1.3 เรียบร้อย (Full Widescreen Desktop View + Human Building Sprites + Transparent Units)**
+
+**👑 Human Buildings (นำเข้าแล้ว)**
+- [x] House (บ้านพัก)
+- [x] Lumber Mill (โรงเลื่อยไม้)
+- [x] Mine (เหมืองหิน)
+- [x] Barracks (ค่ายทหาร)
+- [x] Watchtower (หอคอย)
+- [x] Grand Embassy (Wonder)
+- [ ] Farm (ฟาร์มเกษตร) — *รอผู้ใช้อัปโหลด*
 
 **👤 Characters & Mounts (ครบ 4 เผ่า — นำเข้าเกมแล้ว)**
 - [x] Human: Character Sheet & Mount (Horse)

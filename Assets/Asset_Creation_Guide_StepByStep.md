@@ -7,7 +7,7 @@ tags:
 version: "1.0"
 created: 2026-08-19
 last_updated: 2026-08-19
-agent_in_charge: "[[Agent_Marshmallow.md]]"
+agent_in_charge: "[[Agent_Marshmallow]]"
 ---
 
 # 🎨 คู่มือสร้าง Asset เกมแบบ Step-by-Step — Project Kingdom

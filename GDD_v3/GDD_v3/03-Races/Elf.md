@@ -2,7 +2,7 @@
 tags: [gdd, race, elf]
 version: "3.0"
 related:
-  - "[[03-Races/Race-Balance-Overview]]"
+  - "03-Races/Race-Balance-Overview"
 ---
 
 # 🧝 Elf — นักอนุรักษ์
@@ -41,7 +41,7 @@ related:
 ## เหตุผลเชิงออกแบบ
 Elf ชนะด้วย "ความยั่งยืน" — หน่วยพิเศษทั้งสองจึงเน้น **ป้องกัน + ใช้ป่าเป็นข้อได้เปรียบ** แทนการรุกโจมตีนอกพื้นที่ ทำให้ Elf แข็งแกร่งเมื่อป้องกันดินแดนตัวเอง แต่ไม่ถนัดทำสงครามรุกราน — สอดคล้องกับ Victory Bias แบบ Prosperity
 
-![[Elf_Character_Sheet.png]]
-![[Elf_Mount_GreatStag.png]]
+!Elf_Character_Sheet.png
+!Elf_Mount_GreatStag.png
 
-![[Elf_Building_AncientGrove.png]]
+!Elf_Building_AncientGrove.png

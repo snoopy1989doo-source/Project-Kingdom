@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Project Kingdom — Master Prototype v1.2 (Transparent Character Sprites)</title>
+<title>Project Kingdom — Master Prototype v1.3 (Full Widescreen Desktop Edition)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
@@ -16,7 +16,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-family:var(--fb);overflow:hidden;user-select:none}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .6s var(--ease-o)}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s var(--ease-o)}
 .screen.active{opacity:1;pointer-events:all}
 
 /* Loading */
@@ -25,7 +25,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .ldt{font-family:var(--ft);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;color:var(--gold-light);letter-spacing:.08em;animation:glow 2s ease-in-out infinite alternate}
 .ldbw{width:260px;height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
 .ldbf{height:100%;background:linear-gradient(to right,var(--gold-dim),var(--gold-light));border-radius:99px;animation:lf 1.8s var(--ease-o) forwards}
-.ldtip{font-style:italic;font-size:.85rem;color:var(--gold-dim);text-align:center;max-width:380px}
+.ldtip{font-style:italic;font-size:.85rem;color:var(--gold-dim);text-align:center;max-width:420px}
 @keyframes lf{from{width:0}to{width:100%}}
 @keyframes glow{from{text-shadow:0 0 40px rgba(201,151,58,.3),0 4px 0 var(--gold-dim)}to{text-shadow:0 0 80px rgba(240,204,110,.7),0 4px 0 var(--gold-dim)}}
 @keyframes pan{from{transform:scale(1.05) translateX(0)}to{transform:scale(1.05) translateX(-2%)}}
@@ -43,7 +43,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .logo-v{font-size:.78rem;letter-spacing:.3em;color:var(--stone-light);margin-top:.4rem;text-align:center}
 .orn{display:flex;align-items:center;gap:1rem;width:100%;max-width:420px}
 .orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
-.mact{display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:300px}
+.mact{display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:320px}
 .bmenu{width:100%;padding:.9rem 2rem;font-family:var(--ft);font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:transform .18s var(--ease-s),box-shadow .18s ease;clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px)}
 .bmenu.pri{background:linear-gradient(135deg,#7a5010,#c9973a,#e8b84b,#a06820);color:var(--ink);box-shadow:0 4px 20px rgba(201,151,58,.4)}
 .bmenu.sec{background:linear-gradient(135deg,#1e1912,#3a3020);color:var(--parch-dark);border:1px solid var(--gold-dim)}
@@ -54,11 +54,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .ptc{position:absolute;border-radius:50%;background:var(--gold-light);opacity:0;animation:fup var(--dur,8s) var(--dl,0s) ease-in infinite}
 
 /* Race Selection */
-#screen-race{background:radial-gradient(ellipse at 50% 0%,rgba(201,151,58,.1),transparent 60%),linear-gradient(180deg,#0d0a06,#1a1208);overflow-y:auto;padding:2rem 1rem;flex-direction:column;gap:1.5rem}
+#screen-race{background:radial-gradient(ellipse at 50% 0%,rgba(201,151,58,.1),transparent 60%),linear-gradient(180deg,#0d0a06,#1a1208);overflow-y:auto;padding:2rem 1.5rem;flex-direction:column;gap:1.5rem;width:100%;height:100%}
 .rhdr{text-align:center}
 .rhdr h1{font-family:var(--ft);font-size:clamp(1.8rem,4.5vw,2.8rem);color:var(--gold-light);letter-spacing:.08em}
 .rhdr p{font-style:italic;color:var(--gold-dim);margin-top:.3rem;font-size:1.05rem}
-.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem;width:100%;max-width:1150px}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;width:100%;max-width:1300px}
 .rcard{position:relative;border:1px solid var(--cb,var(--gold-dim));cursor:pointer;overflow:hidden;transition:transform .3s var(--ease-s),box-shadow .3s ease;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));background:var(--cbg)}
 .rcard:hover{transform:translateY(-6px) scale(1.02)}
 .rcard.sel{border-color:var(--ca,var(--gold));box-shadow:0 0 35px var(--cgc,rgba(201,151,58,.45))}
@@ -66,7 +66,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .rcard[data-race=orc]{--cbg:linear-gradient(145deg,#0e1e0c,#060d05);--cb:#2a4a20;--ca:#4a9a30;--cgc:rgba(74,154,48,.4)}
 .rcard[data-race=elf]{--cbg:linear-gradient(145deg,#0a1e14,#050d09);--cb:#1a4a2e;--ca:#30c870;--cgc:rgba(48,200,112,.4)}
 .rcard[data-race=dwarf]{--cbg:linear-gradient(145deg,#1e1408,#0d0903);--cb:#5a3a10;--ca:#c87820;--cgc:rgba(200,120,32,.4)}
-.rbn{width:100%;height:165px;overflow:hidden;position:relative}
+.rbn{width:100%;height:175px;overflow:hidden;position:relative}
 .rbn img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease;filter:saturate(.95)}
 .rcard:hover .rbn img{transform:scale(1.06)}
 .rbn-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.85))}
@@ -85,7 +85,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .rvc{font-size:.72rem;font-family:var(--ft);letter-spacing:.08em;text-transform:uppercase;color:var(--ca,var(--gold));padding:.35rem .5rem;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.05);margin:0 -1rem -1.1rem}
 .rsm{position:absolute;top:.4rem;left:.5rem;width:24px;height:24px;background:var(--ca,var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--ink);font-weight:900;opacity:0;transform:scale(0);transition:opacity .2s,transform .3s var(--ease-s)}
 .rcard.sel .rsm{opacity:1;transform:scale(1)}
-.racts{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1150px}
+.racts{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1300px}
 .bg{padding:.8rem 2.6rem;font-family:var(--ft);font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:transform .2s var(--ease-s),box-shadow .2s ease;clip-path:polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px)}
 .bg.pro{background:linear-gradient(135deg,#7a5010,#c9973a,#e8b84b,#a06820);color:var(--ink);box-shadow:0 4px 20px rgba(201,151,58,.35)}
 .bg.pro:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
@@ -94,108 +94,108 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 .bg.bk:hover{color:var(--gold);border-color:var(--gold)}
 .si{font-style:italic;font-size:.95rem;color:var(--gold-dim)}
 
-/* Game Main Screen */
-#screen-game{flex-direction:column;background:#0d1508;overflow:hidden}
-#htop{width:100%;background:linear-gradient(180deg,rgba(13,10,6,.98),rgba(13,10,6,.88));border-bottom:1px solid var(--gold-dim);padding:.4rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-shrink:0;z-index:10}
-#hres{display:flex;gap:.85rem;align-items:center;flex-wrap:wrap}
-.rc{display:flex;align-items:center;gap:.3rem;font-family:var(--ft);font-size:.76rem;font-weight:700;color:var(--parch);letter-spacing:.05em}
+/* Full Widescreen Game Screen */
+#screen-game{width:100vw;height:100vh;flex-direction:column;background:#060804;overflow:hidden;position:absolute;inset:0}
+#htop{width:100%;background:linear-gradient(180deg,rgba(13,10,6,.98),rgba(13,10,6,.9));border-bottom:1px solid var(--gold-dim);padding:.45rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.6)}
+#hres{display:flex;gap:1.1rem;align-items:center;flex-wrap:wrap}
+.rc{display:flex;align-items:center;gap:.35rem;font-family:var(--ft);font-size:.82rem;font-weight:700;color:var(--parch);letter-spacing:.05em}
 .rv{color:var(--gold-light);transition:color .3s}
 .rv.up{color:#6aff8a}.rv.dn{color:#ff6a6a}
-#hfac{display:flex;align-items:center;gap:.6rem}
-.femb{width:30px;height:30px;border-radius:50%;border:2px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(0,0,0,.4)}
-.flbl{font-family:var(--ft);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
+#hfac{display:flex;align-items:center;gap:.8rem}
+.femb{width:32px;height:32px;border-radius:50%;border:2px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:rgba(0,0,0,.4)}
+.flbl{font-family:var(--ft);font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
 #htime{text-align:right}
-.tss{font-family:var(--ft);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim)}
-.tyr{font-family:var(--ft);font-size:.9rem;color:var(--gold-light)}
+.tss{font-family:var(--ft);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim)}
+.tyr{font-family:var(--ft);font-size:.95rem;color:var(--gold-light)}
 
-#gworld{flex:1;position:relative;overflow:hidden}
-#wc{display:block;cursor:crosshair;image-rendering:pixelated}
-#hbot{width:100%;background:linear-gradient(0deg,rgba(13,10,6,.98),rgba(13,10,6,.88));border-top:1px solid var(--gold-dim);padding:.4rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0;z-index:10}
-#btb{display:flex;gap:.35rem;flex-wrap:wrap}
-.bb{padding:.35rem .65rem;background:linear-gradient(135deg,#1e1812,#2a2216);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;clip-path:polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px)}
-.bb:hover,.bb.act{background:linear-gradient(135deg,#5a3a10,#7a5010);border-color:var(--gold);color:var(--gold-light)}
+#gworld{flex:1;width:100%;position:relative;overflow:hidden;background:#050703}
+#wc{display:block;width:100%;height:100%;cursor:crosshair;image-rendering:pixelated}
+#hbot{width:100%;background:linear-gradient(0deg,rgba(13,10,6,.98),rgba(13,10,6,.9));border-top:1px solid var(--gold-dim);padding:.45rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-shrink:0;z-index:20;box-shadow:0 -2px 10px rgba(0,0,0,.6)}
+#btb{display:flex;gap:.5rem;flex-wrap:wrap}
+.bb{padding:.4rem .85rem;background:linear-gradient(135deg,#1e1812,#2a2216);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;clip-path:polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px)}
+.bb:hover,.bb.act{background:linear-gradient(135deg,#5a3a10,#7a5010);border-color:var(--gold);color:var(--gold-light);transform:translateY(-2px)}
 .bb.special{background:linear-gradient(135deg,#203040,#305070);border-color:#50a0ff}
-.bc{display:block;font-size:.52rem;color:var(--gold-dim);margin-top:.1rem}
-#spc{display:flex;align-items:center;gap:.35rem}
-.slbl2{font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase}
-.sb{padding:.28rem .55rem;background:rgba(255,255,255,.05);border:1px solid var(--stone-light);color:var(--parch-dark);font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:all .15s;border-radius:2px}
+.bc{display:block;font-size:.55rem;color:var(--gold-dim);margin-top:.12rem}
+#spc{display:flex;align-items:center;gap:.4rem}
+.slbl2{font-family:var(--ft);font-size:.68rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase}
+.sb{padding:.32rem .65rem;background:rgba(255,255,255,.05);border:1px solid var(--stone-light);color:var(--parch-dark);font-family:var(--ft);font-size:.75rem;cursor:pointer;transition:all .15s;border-radius:2px}
 .sb:hover,.sb.act{background:rgba(201,151,58,.25);border-color:var(--gold-dim);color:var(--gold)}
-#hs{font-style:italic;font-size:.78rem;color:var(--gold-dim);max-width:280px;text-align:right}
-.dv{width:1px;height:20px;background:var(--gold-dim);opacity:.3}
+#hs{font-style:italic;font-size:.82rem;color:var(--gold-dim);text-align:right}
+.dv{width:1px;height:22px;background:var(--gold-dim);opacity:.3}
 
 /* Alerts */
-#alog{position:absolute;top:3.5rem;right:.75rem;width:240px;display:flex;flex-direction:column;gap:.35rem;pointer-events:none;z-index:20}
-.ait{background:rgba(13,10,6,.94);border-left:3px solid var(--ac,var(--gold));padding:.4rem .65rem;font-size:.75rem;color:var(--parch);animation:sli .3s var(--ease-o) both,fdo .5s ease 3.8s both;backdrop-filter:blur(4px);box-shadow:0 4px 12px rgba(0,0,0,.5)}
+#alog{position:absolute;top:1rem;right:1rem;width:280px;display:flex;flex-direction:column;gap:.4rem;pointer-events:none;z-index:30}
+.ait{background:rgba(13,10,6,.94);border-left:3px solid var(--ac,var(--gold));padding:.5rem .8rem;font-size:.78rem;color:var(--parch);animation:sli .3s var(--ease-o) both,fdo .5s ease 3.8s both;backdrop-filter:blur(4px);box-shadow:0 4px 15px rgba(0,0,0,.6)}
 
 /* Tooltip */
-#tip{position:absolute;background:rgba(13,10,6,.95);border:1px solid var(--gold-dim);padding:.5rem .75rem;pointer-events:none;z-index:50;display:none;font-size:.75rem;color:var(--parch);max-width:220px;clip-path:polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px);box-shadow:0 6px 20px rgba(0,0,0,.7)}
-#tip strong{display:block;font-family:var(--ft);font-size:.82rem;color:var(--gold-light);margin-bottom:.2rem}
+#tip{position:absolute;background:rgba(13,10,6,.95);border:1px solid var(--gold-dim);padding:.55rem .85rem;pointer-events:none;z-index:50;display:none;font-size:.78rem;color:var(--parch);max-width:240px;clip-path:polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px);box-shadow:0 6px 20px rgba(0,0,0,.7)}
+#tip strong{display:block;font-family:var(--ft);font-size:.85rem;color:var(--gold-light);margin-bottom:.25rem}
 
 /* Minimap */
-#mmw{position:absolute;bottom:3.5rem;right:.75rem;z-index:15;background:rgba(13,10,6,.92);border:1px solid var(--gold-dim);padding:4px;box-shadow:0 4px 15px rgba(0,0,0,.6)}
-#mml{font-family:var(--ft);font-size:.55rem;letter-spacing:.15em;color:var(--gold-dim);text-transform:uppercase;text-align:center;padding-bottom:2px}
+#mmw{position:absolute;bottom:1rem;right:1rem;z-index:25;background:rgba(13,10,6,.92);border:1px solid var(--gold-dim);padding:5px;box-shadow:0 6px 20px rgba(0,0,0,.7)}
+#mml{font-family:var(--ft);font-size:.58rem;letter-spacing:.15em;color:var(--gold-dim);text-transform:uppercase;text-align:center;padding-bottom:3px}
 #mmc{display:block;cursor:pointer}
 
 /* Modals & Overlays */
-.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.82);z-index:30;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.82);z-index:40;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
-.modal-panel{background:linear-gradient(145deg,#1a1410,#0d0a06);border:1px solid var(--gold-dim);width:min(820px,95vw);max-height:86vh;overflow-y:auto;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.9)}
-.mth{font-family:var(--ft);font-size:1.35rem;color:var(--gold-light);letter-spacing:.08em;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+.modal-panel{background:linear-gradient(145deg,#1a1410,#0d0a06);border:1px solid var(--gold-dim);width:min(880px,95vw);max-height:86vh;overflow-y:auto;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));padding:1.8rem;box-shadow:0 10px 40px rgba(0,0,0,.9)}
+.mth{font-family:var(--ft);font-size:1.4rem;color:var(--gold-light);letter-spacing:.08em;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:space-between}
 .mcl{cursor:pointer;color:var(--gold-dim);font-size:1rem;transition:color .2s}
 .mcl:hover{color:var(--gold)}
 .ms{margin-bottom:1.5rem}
-.ms h3{font-family:var(--ft);font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(201,151,58,.2);padding-bottom:.4rem;margin-bottom:.8rem}
-.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem}
-.mca{background:rgba(255,255,255,.04);border:1px solid rgba(201,151,58,.15);padding:.75rem;text-align:center}
-.mca .dl{font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:.3rem}
-.mca .dv2{font-family:var(--ft);font-size:1.4rem;color:var(--gold-light);font-weight:700}
-.mca .dsb{font-size:.68rem;color:var(--stone-light);margin-top:.15rem}
-.cw{position:relative;width:100%;height:85px;background:rgba(0,0,0,.35);border:1px solid rgba(201,151,58,.12);overflow:hidden;margin-bottom:.5rem}
-.cl2{position:absolute;top:4px;left:6px;font-family:var(--ft);font-size:.58rem;letter-spacing:.08em;color:var(--gold-dim);text-transform:uppercase}
-.bll{display:flex;flex-direction:column;gap:.4rem}
-.br{display:flex;align-items:center;gap:.6rem;padding:.45rem .65rem;background:rgba(255,255,255,.03);border-left:2px solid var(--gold-dim)}
-.br .bn{font-family:var(--ft);font-size:.75rem;letter-spacing:.06em;flex:1}
+.ms h3{font-family:var(--ft);font-size:.92rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(201,151,58,.2);padding-bottom:.4rem;margin-bottom:.8rem}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.85rem}
+.mca{background:rgba(255,255,255,.04);border:1px solid rgba(201,151,58,.15);padding:.85rem;text-align:center}
+.mca .dl{font-family:var(--ft);font-size:.65rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:.3rem}
+.mca .dv2{font-family:var(--ft);font-size:1.45rem;color:var(--gold-light);font-weight:700}
+.mca .dsb{font-size:.7rem;color:var(--stone-light);margin-top:.15rem}
+.cw{position:relative;width:100%;height:90px;background:rgba(0,0,0,.35);border:1px solid rgba(201,151,58,.12);overflow:hidden;margin-bottom:.6rem}
+.cl2{position:absolute;top:4px;left:6px;font-family:var(--ft);font-size:.6rem;letter-spacing:.08em;color:var(--gold-dim);text-transform:uppercase}
+.bll{display:flex;flex-direction:column;gap:.45rem}
+.br{display:flex;align-items:center;gap:.8rem;padding:.5rem .8rem;background:rgba(255,255,255,.03);border-left:2px solid var(--gold-dim)}
+.br .bn{font-family:var(--ft);font-size:.78rem;letter-spacing:.06em;flex:1}
 
 /* Sel panel */
-#selpanel{position:absolute;bottom:3.5rem;left:.75rem;width:220px;background:rgba(13,10,6,.94);border:1px solid var(--gold-dim);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));z-index:15;display:none;box-shadow:0 4px 20px rgba(0,0,0,.7)}
+#selpanel{position:absolute;bottom:1rem;left:1rem;width:240px;background:rgba(13,10,6,.94);border:1px solid var(--gold-dim);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));z-index:25;display:none;box-shadow:0 6px 25px rgba(0,0,0,.8)}
 #selpanel.open{display:block}
-#selpanel .sph{font-family:var(--ft);font-size:.82rem;letter-spacing:.08em;color:var(--gold-light);padding:.55rem .75rem;border-bottom:1px solid rgba(201,151,58,.2)}
-#selpanel .spb{padding:.65rem .75rem;display:flex;flex-direction:column;gap:.45rem}
-.sps{font-size:.75rem;color:var(--parch-dark)}
+#selpanel .sph{font-family:var(--ft);font-size:.88rem;letter-spacing:.08em;color:var(--gold-light);padding:.6rem .8rem;border-bottom:1px solid rgba(201,151,58,.2)}
+#selpanel .spb{padding:.7rem .8rem;display:flex;flex-direction:column;gap:.5rem}
+.sps{font-size:.78rem;color:var(--parch-dark)}
 .sps span{color:var(--gold-light);font-weight:700}
-.spw{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.2rem}
-.ws{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--gold-dim);background:rgba(255,255,255,.05);cursor:pointer;transition:background .15s}
+.spw{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.2rem}
+.ws{display:inline-block;width:16px;height:16px;border-radius:50%;border:1px solid var(--gold-dim);background:rgba(255,255,255,.05);cursor:pointer;transition:background .15s}
 .ws.filled{background:var(--gold);box-shadow:0 0 6px rgba(201,151,58,.6)}
-.spbtn{padding:.35rem .7rem;background:linear-gradient(135deg,#3a2010,#5a3010);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:.3rem;transition:all .15s}
+.spbtn{padding:.4rem .8rem;background:linear-gradient(135deg,#3a2010,#5a3010);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:.3rem;transition:all .15s}
 .spbtn:hover{background:linear-gradient(135deg,#5a3010,#7a5010);color:var(--gold-light)}
 
 /* Top Right Action Bar */
-#top-actions{position:absolute;top:3.5rem;left:.75rem;display:flex;gap:.4rem;z-index:15}
-.act-btn{padding:.3rem .6rem;background:rgba(13,10,6,.9);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;border-radius:2px}
-.act-btn:hover{background:rgba(201,151,58,.2);border-color:var(--gold);color:var(--gold-light)}
+#top-actions{position:absolute;top:1rem;left:1rem;display:flex;gap:.45rem;z-index:25}
+.act-btn{padding:.35rem .75rem;background:rgba(13,10,6,.92);border:1px solid var(--gold-dim);color:var(--parch-dark);font-family:var(--ft);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;border-radius:2px;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+.act-btn:hover{background:rgba(201,151,58,.25);border-color:var(--gold);color:var(--gold-light)}
 .act-btn.active{background:var(--gold);color:var(--ink);font-weight:700}
 
-/* Zoom Controls */
-#zoom-controls{position:absolute;top:3.5rem;right:17rem;display:flex;gap:.3rem;z-index:15}
-.zm-btn{width:26px;height:24px;background:rgba(13,10,6,.9);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:var(--ft);font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;border-radius:2px}
+/* Zoom & Fullscreen Controls */
+#zoom-controls{position:absolute;top:1rem;right:19rem;display:flex;gap:.35rem;z-index:25}
+.zm-btn{width:28px;height:26px;background:rgba(13,10,6,.92);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:var(--ft);font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;border-radius:2px}
 .zm-btn:hover{background:var(--gold);color:var(--ink)}
 
 /* Diplomacy Grid */
-.dip-leader{display:flex;gap:1rem;align-items:center;background:rgba(255,255,255,.03);padding:1rem;border-left:3px solid var(--gold-dim);margin-bottom:1rem}
-.dip-avatar{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;background:#000}
+.dip-leader{display:flex;gap:1.2rem;align-items:center;background:rgba(255,255,255,.03);padding:1.2rem;border-left:3px solid var(--gold-dim);margin-bottom:1.2rem}
+.dip-avatar{width:70px;height:70px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;background:#000}
 .dip-avatar img{width:100%;height:100%;object-fit:cover;object-position:top}
-.dip-info h4{font-family:var(--ft);color:var(--gold-light);font-size:1.1rem}
-.dip-info p{font-size:.85rem;color:var(--parch-dark);font-style:italic}
-.dip-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+.dip-info h4{font-family:var(--ft);color:var(--gold-light);font-size:1.15rem}
+.dip-info p{font-size:.88rem;color:var(--parch-dark);font-style:italic}
+.dip-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
 
 /* Tech Tree */
-.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-.tech-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,151,58,.2);padding:.85rem;display:flex;flex-direction:column;gap:.4rem;cursor:pointer;transition:all .2s}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.1rem}
+.tech-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,151,58,.2);padding:1rem;display:flex;flex-direction:column;gap:.45rem;cursor:pointer;transition:all .2s}
 .tech-card:hover:not(.researched){border-color:var(--gold);transform:translateY(-2px)}
 .tech-card.researched{border-color:#4aff8a;background:rgba(74,255,138,.05)}
-.tech-title{font-family:var(--ft);font-size:.85rem;color:var(--gold-light);display:flex;justify-content:space-between}
-.tech-desc{font-size:.75rem;color:var(--parch-dark)}
-.tech-cost{font-size:.7rem;color:var(--gold-dim);font-family:var(--ft)}
+.tech-title{font-family:var(--ft);font-size:.9rem;color:var(--gold-light);display:flex;justify-content:space-between}
+.tech-desc{font-size:.78rem;color:var(--parch-dark)}
+.tech-cost{font-size:.72rem;color:var(--gold-dim);font-family:var(--ft)}
 </style>
 </head>
 <body>
@@ -203,7 +203,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 <div id="ld">
   <div class="ldt">KINGDOM</div>
   <div class="ldbw"><div class="ldbf"></div></div>
-  <div class="ldtip">"กำลังประมวลผลพื้นหลังโปร่งใส (Transparent Background) ให้ตัวละคร..."</div>
+  <div class="ldtip">"กำลังโหลดระบบสไปรต์อาคารมนุษย์และมุมมองจอขนาดใหญ่ (Widescreen Desktop)..."</div>
 </div>
 
 <!-- Main Menu -->
@@ -214,7 +214,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
     <div>
       <div class="logo-s">&#x2694; Project &#x2694;</div>
       <div class="logo-t">KINGDOM</div>
-      <div class="logo-v">Master Prototype v1.2 &#x2014; Transparent Character Sprites</div>
+      <div class="logo-v">Master Prototype v1.3 &#x2014; Widescreen Desktop Edition</div>
     </div>
     <div class="orn"><span style="color:var(--gold);font-size:1.2rem">&#x26DC;</span></div>
     <div class="mact">
@@ -223,14 +223,14 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
       <button id="btn-gdd" class="bmenu sec">&#x1F4DA; Design Document</button>
     </div>
   </div>
-  <div class="mft">Project Kingdom &#x2014; Transparent Pixel Art Strategy Simulation</div>
+  <div class="mft">Project Kingdom &#x2014; Widescreen Strategy Simulation</div>
 </div>
 
 <!-- Race Selection -->
 <div id="screen-race" class="screen">
   <div class="rhdr">
     <h1>Choose Your Faction</h1>
-    <p>Each civilization features authentic transparent animated pixel art characters &amp; mount riders.</p>
+    <p>Each civilization features authentic animated pixel art characters, mount riders, and unique wonders.</p>
   </div>
   <div class="rgrid">
     <div class="rcard" data-race="human"><div class="rsm">&#x2713;</div>
@@ -244,7 +244,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
           <div class="str"><span class="slbl">Growth</span><div class="strk"><div class="sfil" data-val="70"></div></div></div>
         </div>
         <div class="rpks">
-          <div class="pi"><span class="pic">&#x2726;</span> Trade price +25% &amp; Gold generation</div>
+          <div class="pi"><span class="pic">&#x2726;</span> สไปรต์อาคารใหม่ครบชุด (บ้าน, หอคอย, โรงเลื่อย, เหมือง, ค่ายทหาร)</div>
           <div class="pi"><span class="pic">&#x2726;</span> Wonder: <strong>Grand Embassy</strong> (+Influence)</div>
           <div class="pi"><span class="pic">&#x2717;</span> ทหารพื้นฐานอ่อนแอกว่าเผ่าอื่น 20%</div>
         </div>
@@ -313,7 +313,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
   </div>
 </div>
 
-<!-- In-Game Main Screen -->
+<!-- In-Game Main Screen (Full Widescreen) -->
 <div id="screen-game" class="screen">
   <div id="htop">
     <div id="hres">
@@ -348,6 +348,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
       <button class="act-btn" id="btn-tech">&#x1F52C; Tech Tree</button>
       <button class="act-btn" id="btn-save">&#x1F4BE; Save</button>
       <button class="act-btn" id="btn-sound">&#x1F50A; Sound: ON</button>
+      <button class="act-btn" id="btn-fs">&#x26F6; Fullscreen</button>
     </div>
 
     <!-- Zoom Toolbar -->
@@ -374,15 +375,15 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
     <div id="btb">
       <button class="bb" data-b="house">&#x1F3E0; House<span class="bc">&#x1FAB5;10 &#x1FAA8;5</span></button>
       <button class="bb" data-b="farm">&#x1F33E; Farm<span class="bc">&#x1FAB5;8</span></button>
-      <button class="bb" data-b="lumbermill">&#x1FA9A; Lumber<span class="bc">&#x1FAB5;15 &#x1FAA8;10</span></button>
+      <button class="bb" data-b="lumbermill">&#x1FA9A; Lumber Mill<span class="bc">&#x1FAB5;15 &#x1FAA8;10</span></button>
       <button class="bb" data-b="mine">&#x26CF; Mine<span class="bc">&#x1FAB5;10 &#x1FAA8;20</span></button>
       <button class="bb" data-b="barracks">&#x2694; Barracks<span class="bc">&#x1FAB5;20 &#x1FAA8;15</span></button>
-      <button class="bb" data-b="watchtower">&#x1F5FC; Tower<span class="bc">&#x1FAB5;12 &#x1FAA8;8</span></button>
-      <button class="bb special" data-b="special" id="btn-special">&#x1F3DB; Unique<span class="bc" id="sp-cost">&#x1FAB5;30 &#x1FAA8;30</span></button>
-      <button class="bb" data-b="road">&#x1F6E4; Road<span class="bc">&#x1FAA8;2</span></button>
+      <button class="bb" data-b="watchtower">&#x1F5FC; Watchtower<span class="bc">&#x1FAB5;12 &#x1FAA8;8</span></button>
+      <button class="bb special" data-b="special" id="btn-special">&#x1F3DB; Unique Wonder<span class="bc" id="sp-cost">&#x1FAB5;30 &#x1FAA8;30</span></button>
+      <button class="bb" data-b="road">&#x1F6E4; Stone Road<span class="bc">&#x1FAA8;2</span></button>
     </div>
     <div id="spc">
-      <span class="slbl2">Speed</span>
+      <span class="slbl2">Sim Speed</span>
       <button class="sb" data-spd="0">&#x23F8;</button>
       <button class="sb act" data-spd="1">&#x25B6;</button>
       <button class="sb" data-spd="2">&#x25B6;&#x25B6;</button>
@@ -405,8 +406,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
     </div>
     <div class="ms">
       <h3>Live Production Trends (Last 40 Ticks)</h3>
-      <div class="cw"><div class="cl2">Gold Reserves</div><canvas id="cgold" width="760" height="85"></canvas></div>
-      <div class="cw"><div class="cl2">Food Stockpile</div><canvas id="cfood" width="760" height="85"></canvas></div>
+      <div class="cw"><div class="cl2">Gold Reserves</div><canvas id="cgold" width="820" height="90"></canvas></div>
+      <div class="cw"><div class="cl2">Food Stockpile</div><canvas id="cfood" width="820" height="90"></canvas></div>
     </div>
     <div class="ms">
       <h3>Kingdom Infrastructure &amp; Labor Allocation</h3>
@@ -447,9 +448,9 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--parch);font-fa
 <script>
 'use strict';
 // ══════════════════════════════════════════════════════════════════════════════
-//  PROJECT KINGDOM MASTER PROTOTYPE v1.2 — TRANSPARENT CHARACTER SPRITES
-//  Features: Automatic Chroma-Key / BFS Flood-Fill Background Removal,
-//  Animated Walk Cycles, Mount Riders, Faction Wonder Sprites, & Zoom Control.
+//  PROJECT KINGDOM MASTER PROTOTYPE v1.3 — WIDESCREEN DESKTOP & BUILDING EDITION
+//  Features: Full Widescreen Desktop Viewport, Real Human Building Sprites,
+//  Automatic Chroma-Key Transparency, Large Map, Zoom & Fullscreen Controls.
 // ══════════════════════════════════════════════════════════════════════════════
 
 // Sound Synthesizer
@@ -514,13 +515,13 @@ const T = {
 const BUILDABLE = new Set([0, 4]);
 
 const BINFO = {
-  house:     {type:10, name:'House',       cost:{wood:10,stone:5}, desc:'Max Population +5',    vis:1, mw:0},
-  farm:      {type:11, name:'Farm',        cost:{wood:8},          desc:'Food +0.4 / tick',     vis:1, mw:3},
-  lumbermill:{type:12, name:'Lumber Mill', cost:{wood:15,stone:10},desc:'Wood +0.3 / tick',     vis:1, mw:3},
-  mine:      {type:17, name:'Mine',        cost:{wood:10,stone:20},desc:'Iron +0.15 / tick',    vis:1, mw:3},
-  barracks:  {type:13, name:'Barracks',    cost:{wood:20,stone:15},desc:'Trains Royal Soldiers',vis:2, mw:2},
-  watchtower:{type:16, name:'Watchtower',  cost:{wood:12,stone:8}, desc:'Vision Radius +4',    vis:5, mw:1},
-  special:   {type:18, name:'Unique Wonder',cost:{wood:30,stone:30},desc:'Faction Unique Building', vis:3, mw:2},
+  house:     {type:10, name:'House',       cost:{wood:10,stone:5}, desc:'Max Population +5',    vis:2, mw:0},
+  farm:      {type:11, name:'Farm',        cost:{wood:8},          desc:'Food +0.4 / tick',     vis:2, mw:3},
+  lumbermill:{type:12, name:'Lumber Mill', cost:{wood:15,stone:10},desc:'Wood +0.3 / tick',     vis:2, mw:3},
+  mine:      {type:17, name:'Mine',        cost:{wood:10,stone:20},desc:'Iron +0.15 / tick',    vis:2, mw:3},
+  barracks:  {type:13, name:'Barracks',    cost:{wood:20,stone:15},desc:'Trains Royal Soldiers',vis:3, mw:2},
+  watchtower:{type:16, name:'Watchtower',  cost:{wood:12,stone:8}, desc:'Vision Radius +7',    vis:7, mw:1},
+  special:   {type:18, name:'Unique Wonder',cost:{wood:30,stone:30},desc:'Faction Unique Building', vis:4, mw:2},
   road:      {type:14, name:'Road',        cost:{stone:2},         desc:'Movement Speed +50%',  vis:1, mw:0},
 };
 
@@ -570,11 +571,19 @@ const RDATA = {
   }
 };
 
+// Human Building Sprites
+const HUMAN_BLD_SPRITES = {};
+const BLD_NAMES = ['house', 'lumbermill', 'mine', 'barracks', 'watchtower'];
+BLD_NAMES.forEach(bName => {
+  const img = new Image();
+  img.src = `../Assets/Building/Human/Sprites/${bName}.png`;
+  HUMAN_BLD_SPRITES[bName] = img;
+});
+
 // Raw Images & Processed Transparent Canvases
 const RAW_IMAGES = {};
 const TRANSPARENT_SPRITES = {};
 
-// Background Removal / Transparentizer Engine
 function processSpriteTransparency(img, isMount = false) {
   try {
     const c = document.createElement('canvas');
@@ -606,7 +615,6 @@ function processSpriteTransparency(img, isMount = false) {
         const visited = new Uint8Array(cellW * cellH);
         const queue = [];
 
-        // Seed boundary of cell
         for (let x = 0; x < cellW; x++) {
           queue.push(x, 0); visited[0 * cellW + x] = 1;
           queue.push(x, cellH - 1); visited[(cellH - 1) * cellW + x] = 1;
@@ -624,21 +632,17 @@ function processSpriteTransparency(img, isMount = false) {
           const gy = minY + ly;
           const pIdx = (gy * w + gx) * 4;
 
-          const pr = data[pIdx];
-          const pg = data[pIdx + 1];
-          const pb = data[pIdx + 2];
-
+          const pr = data[pIdx], pg = data[pIdx + 1], pb = data[pIdx + 2];
           const maxV = Math.max(pr, pg, pb);
           const minV = Math.min(pr, pg, pb);
           const diff = maxV - minV;
 
-          // Dark neutral background grey, card boxes, or dark borders
           const isDarkNeutral = (diff <= 24 && maxV <= 80);
           const isPureBlack = (pr <= 30 && pg <= 30 && pb <= 30);
           const isDarkBanner = (pr < 40 && pg < 60 && pb < 40);
 
           if (isDarkNeutral || isPureBlack || isDarkBanner) {
-            data[pIdx + 3] = 0; // Transparent!
+            data[pIdx + 3] = 0;
 
             if (lx > 0 && !visited[ly * cellW + (lx - 1)]) {
               visited[ly * cellW + (lx - 1)] = 1;
@@ -669,34 +673,17 @@ function processSpriteTransparency(img, isMount = false) {
   }
 }
 
-// Preload and Process Transparency
+// Preload Images
 Object.entries(RDATA).forEach(([k, r]) => {
-  // Character Sheet
-  const s = new Image();
-  s.src = r.imgSheet;
-  RAW_IMAGES[k+'_sheet'] = s;
-  s.onload = () => {
-    TRANSPARENT_SPRITES[k+'_sheet'] = processSpriteTransparency(s, false);
-  };
-  if (s.complete && s.naturalWidth > 0) {
-    TRANSPARENT_SPRITES[k+'_sheet'] = processSpriteTransparency(s, false);
-  }
+  const s = new Image(); s.src = r.imgSheet; RAW_IMAGES[k+'_sheet'] = s;
+  s.onload = () => { TRANSPARENT_SPRITES[k+'_sheet'] = processSpriteTransparency(s, false); };
+  if (s.complete && s.naturalWidth > 0) TRANSPARENT_SPRITES[k+'_sheet'] = processSpriteTransparency(s, false);
 
-  // Mount Sheet
-  const m = new Image();
-  m.src = r.imgMount;
-  RAW_IMAGES[k+'_mount'] = m;
-  m.onload = () => {
-    TRANSPARENT_SPRITES[k+'_mount'] = processSpriteTransparency(m, true);
-  };
-  if (m.complete && m.naturalWidth > 0) {
-    TRANSPARENT_SPRITES[k+'_mount'] = processSpriteTransparency(m, true);
-  }
+  const m = new Image(); m.src = r.imgMount; RAW_IMAGES[k+'_mount'] = m;
+  m.onload = () => { TRANSPARENT_SPRITES[k+'_mount'] = processSpriteTransparency(m, true); };
+  if (m.complete && m.naturalWidth > 0) TRANSPARENT_SPRITES[k+'_mount'] = processSpriteTransparency(m, true);
 
-  // Building
-  const b = new Image();
-  b.src = r.imgBld;
-  RAW_IMAGES[k+'_bld'] = b;
+  const b = new Image(); b.src = r.imgBld; RAW_IMAGES[k+'_bld'] = b;
 });
 
 // Tech Tree Innovations
@@ -710,7 +697,8 @@ const TECH_LIST = [
 
 const SEASONS = ['\u{1F331} Spring', '\u2600 Summer', '\u{1F342} Autumn', '\u2744 Winter'];
 const HIST = 40;
-const GW = 34, GH = 24, TS = 40;
+// Large Map for Desktop Widescreen Experience
+const GW = 52, GH = 36, TS = 40;
 
 let G = {};
 let canvas, ctx, mmC, mmX, selRace = null;
@@ -723,8 +711,8 @@ function ri(a,b){return Math.floor(rnd(a,b+1))}
 function cl(v,lo,hi){return Math.min(hi,Math.max(lo,v))}
 function d2(ax,ay,bx,by){return Math.hypot(ax-bx,ay-by)}
 function nz(x,y){
-  const a=Math.sin(x*.41+42)*127.1, b=Math.sin(y*.37+42)*311.7, c=Math.sin((x+y)*.23+42)*74.3;
-  return Math.sin(a+b+c)*.7 + Math.sin(x*.11*y*.07+42)*.3;
+  const a=Math.sin(x*.31+42)*127.1, b=Math.sin(y*.27+42)*311.7, c=Math.sin((x+y)*.19+42)*74.3;
+  return Math.sin(a+b+c)*.7 + Math.sin(x*.08*y*.05+42)*.3;
 }
 function ig(x,y){return x>=0 && x<GW && y>=0 && y<GH}
 function ib(x,y){return ig(x,y) && BUILDABLE.has(G.grid[y][x])}
@@ -735,7 +723,7 @@ window.addEventListener('load', () => {
     document.getElementById('ld').classList.add('hidden');
     ss('menu');
     initFloatingParticles();
-  }, 1200);
+  }, 1000);
 });
 
 function ss(n){
@@ -746,7 +734,7 @@ function ss(n){
 
 function initFloatingParticles(){
   const c = document.getElementById('ptcl');
-  for (let i=0; i<28; i++){
+  for (let i=0; i<30; i++){
     const p = document.createElement('div');
     p.className = 'ptc';
     p.style.cssText = `--dur:${6+Math.random()*10}s;--dl:${Math.random()*8}s;--dr:${(Math.random()-.5)*120}px;left:${Math.random()*100}%;width:${1.5+Math.random()*3}px;height:${1.5+Math.random()*3}px`;
@@ -817,11 +805,11 @@ function initGameSession(race, loadedData = null){
     bonuses: { farmEff: 1.0, mineEff: 1.0, soldierAtk: 7 },
     ai: {
       race: (race==='orc'?'human':'orc'),
-      gold: 350, food: 90, wood: 60, stone: 40, pop: 10, soldiers: 0,
+      gold: 400, food: 120, wood: 80, stone: 50, pop: 12, soldiers: 0,
       relation: 50, pact: 'neutral', px: 0, py: 0, placeT: 0
     },
     techs: TECH_LIST.map(t=>({...t})),
-    zoom: 1.0,
+    zoom: 1.15,
     speed: 1, paused: false, selB: null, selTile: null,
     camX: 0, camY: 0, drag: false, dsx: 0, dsy: 0, csx: 0, csy: 0, hx: -1, hy: -1,
     nid: 1, war: 'peace', warD: false, popT: 0
@@ -837,22 +825,26 @@ function initGameSession(race, loadedData = null){
     genMap();
     initFog();
     placeAICity();
-    spawnWorkers(Math.min(r.pop, 14));
+    spawnWorkers(Math.min(r.pop, 16));
   }
 
   canvas = document.getElementById('wc');
   ctx = canvas.getContext('2d');
   mmC = document.getElementById('mmc');
   mmX = mmC.getContext('2d');
-  mmC.width = GW * 4;
-  mmC.height = GH * 4;
+  mmC.width = GW * 3.5;
+  mmC.height = GH * 3.5;
 
   resize();
   window.addEventListener('resize', resize);
 
-  const px = Math.floor(GW / 2), py = Math.floor(GH / 2);
-  G.camX = -(px * TS * G.zoom - canvas.width / 2 + (TS * G.zoom) / 2);
-  G.camY = -(py * TS * G.zoom - canvas.height / 2 + (TS * G.zoom) / 2);
+  // Center camera precisely on the Palace
+  const palace = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
+  const px = palace ? palace.x : Math.floor(GW / 2);
+  const py = palace ? palace.y : Math.floor(GH / 2);
+  const z = G.zoom || 1.15;
+  G.camX = -(px * TS * z - canvas.width / 2 + (TS * z) / 2);
+  G.camY = -(py * TS * z - canvas.height / 2 + (TS * z) / 2);
   clampCam();
 
   initWeatherParticles();
@@ -863,14 +855,14 @@ function initGameSession(race, loadedData = null){
   setupModals();
   setupZoomControls();
   setupKeyboard();
+  setupFullscreenToggle();
 
   if (G.simTimer) clearInterval(G.simTimer);
   G.simTimer = setInterval(() => { if (!G.paused) simTick(); }, 500);
 
   requestAnimationFrame(gameLoop);
 
-  showNotice(`\u{1F3F0} Welcome to ${rd.name}! Transparent character sprites loaded.`, '#c9973a');
-  setTimeout(() => showNotice('\u{1F50D} Tip: Use mouse wheel to Zoom in/out to view character sprites up close!', '#4a9a30'), 3500);
+  showNotice(`\u{1F3F0} Widescreen Desktop Viewport initialized! Ready to build.`, '#c9973a');
 }
 
 // Map Generation
@@ -881,24 +873,25 @@ function genMap(){
     for (let x=0; x<GW; x++) G.grid[y][x] = genTile(x, y);
   }
   const px = Math.floor(GW / 2), py = Math.floor(GH / 2);
-  clearArea(px, py, 2);
+  clearArea(px, py, 4);
   placeBld(px, py, T.PALACE, 'player', 0, 0);
 
-  [[px-1,py],[px+1,py],[px,py-1],[px,py+1]].forEach(([x,y]) => {
+  [[px-1,py],[px+1,py],[px,py-1],[px,py+1],[px-2,py],[px+2,py],[px,py-2],[px,py+2]].forEach(([x,y]) => {
     if (ig(x,y) && BUILDABLE.has(G.grid[y][x])) placeBld(x, y, T.ROAD, 'player', 0, 0);
   });
   placeBld(px+2, py+1, T.FARM, 'player', 0, 3);
   placeBld(px-2, py+1, T.FARM, 'player', 0, 3);
   placeBld(px+1, py-2, T.LUMBERMILL, 'player', 0, 3);
+  placeBld(px-2, py-2, T.HOUSE, 'player', 0, 0);
 }
 
 function genTile(x, y){
   if (x<2 || x>GW-3 || y<2 || y>GH-3) return T.MOUNTAIN;
   const n = nz(x, y);
-  if (n < -.35) return T.WATER;
-  if (n < -.1)  return T.GRASS;
-  if (n < .15)  return Math.random() < .35 ? T.FOREST : T.GRASS;
-  if (n < .45)  return Math.random() < .55 ? T.FOREST : T.GRASS;
+  if (n < -.38) return T.WATER;
+  if (n < -.12) return T.GRASS;
+  if (n < .18)  return Math.random() < .35 ? T.FOREST : T.GRASS;
+  if (n < .48)  return Math.random() < .55 ? T.FOREST : T.GRASS;
   return T.MOUNTAIN;
 }
 
@@ -911,7 +904,7 @@ function clearArea(cx, cy, r){
 
 function placeBld(x, y, type, owner, workers, mw){
   G.grid[y][x] = type;
-  const info = Object.values(BINFO).find(b => b.type === type) || {vis:1, mw:0};
+  const info = Object.values(BINFO).find(b => b.type === type) || {vis:2, mw:0};
   G.buildings.push({
     x, y, type, owner,
     workers: workers || 0,
@@ -921,7 +914,7 @@ function placeBld(x, y, type, owner, workers, mw){
   });
 }
 
-// Fog of War
+// Fog of War with generous initial exploration
 function initFog(){
   G.fog = [];
   for (let y=0; y<GH; y++) G.fog[y] = new Uint8Array(GW);
@@ -934,16 +927,18 @@ function updateFog(){
 
   G.buildings.filter(b => b.owner === 'player').forEach(b => {
     const info = Object.values(BINFO).find(d => d.type === b.type);
-    const vr = (info?.vis || 1) + (b.type === T.WATCHTOWER ? 3 : 0);
+    let vr = (info?.vis || 2);
+    if (b.type === T.PALACE) vr = 6; // Wide starting vision
+    if (b.type === T.WATCHTOWER) vr = 8;
     for (let dy=-vr; dy<=vr; dy++) for (let dx=-vr; dx<=vr; dx++){
       const x = b.x+dx, y = b.y+dy;
-      if (ig(x,y) && Math.abs(dx)+Math.abs(dy) <= vr*1.4) vis[y][x] = 1;
+      if (ig(x,y) && Math.abs(dx)+Math.abs(dy) <= vr*1.35) vis[y][x] = 1;
     }
   });
 
   G.workers.forEach(w => {
     const tx = Math.floor(w.x / TS), ty = Math.floor(w.y / TS);
-    for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++){
+    for (let dy=-2; dy<=2; dy++) for (let dx=-2; dx<=2; dx++){
       const x = tx+dx, y = ty+dy;
       if (ig(x,y)) vis[y][x] = 1;
     }
@@ -957,30 +952,31 @@ function updateFog(){
 
 // AI Opponent City
 function placeAICity(){
-  const ax = ri(3, 8), ay = ri(3, 8);
-  clearArea(ax, ay, 3);
+  const ax = ri(6, 14), ay = ri(6, 12);
+  clearArea(ax, ay, 4);
   G.grid[ay][ax] = T.PALACE;
-  G.buildings.push({x:ax, y:ay, type:T.PALACE, owner:'ai', workers:0, mw:0, id:G.nid++, hp:250, mhp:250});
+  G.buildings.push({x:ax, y:ay, type:T.PALACE, owner:'ai', workers:0, mw:0, id:G.nid++, hp:300, mhp:300});
   G.ai.px = ax; G.ai.py = ay;
 
-  [[ax+2,ay,T.FARM],[ax-2,ay,T.FARM],[ax,ay+2,T.LUMBERMILL],[ax+1,ay-1,T.BARRACKS]].forEach(([x,y,type]) => {
+  [[ax+2,ay,T.FARM],[ax-2,ay,T.FARM],[ax,ay+2,T.LUMBERMILL],[ax+1,ay-1,T.BARRACKS],[ax-1,ay-2,T.MINE]].forEach(([x,y,type]) => {
     if (ig(x,y) && (G.grid[y][x] === T.GRASS || G.grid[y][x] === T.FOREST)){
       G.grid[y][x] = type;
       G.buildings.push({x,y,type,owner:'ai',workers:2,mw:2,id:G.nid++,hp:120,mhp:120});
     }
   });
-  for (let i=0; i<3; i++) spawnAISoldier();
+  for (let i=0; i<4; i++) spawnAISoldier();
 }
 
 // Population & Tiny Worker Simulation
 function spawnWorkers(n){
-  const cx = Math.floor(GW / 2) * TS + TS / 2;
-  const cy = Math.floor(GH / 2) * TS + TS / 2;
-  const roles = [0, 1, 0, 1, 4]; // 0=Farmer, 1=Builder, 4=Merchant
+  const palace = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
+  const cx = (palace ? palace.x : GW/2) * TS + TS / 2;
+  const cy = (palace ? palace.y : GH/2) * TS + TS / 2;
+  const roles = [0, 1, 0, 1, 4];
   for (let i=0; i<n; i++){
     G.workers.push({
-      x: cx + (Math.random()-.5)*60,
-      y: cy + (Math.random()-.5)*60,
+      x: cx + (Math.random()-.5)*70,
+      y: cy + (Math.random()-.5)*70,
       tx: cx, ty: cy,
       dir: 1,
       role: roles[i % roles.length],
@@ -996,8 +992,8 @@ function assignWanderGoal(w){
   const h = G.buildings.find(b => b.type === T.PALACE && b.owner === 'player');
   const cx = (h ? h.x : GW/2) * TS + TS / 2;
   const cy = (h ? h.y : GH/2) * TS + TS / 2;
-  w.tx = cl(cx + (Math.random()-.5)*220, TS, (GW-1)*TS);
-  w.ty = cl(cy + (Math.random()-.5)*220, TS, (GH-1)*TS);
+  w.tx = cl(cx + (Math.random()-.5)*300, TS, (GW-1)*TS);
+  w.ty = cl(cy + (Math.random()-.5)*300, TS, (GH-1)*TS);
 }
 
 function stepWorkers(){
@@ -1103,8 +1099,8 @@ function stepUnits(){
     } else {
       u.pt--;
       if (u.pt <= 0){
-        u.tx = (G.ai.px + rnd(-3, 3)) * TS + TS / 2;
-        u.ty = (G.ai.py + rnd(-3, 3)) * TS + TS / 2;
+        u.tx = (G.ai.px + rnd(-4, 4)) * TS + TS / 2;
+        u.ty = (G.ai.py + rnd(-4, 4)) * TS + TS / 2;
         u.pt = ri(60, 160);
       }
     }
@@ -1189,8 +1185,8 @@ function aiBuildExpansion(){
   const type = valid[ri(0, valid.length-1)].t;
 
   for (let tr=0; tr<25; tr++){
-    const x = cl(ai.px + ri(-5, 5), 1, GW-2);
-    const y = cl(ai.py + ri(-5, 5), 1, GH-2);
+    const x = cl(ai.px + ri(-6, 6), 1, GW-2);
+    const y = cl(ai.py + ri(-6, 6), 1, GH-2);
     if (BUILDABLE.has(G.grid[y][x]) && !G.buildings.find(b => b.x===x && b.y===y)){
       G.grid[y][x] = type;
       G.buildings.push({x, y, type, owner:'ai', workers:2, mw:2, id:G.nid++, hp:100, mhp:100});
@@ -1202,7 +1198,7 @@ function aiBuildExpansion(){
 // Weather System
 function initWeatherParticles(){
   weatherParticles = [];
-  for (let i=0; i<45; i++){
+  for (let i=0; i<65; i++){
     weatherParticles.push({
       x: Math.random() * (GW * TS),
       y: Math.random() * (GH * TS),
@@ -1214,7 +1210,7 @@ function initWeatherParticles(){
 
 function renderWeather(ctx){
   const s = G.season;
-  if (s === 3){ // Snow
+  if (s === 3){
     ctx.fillStyle = 'rgba(255,255,255,0.75)';
     weatherParticles.forEach(p => {
       p.y += p.v * 0.5;
@@ -1225,7 +1221,7 @@ function renderWeather(ctx){
       ctx.arc(p.x, p.y, p.s, 0, Math.PI*2);
       ctx.fill();
     });
-  } else if (s === 2){ // Rain
+  } else if (s === 2){
     ctx.strokeStyle = 'rgba(150,200,255,0.45)';
     ctx.lineWidth = 1.2;
     weatherParticles.forEach(p => {
@@ -1241,9 +1237,10 @@ function renderWeather(ctx){
   }
 }
 
-// Canvas & Zoom Navigation
+// Canvas & Full Widescreen Navigation
 function resize(){
   const w = document.getElementById('gworld');
+  if (!w || !canvas) return;
   canvas.width = w.clientWidth;
   canvas.height = w.clientHeight;
   clampCam();
@@ -1251,7 +1248,7 @@ function resize(){
 
 function clampCam(){
   if (!canvas) return;
-  const z = G.zoom || 1.0;
+  const z = G.zoom || 1.15;
   const mapW = GW * TS * z;
   const mapH = GH * TS * z;
   G.camX = cl(G.camX, -(mapW - canvas.width), 0);
@@ -1259,17 +1256,31 @@ function clampCam(){
 }
 
 function s2t(sx, sy){
-  const z = G.zoom || 1.0;
+  const z = G.zoom || 1.15;
   return {
     tx: Math.floor((sx - G.camX) / (TS * z)),
     ty: Math.floor((sy - G.camY) / (TS * z))
   };
 }
 
+function setupFullscreenToggle(){
+  const fsBtn = document.getElementById('btn-fs');
+  fsBtn.addEventListener('click', () => {
+    SFX.click();
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => console.error(err));
+      fsBtn.textContent = '\u26F6 Exit Full';
+    } else {
+      document.exitFullscreen();
+      fsBtn.textContent = '\u26F6 Fullscreen';
+    }
+  });
+}
+
 function setupZoomControls(){
   document.getElementById('btn-zin').addEventListener('click', () => { setZoom(G.zoom + 0.25); });
   document.getElementById('btn-zout').addEventListener('click', () => { setZoom(G.zoom - 0.25); });
-  document.getElementById('btn-zrst').addEventListener('click', () => { setZoom(1.0); });
+  document.getElementById('btn-zrst').addEventListener('click', () => { setZoom(1.15); });
 
   canvas.addEventListener('wheel', e => {
     e.preventDefault();
@@ -1279,7 +1290,7 @@ function setupZoomControls(){
 }
 
 function setZoom(newZoom){
-  const oldZoom = G.zoom || 1.0;
+  const oldZoom = G.zoom || 1.15;
   G.zoom = cl(newZoom, 0.6, 2.5);
   const factor = G.zoom / oldZoom;
   const cx = canvas.width / 2;
@@ -1301,7 +1312,7 @@ function gameLoop(){
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-//  TRANSPARENT SPRITE RENDERING
+//  SPRITE RENDERING ENGINE (Entities & Human Buildings)
 // ══════════════════════════════════════════════════════════════════════════════
 function drawCharacterSprite(ctx, race, row, col, x, y, size = 32, dir = 1){
   let img = TRANSPARENT_SPRITES[race+'_sheet'];
@@ -1372,19 +1383,19 @@ function drawWonderBuilding(ctx, race, px, py, size = 40){
   const sw = W / 2;
   const sh = H;
 
-  ctx.drawImage(img, sx, sy, sw, sh, px - 4, py - 8, size + 8, size + 10);
+  ctx.drawImage(img, sx, sy, sw, sh, px - 6, py - 12, size + 12, size + 16);
 }
 
 // World Render Loop
 function renderWorld(){
   if (!canvas || !ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#0a0d06';
+  ctx.fillStyle = '#060a04';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.save();
   ctx.translate(G.camX, G.camY);
-  const z = G.zoom || 1.0;
+  const z = G.zoom || 1.15;
   ctx.scale(z, z);
 
   // Tiles
@@ -1420,7 +1431,7 @@ function renderWorld(){
 
   // War Outline
   if (G.war === 'war'){
-    ctx.strokeStyle = 'rgba(255,50,50,.3)';
+    ctx.strokeStyle = 'rgba(255,50,50,.35)';
     ctx.lineWidth = 3;
     ctx.setLineDash([6, 4]);
     ctx.strokeRect(G.ai.px*TS - 4*TS, G.ai.py*TS - 4*TS, 9*TS, 9*TS);
@@ -1447,10 +1458,10 @@ function renderTile(x, y){
 
   // Fog of war shadows
   if (f === 0) {
-    ctx.fillStyle = 'rgba(0,0,0,.96)';
+    ctx.fillStyle = 'rgba(0,0,0,.95)';
     ctx.fillRect(px, py, TS, TS);
   } else if (f === 2) {
-    ctx.fillStyle = 'rgba(0,0,0,.55)';
+    ctx.fillStyle = 'rgba(0,0,0,.52)';
     ctx.fillRect(px, py, TS, TS);
   }
 
@@ -1498,21 +1509,44 @@ function renderMountain(px, py){
   ctx.fillStyle = '#e0ddd8';
   ctx.beginPath(); ctx.moveTo(mx, py+4); ctx.lineTo(mx+8, py+16); ctx.lineTo(mx-8, py+16); ctx.closePath(); ctx.fill();
 }
+
 function renderBuilding(px, py, t, x, y){
   if (t === T.SPECIAL){
     drawWonderBuilding(ctx, G.race, px, py, TS);
     return;
   }
-  const e = BEM[t];
-  if (!e) return;
-  if (t !== T.ROAD){
-    ctx.fillStyle = 'rgba(0,0,0,.3)';
-    ctx.fillRect(px+4, py+TS-8, TS-8, 6);
+
+  // Check if we have dedicated sprite for Human faction
+  const isHuman = (G.race === 'human' && G.buildings.find(b=>b.x===x&&b.y===y&&b.owner==='player'));
+  let spriteDrawn = false;
+
+  if (isHuman) {
+    let spr = null;
+    if (t === T.HOUSE) spr = HUMAN_BLD_SPRITES.house;
+    else if (t === T.LUMBERMILL) spr = HUMAN_BLD_SPRITES.lumbermill;
+    else if (t === T.MINE) spr = HUMAN_BLD_SPRITES.mine;
+    else if (t === T.BARRACKS) spr = HUMAN_BLD_SPRITES.barracks;
+    else if (t === T.WATCHTOWER) spr = HUMAN_BLD_SPRITES.watchtower;
+
+    if (spr && spr.complete && spr.naturalWidth > 0) {
+      // Draw crisp isometric building sprite
+      ctx.drawImage(spr, px - 6, py - 12, TS + 12, TS + 16);
+      spriteDrawn = true;
+    }
   }
-  ctx.font = (t===T.PALACE ? '22' : '18') + 'px serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(e, px+TS/2, py+TS/2);
+
+  if (!spriteDrawn) {
+    const e = BEM[t];
+    if (!e) return;
+    if (t !== T.ROAD){
+      ctx.fillStyle = 'rgba(0,0,0,.3)';
+      ctx.fillRect(px+4, py+TS-8, TS-8, 6);
+    }
+    ctx.font = (t===T.PALACE ? '22' : '18') + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(e, px+TS/2, py+TS/2);
+  }
 
   if (t === T.PALACE){
     ctx.strokeStyle = 'rgba(201,151,58,.8)';
@@ -1583,7 +1617,7 @@ function renderUnits(){
 
 function renderMinimap(){
   if (!mmX) return;
-  const sc = 4;
+  const sc = 3.5;
   mmX.fillStyle = '#0a0805';
   mmX.fillRect(0, 0, GW * sc, GH * sc);
 
@@ -1603,7 +1637,7 @@ function renderMinimap(){
 
   // Viewport box
   if (canvas){
-    const z = G.zoom || 1.0;
+    const z = G.zoom || 1.15;
     const vx = -G.camX / (TS * z) * sc, vy = -G.camY / (TS * z) * sc;
     const vw = canvas.width / (TS * z) * sc, vh = canvas.height / (TS * z) * sc;
     mmX.strokeStyle = 'rgba(240,204,110,.85)';
@@ -1624,8 +1658,8 @@ function renderMinimap(){
 
 document.getElementById('mmc').addEventListener('click', e => {
   SFX.click();
-  const r = e.target.getBoundingClientRect(), sc = 4;
-  const z = G.zoom || 1.0;
+  const r = e.target.getBoundingClientRect(), sc = 3.5;
+  const z = G.zoom || 1.15;
   const mx = (e.clientX - r.left) / sc, my = (e.clientY - r.top) / sc;
   G.camX = -(mx * TS * z - canvas.width / 2);
   G.camY = -(my * TS * z - canvas.height / 2);
@@ -1750,7 +1784,7 @@ function openSelectionPanel(b){
     btn.className = 'spbtn';
     btn.textContent = '\u2694 Recruit Soldier (\u{1F33E}20 \u{1F4B0}30)';
     btn.addEventListener('click', () => {
-      if (G.food >= 20 && G.gold >= 30 && G.soldiers < 35){
+      if (G.food >= 20 && G.gold >= 30 && G.soldiers < 40){
         G.food -= 20; G.gold -= 30;
         spawnPlayerSoldier();
         SFX.build();
@@ -2117,7 +2151,6 @@ function drawChart(id, data, stroke, fill){
     y: h - ((v - mn) / range) * (h - 10) - 5
   }));
 
-  // Fill
   cx.beginPath();
   cx.moveTo(pts[0].x, h);
   pts.forEach(p => cx.lineTo(p.x, p.y));
@@ -2126,7 +2159,6 @@ function drawChart(id, data, stroke, fill){
   cx.fillStyle = fill;
   cx.fill();
 
-  // Line
   cx.beginPath();
   cx.moveTo(pts[0].x, pts[0].y);
   pts.forEach(p => cx.lineTo(p.x, p.y));
@@ -2134,7 +2166,6 @@ function drawChart(id, data, stroke, fill){
   cx.lineWidth = 1.6;
   cx.stroke();
 
-  // Value text
   cx.fillStyle = stroke;
   cx.font = '10px monospace';
   cx.textAlign = 'right';
@@ -2173,6 +2204,12 @@ function setupKeyboard(){
     if (e.key === 'w' || e.key === 'W') declareWar(true);
     if (e.key === '+' || e.key === '=') setZoom(G.zoom + 0.25);
     if (e.key === '-' || e.key === '_') setZoom(G.zoom - 0.25);
+    if (e.key >= '1' && e.key <= '8') {
+      const keys = ['house', 'farm', 'lumbermill', 'mine', 'barracks', 'watchtower', 'special', 'road'];
+      const k = keys[parseInt(e.key) - 1];
+      const btn = document.querySelector(`.bb[data-b="${k}"]`);
+      if (btn) btn.click();
+    }
   });
 }
 

@@ -24,11 +24,11 @@ linked_project: 04_PROJECT
 - [[02-Gameplay-Loop]] — Loop หลักของเกม
 
 ### เผ่าพันธุ์
-- [[03-Races/Race-Balance-Overview]] — ภาพรวมความสมดุลระหว่าง 4 เผ่า
-- [[03-Races/Human]]
-- [[03-Races/Elf]]
-- [[03-Races/Orc]]
-- [[03-Races/Dwarf]]
+- 03-Races/Race-Balance-Overview — ภาพรวมความสมดุลระหว่าง 4 เผ่า
+- 03-Races/Human
+- 03-Races/Elf
+- 03-Races/Orc
+- 03-Races/Dwarf
 - [[18-Asset-Gallery]] - ไฟล์รูปภาพ
 
 ### ระบบหลัก

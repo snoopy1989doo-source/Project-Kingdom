@@ -2,7 +2,7 @@
 tags: [gdd, race, orc]
 version: "3.0"
 related:
-  - "[[03-Races/Race-Balance-Overview]]"
+  - "03-Races/Race-Balance-Overview"
 ---
 
 # 👹 Orc — นักรบ
@@ -41,7 +41,7 @@ related:
 ## เหตุผลเชิงออกแบบ
 Orc ชนะด้วย "ความเร็วและความกลัว" — หน่วยพิเศษทั้งสองเน้น **ทำลาย Morale ศัตรู** (Boar Rider) และ **เสริม Morale ฝ่ายตัวเอง** (Warchief) ทำให้การรบของ Orc จบเร็วด้วยการพังขวัญกำลังใจฝ่ายตรงข้ามก่อนถึงจะรบยาว — สอดคล้องกับ Victory Bias แบบ Conquest
 
-![[Orc_Character_Sheet.png]]
-![[Orc_Mount_Boar.png]]
+!Orc_Character_Sheet.png
+!Orc_Mount_Boar.png
 
-![[Orc_Building_WarTotem.png]]
+!Orc_Building_WarTotem.png

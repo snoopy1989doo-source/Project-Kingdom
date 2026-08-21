@@ -3,7 +3,7 @@ tags: [gdd, tech-tree]
 version: "3.0"
 related:
   - "[[00-Index]]"
-  - "[[03-Races/Race-Balance-Overview]]"
+  - "03-Races/Race-Balance-Overview"
 ---
 
 # 🌳 Tech Tree — 4 Ages Asymmetric
@@ -43,4 +43,4 @@ Age 4: Industrial & Overlord Age
 
 ## เชื่อมโยง
 - ปลดล็อกอาคาร → [[11-Building-Resource-Flow]]
-- ปลดล็อกหน่วยพิเศษเผ่า → [[03-Races/Race-Balance-Overview]]
+- ปลดล็อกหน่วยพิเศษเผ่า → 03-Races/Race-Balance-Overview

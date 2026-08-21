@@ -10,8 +10,8 @@ tags:
   - second-brain
 created: 2026-08-19
 last_updated: 2026-08-19
-agent_in_charge: "[[Agent_Marshmallow.md]]"
-playable_prototype: "[[Game/index.html]]"
+agent_in_charge: "[[Agent_Marshmallow]]"
+playable_prototype: "Game/index.html"
 ---
 
 # 👑 Project Kingdom — Master Dashboard & Development Hub
@@ -65,18 +65,18 @@ playable_prototype: "[[Game/index.html]]"
 
 ## 📚 โครงสร้างเอกสาร Game Design Document (GDD Links)
 
-- [[GDD_v3/GDD_v3/00-Index|📜 GDD Index สารบัญหลัก]]
-- [[GDD_v3/GDD_v3/01-Vision-Pillars|🏛 Vision & Core Pillars]]
-- [[GDD_v3/GDD_v3/02-Gameplay-Loop|🔄 Gameplay Loop]]
-- [[GDD_v3/GDD_v3/03-Races/Race-Balance-Overview|⚖ Race Balance Overview]]
-- [[GDD_v3/GDD_v3/04-Population-System|👥 Population & Worker Logistics]]
-- [[GDD_v3/GDD_v3/05-Economy-Design|💰 Economy & Supply-Demand]]
-- [[GDD_v3/GDD_v3/06-AI-Design|🤖 AI Behavior & Faction Strategy]]
-- [[GDD_v3/GDD_v3/07-Diplomacy|🤝 Diplomacy & Treaties]]
-- [[GDD_v3/GDD_v3/08-Combat-Design|⚔ Combat & Unit Tactics]]
-- [[GDD_v3/GDD_v3/10-Tech-Tree|🔬 Tech Tree Specification]]
-- [[GDD_v3/GDD_v3/14-MVP-Roadmap-Versions|🚀 MVP Roadmap & Version Plans]]
-- [[Assets/18-Asset-Gallery|🖼 Asset Gallery คลังภาพของโปรเจกต์]]
+- 📜 GDD Index สารบัญหลัก
+- 🏛 Vision & Core Pillars
+- 🔄 Gameplay Loop
+- ⚖ Race Balance Overview
+- 👥 Population & Worker Logistics
+- 💰 Economy & Supply-Demand
+- 🤖 AI Behavior & Faction Strategy
+- 🤝 Diplomacy & Treaties
+- ⚔ Combat & Unit Tactics
+- 🔬 Tech Tree Specification
+- 🚀 MVP Roadmap & Version Plans
+- 🖼 Asset Gallery คลังภาพของโปรเจกต์
 
 ---
 

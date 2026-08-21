@@ -3,7 +3,7 @@ tags: [gdd, combat, squad, tactics]
 version: "3.0"
 related:
   - "[[00-Index]]"
-  - "[[03-Races/Race-Balance-Overview]]"
+  - "03-Races/Race-Balance-Overview"
 ---
 
 # ⚔️ Combat Design
@@ -36,12 +36,12 @@ related:
 
 ## หน่วยพิเศษแต่ละเผ่าที่กระทบการรบ
 ทุกเผ่ามี Mount Unit + Unique Unit ที่มี Combat Value จริง — ดูรายละเอียดที่หน้าเผ่าแต่ละอัน:
-- [[03-Races/Human]] — Envoy Guard, Crossbowman
-- [[03-Races/Elf]] — Stag Rider, Grove Archer
-- [[03-Races/Orc]] — Boar Rider, Warchief
-- [[03-Races/Dwarf]] — Goat Rider, Siege Engineer
+- 03-Races/Human — Envoy Guard, Crossbowman
+- 03-Races/Elf — Stag Rider, Grove Archer
+- 03-Races/Orc — Boar Rider, Warchief
+- 03-Races/Dwarf — Goat Rider, Siege Engineer
 
 ## เชื่อมโยง
-- ทหารม้าใช้ Mount System ที่ตกลงกันไว้ที่ [[03-Races/Race-Balance-Overview]]
+- ทหารม้าใช้ Mount System ที่ตกลงกันไว้ที่ 03-Races/Race-Balance-Overview
 - Casus Belli นำไปสู่สงคราม → [[07-Diplomacy]]
 - Naval Combat แยกออกไปที่ [[09-Naval-Disease]]

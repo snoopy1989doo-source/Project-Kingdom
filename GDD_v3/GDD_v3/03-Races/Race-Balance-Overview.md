@@ -49,9 +49,9 @@ Orc    ปล้นได้ทุกคน แต่ถูกทุกคนเ
 ---
 
 ## ลิงก์ไปแต่ละเผ่า
-- [[03-Races/Human]]
-- [[03-Races/Elf]]
-- [[03-Races/Orc]]
-- [[03-Races/Dwarf]]
+- 03-Races/Human
+- 03-Races/Elf
+- 03-Races/Orc
+- 03-Races/Dwarf
 
 ดูระบบชนะเกมที่ [[14-MVP-Roadmap-Versions]] (Victory Conditions ผูกกับแต่ละเผ่า)

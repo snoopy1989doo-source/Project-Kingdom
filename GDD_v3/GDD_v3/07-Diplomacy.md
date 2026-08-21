@@ -39,7 +39,7 @@ related:
 - สอดแนม (Espionage)
 
 ## เชื่อมโยงกับ Victory Condition
-- Human Diplomatic Victory ต้องใช้ระบบนี้เป็นหลัก — ดู [[03-Races/Human]]
+- Human Diplomatic Victory ต้องใช้ระบบนี้เป็นหลัก — ดู 03-Races/Human
 - Envoy Guard (Human Unique Unit) ลด Casus Belli จากศัตรูรอบข้าง 10%
 
 ## เชื่อมโยง

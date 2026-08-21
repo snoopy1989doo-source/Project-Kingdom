@@ -47,4 +47,4 @@ priority: core-pillar
 ## เชื่อมโยง
 - Job assignment → [[11-Building-Resource-Flow]]
 - Disease → [[09-Naval-Disease]]
-- Happiness → กระทบ Victory Condition แบบ Prosperity ([[03-Races/Elf]])
+- Happiness → กระทบ Victory Condition แบบ Prosperity (03-Races/Elf)

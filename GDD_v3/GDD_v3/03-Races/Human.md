@@ -5,7 +5,7 @@ tags:
   - human
 version: "3.0"
 related:
-  - "[[03-Races/Race-Balance-Overview]]"
+  - "03-Races/Race-Balance-Overview"
 ---
 
 # 👤 Human — นักการทูต
@@ -44,8 +44,8 @@ related:
 ## เหตุผลเชิงออกแบบ
 Human เป็นเผ่าที่ชนะด้วย "เครือข่ายพันธมิตร" ไม่ใช่กำลังทหาร ดังนั้นหน่วยพิเศษทั้งสองเน้น **สนับสนุนการทูต** (Envoy Guard ลด Casus Belli) และ **ป้องกันระยะไกล** (Crossbowman) แทนการรุกด้วยกำลังดิบ — ตรงกับ Victory Bias แบบ Diplomatic
 
-![[Human_Character_Sheet.png]]
+!Human_Character_Sheet.png
 
-![[Human_Mount_Horse.png]]
+!Human_Mount_Horse.png
 
-![[Human_Building_GrandEmbassy.png]]
+!Human_Building_GrandEmbassy.png

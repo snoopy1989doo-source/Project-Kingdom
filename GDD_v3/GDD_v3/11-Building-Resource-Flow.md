@@ -28,7 +28,7 @@ related:
 | Bakery | Flour + Water → Bread |
 | Blacksmith | Iron Ingot + Wood → Tools |
 | Weaponsmith | Steel/Iron → Weapons/Armor |
-| Stable | Hay + Water → Horses/Mounts (ดู [[03-Races/Race-Balance-Overview]]) |
+| Stable | Hay + Water → Horses/Mounts (ดู 03-Races/Race-Balance-Overview) |
 | Herbalist | Plants → Medicine |
 | **Market House** | ศูนย์กลางตั้งราคา + ส่ง Caravan (ดู [[05-Economy-Design]]) |
 

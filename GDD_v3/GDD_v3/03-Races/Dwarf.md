@@ -2,7 +2,7 @@
 tags: [gdd, race, dwarf]
 version: "3.0"
 related:
-  - "[[03-Races/Race-Balance-Overview]]"
+  - "03-Races/Race-Balance-Overview"
 ---
 
 # ⛏️ Dwarf — นักอุตสาหกรรม
@@ -43,9 +43,9 @@ related:
 ## เหตุผลเชิงออกแบบ
 Dwarf ชนะด้วย "เทคโนโลยีและการผูกขาด" — หน่วยพิเศษทั้งสองเน้น **การเข้าถึงพื้นที่ที่เผ่าอื่นเข้าไม่ได้** (Goat Rider) และ **สนับสนุนเทคนิคระหว่างรบ** (Siege Engineer) มากกว่ากำลังดิบ — สอดคล้องกับ Victory Bias แบบ Industrial
 
-![[Dwarf_Character_Sheet.png]]
-![[Dwarf_Mount_MountainGoat.png]]
+!Dwarf_Character_Sheet.png
+!Dwarf_Mount_MountainGoat.png
 
-![[Dwarf_Building_DeepForge.png]]
+!Dwarf_Building_DeepForge.png
 
-![[Dwarf_Building_DeepForge.png]]
+!Dwarf_Building_DeepForge.png
