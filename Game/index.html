@@ -573,7 +573,7 @@ const RDATA = {
 
 // Human Building Sprites
 const HUMAN_BLD_SPRITES = {};
-const BLD_NAMES = ['house', 'lumbermill', 'mine', 'barracks', 'watchtower'];
+const BLD_NAMES = ['house', 'farm', 'lumbermill', 'mine', 'barracks', 'watchtower'];
 BLD_NAMES.forEach(bName => {
   const img = new Image();
   img.src = `../Assets/Building/Human/Sprites/${bName}.png`;
@@ -1523,6 +1523,7 @@ function renderBuilding(px, py, t, x, y){
   if (isHuman) {
     let spr = null;
     if (t === T.HOUSE) spr = HUMAN_BLD_SPRITES.house;
+    else if (t === T.FARM) spr = HUMAN_BLD_SPRITES.farm;
     else if (t === T.LUMBERMILL) spr = HUMAN_BLD_SPRITES.lumbermill;
     else if (t === T.MINE) spr = HUMAN_BLD_SPRITES.mine;
     else if (t === T.BARRACKS) spr = HUMAN_BLD_SPRITES.barracks;

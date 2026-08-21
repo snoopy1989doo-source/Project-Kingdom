@@ -47,14 +47,14 @@ agent_in_charge: "[[Agent_Marshmallow]]"
 
 ## 🏛️ Buildings (สิ่งปลูกสร้าง)
 
-### 👑 Human Buildings (ครบ 5 หลัง + รอกำหนดส่ง Farm)
-- **Watchtower (หอคอย):** ![[Assets/Building/Human/Human_Building_Watchtower.jpg|500]]
+### 👑 Human Buildings (ครบถ้วนสมบูรณ์ 6 หลัง + Wonder)
+- **Farm (ฟาร์มเกษตร & กังหันลม):** ![[Assets/Building/Human/Human_Building_Farm.jpg|500]]
 - **House (บ้านพัก):** ![[Assets/Building/Human/Human_Building_House.jpg|500]]
+- **Watchtower (หอคอย):** ![[Assets/Building/Human/Human_Building_Watchtower.jpg|500]]
 - **Lumber Mill (โรงเลื่อยไม้):** ![[Assets/Building/Human/Human_Building_LumberMill.jpg|500]]
 - **Mine (เหมืองหิน):** ![[Assets/Building/Human/Human_Building_Mine.jpg|500]]
 - **Barracks (ค่ายทหาร):** ![[Assets/Building/Human/Human_Building_Barracks.jpg|500]]
 - **Grand Embassy (Wonder):** ![[Assets/Character/Human/Human_Building_GrandEmbassy.png|500]]
-- *Farm (ฟาร์มเกษตร): รออัปเดตไฟล์จากผู้ใช้*
 
 ---
 
@@ -79,14 +79,14 @@ agent_in_charge: "[[Agent_Marshmallow]]"
 
 > สถานะการเชื่อมต่อ: **✅ นำเข้าเกม v1.3 เรียบร้อย (Full Widescreen Desktop View + Human Building Sprites + Transparent Units)**
 
-**👑 Human Buildings (นำเข้าแล้ว)**
+**👑 Human Buildings (นำเข้าครบ 100%)**
 - [x] House (บ้านพัก)
+- [x] Farm (ฟาร์มเกษตร & กังหันลม)
 - [x] Lumber Mill (โรงเลื่อยไม้)
 - [x] Mine (เหมืองหิน)
 - [x] Barracks (ค่ายทหาร)
 - [x] Watchtower (หอคอย)
 - [x] Grand Embassy (Wonder)
-- [ ] Farm (ฟาร์มเกษตร) — *รอผู้ใช้อัปโหลด*
 
 **👤 Characters & Mounts (ครบ 4 เผ่า — นำเข้าเกมแล้ว)**
 - [x] Human: Character Sheet & Mount (Horse)
